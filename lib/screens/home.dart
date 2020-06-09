@@ -156,7 +156,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                         SizedBox(
                                           height: appConfigblockSizeHeight * 8,
                                         ),
-
+                                        Container(height: 120.0,
+                                          width: 120.0,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'images/logo.png'),
+                                              fit: BoxFit.fill,
+                                            ),
+                                            shape: BoxShape.circle,
+                                          ),),
                                         SizedBox(height: appConfigblockSizeHeight * 15,),
                                         Text(
                                           "Add Some Dogs",
