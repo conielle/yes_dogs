@@ -53,31 +53,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
 
-  getDoggoIndexID() async {
 
-    // get a reference to the database
-    Database db = await DatabaseHelper.instance.database;
-
-    // get single row
-    List<String> columnsToSelect = [
-      DatabaseHelper.columnId,
-      DatabaseHelper.columnName,
-      DatabaseHelper.columnAge,
-    ];
-    String whereString = '${DatabaseHelper.columnDogUniqueId} = "${doggoID}"';
-    int rowId = 2;
-    List<dynamic> whereArguments = [rowId];
-    List<Map> result = await db.query(
-        DatabaseHelper.table,
-        columns: columnsToSelect,
-        where: whereString,
-        whereArgs: whereArguments);
-
-    // print the results
-    result.forEach((row) => print(row));
-    // {_id: 1, name: Bob, age: 23}
-    return result;
-  }
 
   Future<String> fetchDogs() async {
     var database = await openDatabase('database.db');
@@ -149,7 +125,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             //////////////TOP STREAM////////////
 
                             children: [
-                              data == []
+                              data == null
                                   ? Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
