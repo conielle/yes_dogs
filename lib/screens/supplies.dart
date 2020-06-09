@@ -25,7 +25,8 @@ class _SuppliesState extends State<Supplies> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
-  var supplyStringID;
+  var supplyUniqueID;
+  var number;
   var supplyID;
   List data;
 
@@ -72,7 +73,7 @@ class _SuppliesState extends State<Supplies> with TickerProviderStateMixin {
 
     return Scaffold(
       body: Container(
-        color: Color.fromRGBO(255, 187, 204, 1),
+        color: Color.fromRGBO( 171, 177, 177, 1),
         child: Center(
           child: RaisedButton(
             onPressed: () {
@@ -82,22 +83,21 @@ class _SuppliesState extends State<Supplies> with TickerProviderStateMixin {
                 fabKey.currentState.open();
               }
             },
-            color: Color.fromRGBO(255, 187, 204, 1),
+            color: Color.fromRGBO(207, 217, 217, 1),
             child: Container(
                 child: Column(
                   children: [
                     Expanded(
                       child: ListView.builder(
                         itemCount: data == null ? 0 : data.length,
-                        itemBuilder: (BuildContext context, i) {
+                        itemBuilder: (context, i) {
                           return new ListTile(
                             onTap: () async {
-                              supplyStringID = data[i]["_id"];
-                              supplyID = supplyStringID.toString();
+                              supplyUniqueID = data[i]["uniqueID"];
                               SharedPreferences supplyinfo =
                               await SharedPreferences.getInstance();
-                              supplyinfo.setString('supplyID', '$supplyID');
-                              print(supplyID);
+                              supplyinfo.setString('supplyuniqueid', '$supplyUniqueID');
+                              print("supplyID");
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -119,36 +119,18 @@ class _SuppliesState extends State<Supplies> with TickerProviderStateMixin {
 
                     Column(
                       children: <Widget>[
-                        SizedBox.fromSize(
-                          size: Size(100, 100), // button width and height
-                          child: ClipOval(
-                            child: Material(
-                              color: Colors.pink, // button color
-                              child: InkWell(
-                                splashColor: Colors.pinkAccent, // splash color
-                                onTap: () {
-
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddSupply()));
-                                }, // button pressed
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[FaIcon(
-                                    FontAwesomeIcons.flask,
-                                    color: Colors.white,
-                                    size: 40,
-                                  ),
-                                    SizedBox(
-                                        height: appConfigblockSizeHeight * 0.5),
-                                    Text("Add Supply", style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13,
-                                      color: Colors.white,
-                                    ),), // text
-                                  ],
-                                ),
-                              ),
-                            ),
+                        FloatingActionButton(
+                          heroTag: 'addsupply',
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddSupply()));
+                          },
+                          child: Icon(
+                            FontAwesomeIcons.flask,
                           ),
+                          backgroundColor: Color.fromRGBO(34, 36, 86, 1),
                         ),
                         SizedBox(height: appConfigblockSizeHeight * 5,)
                       ],
@@ -166,12 +148,12 @@ class _SuppliesState extends State<Supplies> with TickerProviderStateMixin {
             FabCircularMenu(
               key: fabKey,
               alignment: Alignment.bottomRight,
-              ringColor: Color.fromRGBO(245, 66, 145, 1),
+              ringColor: Color.fromRGBO(34, 36, 86, 1),
               ringDiameter: 500.0,
               ringWidth: 110.0,
               fabSize: 80.0,
               fabElevation: 8.0,
-              fabColor: Color.fromRGBO(245, 66, 145, 1),
+              fabColor: Color.fromRGBO(34, 36, 86, 1),
               fabOpenIcon: Icon(
                 Icons.menu,
                 color: Colors.white,

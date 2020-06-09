@@ -1,11 +1,9 @@
-import 'dart:convert';
-import 'package:daniellesdoggrooming/screens/doggo_info.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
+import 'package:daniellesdoggrooming/screens/doggo_info.dart';
 import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
@@ -14,6 +12,7 @@ import 'package:daniellesdoggrooming/screens/add_doggo.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as p;
 
 class Doggos extends StatefulWidget {
   static const String id = 'doggo';
@@ -26,7 +25,9 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
-  var doggoStringID;
+
+  var dogUniqueID;
+  var number;
   var doggoID;
   List data;
 
@@ -37,9 +38,13 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
     if(isFirstLaunch == true){} else {fetchDogs();}
   }
 
+  var count;
+
   Future<String> fetchDogs() async {
     var database = await openDatabase('database.db');
     var thing = await database.rawQuery('SELECT * FROM doggos');
+
+    count = thing.toList().length;
 
     setState(() {
       var extractdata = thing;
@@ -48,6 +53,9 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
     });
   }
 
+
+
+  //////////////
 
 
   @override
@@ -64,7 +72,7 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
 
     return Scaffold(
       body: Container(
-        color: Color.fromRGBO(255, 187, 204, 1),
+        color: Color.fromRGBO( 171, 177, 177, 1),
         child: Center(
           child: RaisedButton(
             onPressed: () {
@@ -74,7 +82,7 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
                 fabKey.currentState.open();
               }
             },
-            color: Color.fromRGBO(255, 187, 204, 1),
+            color: Color.fromRGBO( 207, 217, 217, 1),
             child: Container(
                 child: Column(
               children: [
@@ -84,16 +92,15 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
                     itemBuilder: (BuildContext context, i) {
                       return new ListTile(
                         onTap: () async {
-                          doggoStringID = data[i]["_id"];
-                          doggoID = doggoStringID.toString();
-                          SharedPreferences doggoinfo =
+
+
+                          dogUniqueID = data[i]["uniqueID"];
+                          SharedPreferences doginfo =
                               await SharedPreferences.getInstance();
-                          doggoinfo.setString('doggoid', '$doggoID');
-                          print(doggoID);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DoggoInfo()));
+                          doginfo.setString('doguniqueid', '$dogUniqueID');
+
+
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => DoggoInfo()));
                         },
                         title: new Text(data[i]["dog_name"]),
                         subtitle: new Text(data[i]["owner_name"]),
@@ -108,36 +115,18 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
                 Container(child:
 
                     Column(
-                      children: <Widget>[
-                        SizedBox.fromSize(
-                          size: Size(100, 100), // button width and height
-                          child: ClipOval(
-                            child: Material(
-                              color: Colors.pink, // button color
-                              child: InkWell(
-                                splashColor: Colors.pinkAccent, // splash color
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddDoggo()));
-                                }, // button pressed
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[FaIcon(
-                                    FontAwesomeIcons.dog,
-                                    color: Colors.white,
-                                    size: 40,
-                                  ),
-                                    SizedBox(height: appConfigblockSizeHeight * 0.5),
-                                    Text("Add Doggo", style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13,
-                                      color: Colors.white,
-                                    ),), // text
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                      children: <Widget>[FloatingActionButton(
+                        heroTag: 'adddog',
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddDoggo()));
+                        },
+                        child: Icon(FontAwesomeIcons.dog,
                         ),
+                        backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                      ),
                         SizedBox(height: appConfigblockSizeHeight * 5,)
                       ],
                     ),
@@ -147,7 +136,8 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
 
                 ),
               ],
-            )),
+            ),
+            ),
           ),
         ),
       ),
@@ -155,12 +145,12 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
         builder: (context) => FabCircularMenu(
           key: fabKey,
           alignment: Alignment.bottomRight,
-          ringColor: Color.fromRGBO(245, 66, 145, 1),
+          ringColor: Color.fromRGBO(34, 36, 86, 1),
           ringDiameter: 500.0,
           ringWidth: 110.0,
           fabSize: 80.0,
           fabElevation: 8.0,
-          fabColor: Color.fromRGBO(245, 66, 145, 1),
+          fabColor: Color.fromRGBO(34, 36, 86, 1),
           fabOpenIcon: Icon(
             Icons.menu,
             color: Colors.white,

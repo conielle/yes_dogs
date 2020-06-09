@@ -11,6 +11,8 @@ import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
+import 'package:uuid/uuid.dart';
+
 
 class random {
   static final Random _random = Random.secure();
@@ -44,6 +46,8 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
   final addSupplyName = TextEditingController();
   final addSupplyLevel = TextEditingController();
 
+  var uuid = Uuid();
+
 
   void _photoLoading() {
     showDialog(
@@ -56,7 +60,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           content: Container(
             child: new Column(
               mainAxisSize: MainAxisSize.min,
@@ -85,7 +89,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Whoops! Big Mistake!"),
           content: new Text("You didn't put a name for the doggo"),
           actions: <Widget>[
@@ -110,7 +114,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Whoops! Big Mistake!"),
           content: new Text("You didn't put a name for the owner"),
           actions: <Widget>[
@@ -136,7 +140,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           content: Container(
             child: new Column(
               mainAxisSize: MainAxisSize.min,
@@ -263,7 +267,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(245, 66, 145, 1),
+        backgroundColor: Color.fromRGBO(34, 36, 86, 1),
         title: Text(
           'Add A Supply', style: TextStyle(
             color: Colors.white),
@@ -271,7 +275,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
       ),
       body: SingleChildScrollView(
         child: Container(height: appConfigblockSizeHeight * 100,
-          color: Color.fromRGBO(255, 187, 204, 1),
+          color: Color.fromRGBO( 171, 177, 177, 1),
           child: Center(child: Center(
             child: Padding(
               padding: const EdgeInsets.only(
@@ -286,7 +290,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                       children: [
                         TextField(
                           style: TextStyle(color: Colors.white),
-                          cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                          cursorColor: Color.fromRGBO(34, 36, 86, 1),
                           decoration: InputDecoration(
                             hintText: 'Supply Type',
                             focusedBorder: OutlineInputBorder(
@@ -296,23 +300,23 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                                   width: 2, color: Colors.white),
                             ),
                             hintStyle: TextStyle(
-                              color: Color.fromRGBO(245, 66, 145, 1),),
+                              color: Color.fromRGBO(34, 36, 86, 1),),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromRGBO(245, 66, 145, 1),
+                                  color: Color.fromRGBO(34, 36, 86, 1),
                                   width: 2),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(35.0)),),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromRGBO(245, 66, 145, 1),
+                                  color: Color.fromRGBO(34, 36, 86, 1),
                                   width: 2),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(35.0)),
                             ),
                             icon: Icon(
                               FontAwesomeIcons.dog,
-                              color: Color.fromRGBO(245, 66, 145, 1),
+                              color: Color.fromRGBO(34, 36, 86, 1),
                             ),),
                           textAlign: TextAlign.center,
                           controller: addSupplyType,
@@ -320,7 +324,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                         SizedBox(height: appConfigblockSizeHeight * 2,),
                         TextField(
                           style: TextStyle(color: Colors.white),
-                          cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                          cursorColor: Color.fromRGBO(34, 36, 86, 1),
                           decoration: InputDecoration(
                             hintText: 'Brand Name',
                             focusedBorder: OutlineInputBorder(
@@ -330,22 +334,22 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                                   width: 2, color: Colors.white),
                             ),
                             hintStyle: TextStyle(
-                              color: Color.fromRGBO(245, 66, 145, 1),),
+                              color: Color.fromRGBO(34, 36, 86, 1),),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromRGBO(245, 66, 145, 1),
+                                  color: Color.fromRGBO(34, 36, 86, 1),
                                   width: 2),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(35.0)),),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromRGBO(245, 66, 145, 1),
+                                  color: Color.fromRGBO(34, 36, 86, 1),
                                   width: 2),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(35.0)),
                             ),
                             icon: Icon(Icons.person,
-                              color: Color.fromRGBO(245, 66, 145, 1),
+                              color: Color.fromRGBO(34, 36, 86, 1),
                             ),),
                           textAlign: TextAlign.center,
                           controller: addSupplyName,
@@ -353,7 +357,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                         SizedBox(height: appConfigblockSizeHeight * 2,),
                         TextField(
                           style: TextStyle(color: Colors.white),
-                          cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                          cursorColor: Color.fromRGBO(34, 36, 86, 1),
                           decoration: InputDecoration(
                             hintText: 'Supply Level',
                             focusedBorder: OutlineInputBorder(
@@ -363,23 +367,23 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                                   width: 2, color: Colors.white),
                             ),
                             hintStyle: TextStyle(
-                              color: Color.fromRGBO(245, 66, 145, 1),),
+                              color: Color.fromRGBO(34, 36, 86, 1),),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromRGBO(245, 66, 145, 1),
+                                  color: Color.fromRGBO(34, 36, 86, 1),
                                   width: 2),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(35.0)),),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromRGBO(245, 66, 145, 1),
+                                  color: Color.fromRGBO(34, 36, 86, 1),
                                   width: 2),
                               borderRadius: BorderRadius.all(
                                   Radius.circular(35.0)),
                             ),
                             icon: Icon(
                               FontAwesomeIcons.solidHourglass,
-                              color: Color.fromRGBO(245, 66, 145, 1),
+                              color: Color.fromRGBO(34, 36, 86, 1),
                             ),),
                           textAlign: TextAlign.center,
                           controller: addSupplyLevel,
@@ -393,7 +397,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                       child: Container(
                         child: previewImage == null
                             ? Image(
-                          image: AssetImage('images/supply.png'),
+                          image: AssetImage('images/supply_add.png'),
                         )
                             : Image(
                           image: AssetImage(newImagePath),
@@ -409,7 +413,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: FloatingActionButton(
-                            backgroundColor: Color.fromRGBO(245, 66, 145, 1),
+                            backgroundColor: Color.fromRGBO(34, 36, 86, 1),
                             onPressed: () {
                               _getImage();
                             },
@@ -425,7 +429,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0),
                           child: FloatingActionButton(
-                            backgroundColor: Color.fromRGBO(245, 66, 145, 1),
+                            backgroundColor: Color.fromRGBO(34, 36, 86, 1),
                             onPressed: () {
                               _takeImage();
                             },
@@ -449,7 +453,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                           borderRadius: new BorderRadius.circular(25.0),
                         ),
                         textColor: Colors.white,
-                        color: Color.fromRGBO(245, 66, 145, 1),
+                        color: Color.fromRGBO(34, 36, 86, 1),
                         onPressed: () {
                           _insert();
                           Navigator.push(context,
@@ -500,17 +504,17 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
 
   isThereALevel() {
 
-    String ageValue;
+    var supplyLevelValue;
     if (addSupplyLevel.text == null) {
-      ageValue = 'Level Unknown';
+      supplyLevelValue = 0;
     } else if (addSupplyLevel.text == "") {
-      ageValue = 'Level Unknown';
+      supplyLevelValue = 0;
     }
     else {
-      ageValue = addSupplyLevel.text;
+      supplyLevelValue = addSupplyLevel.text;
     }
 
-    return ageValue;
+    return supplyLevelValue;
   }
 
   isThereAPic() {
@@ -523,7 +527,15 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
     return picturePath;
   }
 
+  uniqueIDGenerated(){
 
+    var uuiddog;
+
+    uuiddog = uuid.v1();
+
+    return uuiddog;
+
+  }
 
   void _insert() async {
 
@@ -532,6 +544,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
     prefs.setBool('isFirstLaunch', false);
 
     Map<String, dynamic> row = {
+      DatabaseHelper.columnSupplyUniqueId: '${uniqueIDGenerated()}',
       DatabaseHelper.columnType: '${isThereAType()}',
       DatabaseHelper.columnBrand: '${isThereABrand()}',
       DatabaseHelper.columnLevel: '${isThereALevel()}',

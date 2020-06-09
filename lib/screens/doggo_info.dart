@@ -32,21 +32,12 @@ class DoggoInfo extends StatefulWidget {
 
 class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final dbHelper = DatabaseHelper.instance;
 
-  var doggoStringID;
-  var doggoID;
+  var ID = 0;
+  int indexID;
+  var dogUniqueID;
   List data;
-
-  Future<String> fetchDogs() async {
-    var database = await openDatabase('database.db');
-    var thing = await database.rawQuery('SELECT * FROM doggos');
-
-    setState(() {
-      var extractdata = thing;
-      data = extractdata;
-      return data.toList();
-    });
-  }
 
   String tempPath;
   String previewPath;
@@ -69,7 +60,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           content: Container(
             child: new Column(
               mainAxisSize: MainAxisSize.min,
@@ -98,7 +89,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Whoops! Big Mistake!"),
           content: new Text("You didn't put a name for the doggo"),
           actions: <Widget>[
@@ -123,7 +114,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Whoops! Big Mistake!"),
           content: new Text("You didn't put a name for the owner"),
           actions: <Widget>[
@@ -149,7 +140,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           content: Container(
             child: new Column(
               mainAxisSize: MainAxisSize.min,
@@ -256,32 +247,67 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     return previewImage;
   }
 
-  final dbHelper = DatabaseHelper.instance;
 
+  fetchUniqueID() async {
+    SharedPreferences doginfo = await SharedPreferences.getInstance();
+    dogUniqueID = doginfo.getString('doguniqueid') ?? '';
+
+    print(dogUniqueID);
+  }
+
+
+
+  fetchID() async{
+
+    // get a reference to the database
+    Database db = await DatabaseHelper.instance.database;
+
+    // get single row
+    List<String> columnsToSelect = [
+      DatabaseHelper.columnId,
+      DatabaseHelper.columnDogUniqueId,
+      DatabaseHelper.columnDogName,
+      DatabaseHelper.columnName,
+      DatabaseHelper.columnScheduleDate,
+      DatabaseHelper.columnScheduleTime,
+      DatabaseHelper.columnAge,
+      DatabaseHelper.columnPicture,
+
+    ];
+    String whereString = '${DatabaseHelper.columnDogUniqueId} = "${dogUniqueID}"';
+    int rowId = 2;
+    List<dynamic> whereArguments = [rowId];
+    List<Map> result = await db.query(
+        DatabaseHelper.table,
+        columns: columnsToSelect,
+        where: whereString,
+        whereArgs: whereArguments);
+
+    print(result);
+
+    indexID = result[0]['_id'];
+    print ('This is the $indexID number');
+
+    setState(() {
+      var extractdata = result;
+      data = extractdata;
+      print(data);
+      return data.toList();
+    });
+
+    print("Database Query");
+
+
+  }
 
 
   @override
   void initState() {
-    this.fetchDogs();
-    loadDoggoID().then((doggoid) {
-      setState(() {
-        doggoID = doggoid;
-      });
-    });
-    super.initState();
+    fetchUniqueID();
+    fetchID();
+
   }
 
-  int doggoIntID;
-  int doggoIndex;
-
-  loadDoggoID() async {
-    SharedPreferences doggoinfo = await SharedPreferences.getInstance();
-    doggoStringID = doggoinfo.getString('doggoid') ?? '';
-    doggoIntID = int.parse(doggoStringID);
-    doggoIndex = (doggoIntID - 1);
-    doggoID = doggoIndex;
-    return (doggoID);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -292,7 +318,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(245, 66, 145, 1),
+        backgroundColor: Color.fromRGBO(34, 36, 86, 1),
         title: Text(
           'About This Doggo',
           style: TextStyle(color: Colors.white),
@@ -309,7 +335,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
       body: SingleChildScrollView(
         child: Container(
           height: appConfigblockSizeHeight * 100,
-          color: Color.fromRGBO(255, 187, 204, 1),
+          color: Color.fromRGBO( 171, 177, 177, 1),
           child: Center(
             child: Center(
               child: Padding(
@@ -326,7 +352,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                
+
                                 SizedBox(
                                   height: appConfigblockSizeHeight * 6.5,
                                 ),
@@ -336,8 +362,9 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                                   },
                                   child: Container(
                                     child: Text(
-                                      data[doggoID]["dog_name"],
+                                      data[ID]["dog_name"],
                                       style: TextStyle(
+                                          color: Color.fromRGBO(34, 36, 86, 1),
                                           fontWeight: FontWeight.w900,
                                           fontSize: 25),
                                     ),
@@ -357,8 +384,9 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                                 children: [
 
                                   Text(
-                                    (data[doggoID]["age"]).toString(),
+                                    (data[ID]["age"]).toString(),
                                     style: TextStyle(
+                                      color: Color.fromRGBO(34, 36, 86, 1),
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -366,6 +394,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                                     ' years old',
                                     style: TextStyle(
                                       fontStyle: FontStyle.italic,
+                                      color: Color.fromRGBO(34, 36, 86, 1),
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -382,7 +411,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                           },
                           child: Container(
                             child:  previewImage == null ?
-                            CircleAvatar(backgroundImage: AssetImage(data[doggoID]['picture']), backgroundColor: Colors.transparent, radius: appConfigblockSizeWidth * 20,) :
+                            CircleAvatar(backgroundImage: AssetImage(data[ID]['picture']), backgroundColor: Colors.transparent, radius: appConfigblockSizeWidth * 20,) :
                             CircleAvatar(backgroundImage: FileImage(previewImage), backgroundColor: Colors.transparent, radius: appConfigblockSizeWidth * 20,
                             ),
                           ),
@@ -397,18 +426,22 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                               "This beautiful ",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(34, 36, 86, 1),
                               ),
                             ),
                             Text(
                               "doggo",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  color: Color.fromRGBO(34, 36, 86, 1),
                                   fontStyle: FontStyle.italic),
+
                             ),
                             Text(
                               " belongs to...",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(34, 36, 86, 1),
                               ),
                             ),
                           ],
@@ -422,14 +455,42 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                           },
                           child: Container(
                             child: Text(
-                              data[doggoID]["owner_name"],
+                              data[ID]["owner_name"],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(34, 36, 86, 1),
                                 fontSize: 25,
                               ),
                             ),
                           ),
                         ),
+
+                        Column(
+                          children: <Widget>[
+                            SizedBox(height: appConfigblockSizeHeight * 4,),
+                            Text("Would you like to remove this doggo?",
+                              style: TextStyle(
+                                color: Color.fromRGBO(34, 36, 86, 1),),
+                            ),
+                            SizedBox(height:  appConfigblockSizeHeight * 2,),
+                            FloatingActionButton(
+                              heroTag: 'remove',
+                              onPressed: () {
+                                _deleteDoggos();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Doggos()));
+                              },
+                              child: Icon(
+                                Icons.remove,
+                              ),
+                              backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                            ),
+                            SizedBox(height: appConfigblockSizeHeight * 5,)
+                          ],
+                        ),
+
                       ],
                     ),
                   ),
@@ -508,7 +569,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Age Change!"),
           content: Column(
             children: <Widget>[
@@ -518,7 +579,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
               ),
               TextField(
                 style: TextStyle(color: Colors.white),
-                cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
                   hintText: 'Doggo\'s Age',
                   focusedBorder: OutlineInputBorder(
@@ -526,21 +587,21 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                     borderSide: BorderSide(width: 2, color: Colors.white),
                   ),
                   hintStyle: TextStyle(
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   icon: Icon(
                     FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                 ),
                 textAlign: TextAlign.center,
@@ -578,7 +639,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Doggo Name Change!"),
           content: Column(
             children: <Widget>[
@@ -588,7 +649,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
               ),
               TextField(
                 style: TextStyle(color: Colors.white),
-                cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
                   hintText: 'Doggo\'s Name',
                   focusedBorder: OutlineInputBorder(
@@ -596,21 +657,21 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                     borderSide: BorderSide(width: 2, color: Colors.white),
                   ),
                   hintStyle: TextStyle(
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   icon: Icon(
                     FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                 ),
                 textAlign: TextAlign.center,
@@ -648,7 +709,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Owner Name Change!"),
           content: Column(
             children: <Widget>[
@@ -658,7 +719,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
               ),
               TextField(
                 style: TextStyle(color: Colors.white),
-                cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
                   hintText: 'Owner\'s Name',
                   focusedBorder: OutlineInputBorder(
@@ -666,21 +727,21 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                     borderSide: BorderSide(width: 2, color: Colors.white),
                   ),
                   hintStyle: TextStyle(
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   icon: Icon(
                     FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                 ),
                 textAlign: TextAlign.center,
@@ -718,7 +779,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(255, 217, 235, 1),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Add a photo!"),
           content: Container(child:
             Row(
@@ -727,7 +788,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(245, 66, 145, 1),
+                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
                     onPressed: () {
                       _getImage();
                       Navigator.of(context).pop(true);
@@ -744,7 +805,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(245, 66, 145, 1),
+                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
                     onPressed: () {
                       _takeImage();
                       Navigator.of(context).pop(true);
@@ -782,7 +843,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
 
     Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (doggoID + 1),
+      DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnPicture: savedImagePath
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
@@ -792,7 +853,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
 
     Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (doggoID + 1),
+      DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnAge: addDoggoAge.text,
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
@@ -802,7 +863,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
 
     Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (doggoID + 1),
+      DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnDogName: addDoggoName.text,
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
@@ -812,22 +873,19 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
 
     Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (doggoID + 1),
+      DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnName: addOwnerName.text,
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
   }
 
 
+  void _deleteDoggos() async {
 
-
-
-
-
-
-
-
-
+    final id = await dbHelper.queryRowCount();
+    final rowsDeleted = await dbHelper.deleteDoggos(indexID);
+    print('deleted $rowsDeleted row(s): row $id');
+  }
 }
 
 

@@ -6,7 +6,11 @@ import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
 import 'package:daniellesdoggrooming/screens/statistics.dart';
+import 'package:daniellesdoggrooming/screens/appointment_info.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:daniellesdoggrooming/database/database_logic.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Appointments extends StatefulWidget {
   static const String id = 'appointments';
@@ -18,6 +22,34 @@ class Appointments extends StatefulWidget {
 class _AppointmentsState extends State<Appointments> with TickerProviderStateMixin {
 
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final dbHelper = DatabaseHelper.instance;
+
+  var doggoStringID;
+  var doggoID;
+  List data;
+
+  fetchDataCheck() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstLaunch = prefs.getBool('doggosFirstLaunch') ?? true;
+
+    if(isFirstLaunch == true){} else {fetchDogs();}
+  }
+
+  Future<String> fetchDogs() async {
+    var database = await openDatabase('database.db');
+    var thing = await database.rawQuery('SELECT * FROM doggos');
+
+    setState(() {
+      var extractdata = thing;
+      data = extractdata;
+      return data.toList();
+    });
+  }
+
+  @override
+  void initState() {
+    this.fetchDataCheck();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +61,15 @@ class _AppointmentsState extends State<Appointments> with TickerProviderStateMix
     double appConfigblockSizeHeight = appConfigHeight / 100;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+        title: Text(
+          'Schedule',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Container(
-        color: Color.fromRGBO(255, 187, 204, 1),
+        color: Color.fromRGBO(171, 177, 177, 1),
         child: Center(
           child: RaisedButton(
             onPressed: () {
@@ -40,8 +79,42 @@ class _AppointmentsState extends State<Appointments> with TickerProviderStateMix
                 fabKey.currentState.open();
               }
             },
-            color: Color.fromRGBO(255, 187, 204, 1),
-            child: Container(),
+            color: Color.fromRGBO(171, 177, 177, 1),
+            child: Container(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: data == null ? 0 : data.length,
+                        itemBuilder: (BuildContext context, i) {
+                          return new ListTile(
+                            onTap: () async {
+                              doggoStringID = data[i]["_id"];
+                              doggoID = doggoStringID.toString();
+                              SharedPreferences doggoinfo =
+                              await SharedPreferences.getInstance();
+                              doggoinfo.setString('doggoid', '$doggoID');
+                              print(doggoID);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AppointmentInfo()));
+                            },
+                            title: new Text(data[i]["owner_name"]),
+                            subtitle: new Text(data[i]["date"]),
+                            leading: new CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: new AssetImage(data[i]["picture"]),
+                            ),
+                            trailing: new Text(data[i]["time"]),
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                    ),
+                  ],
+                )),
           ),
         ),
       ),
@@ -49,12 +122,12 @@ class _AppointmentsState extends State<Appointments> with TickerProviderStateMix
         builder: (context) => FabCircularMenu(
           key: fabKey,
           alignment: Alignment.bottomRight,
-          ringColor: Color.fromRGBO(245, 66, 145, 1),
+          ringColor: Color.fromRGBO(34, 36, 86, 1),
           ringDiameter: 500.0,
           ringWidth: 110.0,
           fabSize: 80.0,
           fabElevation: 8.0,
-          fabColor: Color.fromRGBO(245, 66, 145, 1),
+          fabColor: Color.fromRGBO(34, 36, 86, 1),
           fabOpenIcon: Icon(Icons.menu, color: Colors.white),
           fabCloseIcon: Icon(Icons.close, color: Colors.white),
           fabMargin: const EdgeInsets.all(16.0),

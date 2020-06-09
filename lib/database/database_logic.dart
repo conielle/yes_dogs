@@ -11,12 +11,17 @@ class DatabaseHelper {
 
   static final table = 'doggos';
   static final columnId = '_id';
+  static final columnDogUniqueId = 'uniqueID';
   static final columnDogName = 'dog_name';
   static final columnName = 'owner_name';
+  static final columnScheduleDate = 'date';
+  static final columnScheduleTime = 'time';
   static final columnAge = 'age';
   static final columnPicture = 'picture';
 
+
   static final table2 = 'supplies';
+  static final columnSupplyUniqueId = 'uniqueID';
   static final columnType = 'supply_type';
   static final columnBrand = 'brand_name';
   static final columnLevel = 'level';
@@ -48,20 +53,24 @@ class DatabaseHelper {
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-          CREATE TABLE $table (
-            $columnId INTEGER PRIMARY KEY,
+                  CREATE TABLE $table (
+            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $columnDogUniqueId TEXT NOT NULL,
             $columnDogName TEXT NOT NULL,
             $columnName TEXT NOT NULL,
-            $columnAge INTEGER NOT NULL,
+            $columnScheduleDate TEXT NOT NULL,
+            $columnScheduleTime TEXT NOT NULL,
+            $columnAge TEXT NOT NULL,
             $columnPicture TEXT NOT NULL
           )
           ''');
     await db.execute('''
           CREATE TABLE $table2 (
-            $columnId INTEGER PRIMARY KEY,
+            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $columnSupplyUniqueId TEXT NOT NULL,
             $columnType TEXT NOT NULL,
             $columnBrand TEXT NOT NULL,
-            $columnLevel INTEGER NOT NULL,
+            $columnLevel TEXT NOT NULL,
             $columnPicture2 TEXT NOT NULL
           )
           ''');
@@ -116,4 +125,15 @@ class DatabaseHelper {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
+
+  Future<int> deleteDoggos(int id) async {
+    Database db = await instance.database;
+    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteSupplies(int id) async {
+    Database db = await instance.database;
+    return await db.delete(table2, where: '$columnId = ?', whereArgs: [id]);
+  }
+
 }

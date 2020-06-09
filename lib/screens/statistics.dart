@@ -29,7 +29,7 @@ class _StatisticsState extends State<Statistics> with TickerProviderStateMixin {
 
     return Scaffold(
       body: Container(
-        color: Color.fromRGBO(255, 187, 204, 1),
+        color: Color.fromRGBO( 171, 177, 177, 1),
         child: Center(
           child: RaisedButton(
             onPressed: () {
@@ -39,7 +39,7 @@ class _StatisticsState extends State<Statistics> with TickerProviderStateMixin {
                 fabKey.currentState.open();
               }
             },
-            color: Color.fromRGBO(255, 187, 204, 1),
+            color: Color.fromRGBO( 171, 177, 177, 1),
             child: Container(),
           ),
         ),
@@ -48,12 +48,12 @@ class _StatisticsState extends State<Statistics> with TickerProviderStateMixin {
         builder: (context) => FabCircularMenu(
           key: fabKey,
           alignment: Alignment.bottomRight,
-          ringColor: Color.fromRGBO(245, 66, 145, 1),
+          ringColor: Color.fromRGBO(34, 36, 86, 1),
           ringDiameter: 500.0,
           ringWidth: 110.0,
           fabSize: 80.0,
           fabElevation: 8.0,
-          fabColor: Color.fromRGBO(245, 66, 145, 1),
+          fabColor: Color.fromRGBO(34, 36, 86, 1),
           fabOpenIcon: Icon(Icons.menu, color: Colors.white),
           fabCloseIcon: Icon(Icons.close, color: Colors.white),
           fabMargin: const EdgeInsets.all(16.0),
