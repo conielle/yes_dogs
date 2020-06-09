@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-
 
 import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
@@ -19,36 +20,47 @@ class Appointments extends StatefulWidget {
   _AppointmentsState createState() => _AppointmentsState();
 }
 
-class _AppointmentsState extends State<Appointments> with TickerProviderStateMixin {
-
+class _AppointmentsState extends State<Appointments>
+    with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
   var doggoStringID;
   var doggoID;
-  List data;
+  var data;
+
 
   fetchDataCheck() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isFirstLaunch = prefs.getBool('doggosFirstLaunch') ?? true;
 
-    if(isFirstLaunch == true){} else {fetchDogs();}
+    if (isFirstLaunch == true) {
+    } else {
+      fetchDogs();
+    }
   }
 
-  Future<String> fetchDogs() async {
+  var extractdata;
+  var sort;
+  var theresult;
+  var value;
+
+
+  fetchDogs() async {
     var database = await openDatabase('database.db');
     var thing = await database.rawQuery('SELECT * FROM doggos');
 
     setState(() {
-      var extractdata = thing;
-      data = extractdata;
-      return data.toList();
+      extractdata = thing;
+      sort = extractdata;
+      data = sort;
+     print(data);
     });
   }
 
   @override
   void initState() {
-    this.fetchDataCheck();
+    fetchDataCheck();
   }
 
   @override
@@ -82,39 +94,38 @@ class _AppointmentsState extends State<Appointments> with TickerProviderStateMix
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Container(
                 child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: data == null ? 0 : data.length,
-                        itemBuilder: (BuildContext context, i) {
-                          return new ListTile(
-                            onTap: () async {
-                              doggoStringID = data[i]["_id"];
-                              doggoID = doggoStringID.toString();
-                              SharedPreferences doggoinfo =
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: data == null ? 0 : data.length,
+                    itemBuilder: (BuildContext context, i) {
+                      return new ListTile(
+                        onTap: () async {
+                          doggoStringID = data[i]["_id"];
+                          doggoID = doggoStringID.toString();
+                          SharedPreferences doggoinfo =
                               await SharedPreferences.getInstance();
-                              doggoinfo.setString('doggoid', '$doggoID');
-                              print(doggoID);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AppointmentInfo()));
-                            },
-                            title: new Text(data[i]["owner_name"]),
-                            subtitle: new Text(data[i]["date"]),
-                            leading: new CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: new AssetImage(data[i]["picture"]),
-                            ),
-                            trailing: new Text(data[i]["time"]),
-                          );
+                          doggoinfo.setString('doggoid', '$doggoID');
+                          print(doggoID);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AppointmentInfo()));
                         },
-                      ),
-                    ),
-                    Container(
-                    ),
-                  ],
-                )),
+                        title: new Text(data[i]["owner_name"]),
+                        subtitle: new Text(data[i]["date"]),
+                        leading: new CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: new AssetImage(data[i]["picture"]),
+                        ),
+                        trailing: new Text(data[i]["time"]),
+                      );
+                    },
+                  ),
+                ),
+                Container(),
+              ],
+            )),
           ),
         ),
       ),
@@ -137,49 +148,64 @@ class _AppointmentsState extends State<Appointments> with TickerProviderStateMix
             RawMaterialButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()));
+                    context, MaterialPageRoute(builder: (context) => Home()));
               },
               shape: CircleBorder(),
               padding: const EdgeInsets.all(24.0),
-              child: IconButton(icon: FaIcon(FontAwesomeIcons.home, color: Colors.white,)),
+              child: IconButton(
+                  icon: FaIcon(
+                FontAwesomeIcons.home,
+                color: Colors.white,
+              )),
             ),
             RawMaterialButton(
               onPressed: () {
-                Navigator.push(
-                    context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Statistics()));
               },
               shape: CircleBorder(),
               padding: const EdgeInsets.all(24.0),
-              child: IconButton(icon: FaIcon(FontAwesomeIcons.sortNumericDownAlt, color: Colors.white,)),
+              child: IconButton(
+                  icon: FaIcon(
+                FontAwesomeIcons.sortNumericDownAlt,
+                color: Colors.white,
+              )),
+            ),
+            RawMaterialButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Supplies()));
+              },
+              shape: CircleBorder(),
+              padding: const EdgeInsets.all(24.0),
+              child: IconButton(
+                  icon: FaIcon(
+                FontAwesomeIcons.flask,
+                color: Colors.white,
+              )),
+            ),
+            RawMaterialButton(
+              onPressed: () {},
+              shape: CircleBorder(),
+              padding: const EdgeInsets.all(24.0),
+              child: IconButton(
+                  icon: FaIcon(
+                FontAwesomeIcons.clipboardList,
+                color: Colors.white10,
+              )),
             ),
             RawMaterialButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Supplies()) );
+                    context, MaterialPageRoute(builder: (context) => Doggos()));
               },
               shape: CircleBorder(),
               padding: const EdgeInsets.all(24.0),
-              child: IconButton(icon: FaIcon(FontAwesomeIcons.flask, color: Colors.white,)),
-            ),
-            RawMaterialButton(
-              onPressed: () {
-              },
-              shape: CircleBorder(),
-              padding: const EdgeInsets.all(24.0),
-              child: IconButton(icon: FaIcon(FontAwesomeIcons.clipboardList, color: Colors.white10,)),
-            ),
-            RawMaterialButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Doggos()));
-              },
-              shape: CircleBorder(),
-              padding: const EdgeInsets.all(24.0),
-              child: IconButton(icon: FaIcon(FontAwesomeIcons.dog, color: Colors.white,)),
+              child: IconButton(
+                  icon: FaIcon(
+                FontAwesomeIcons.dog,
+                color: Colors.white,
+              )),
             ),
           ],
         ),
@@ -187,13 +213,10 @@ class _AppointmentsState extends State<Appointments> with TickerProviderStateMix
     );
   }
 
-  void _showSnackBar (BuildContext context, String message) {
-    Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          duration: const Duration(milliseconds: 1000),
-        )
-    );
+  void _showSnackBar(BuildContext context, String message) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      duration: const Duration(milliseconds: 1000),
+    ));
   }
-
 }
