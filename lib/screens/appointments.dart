@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:smooth_sort/smooth_sort.dart';
 
 class Appointments extends StatefulWidget {
   static const String id = 'appointments';
@@ -46,17 +47,39 @@ class _AppointmentsState extends State<Appointments>
   var value;
 
 
+//  fetchDogs() async {
+//    var database = await openDatabase('database.db');
+//    var thing = await database.rawQuery('SELECT * FROM doggos');
+//
+//    setState(() {
+//      extractdata = thing;
+//      sort = extractdata;
+//      data = sort;
+//     print(data);
+//    });
+//  }
+
   fetchDogs() async {
     var database = await openDatabase('database.db');
-    var thing = await database.rawQuery('SELECT * FROM doggos');
+    List<Map<String, dynamic>> records = await database.query('doggos');
+    Map<String, dynamic> mapRead = records.first;
+//    mapRead['my_column'] = 1;
+    Map<String, dynamic> map = Map<String, dynamic>.from(mapRead);
+    print(map);
+
+
+    var newlist = records.toList();
+
+    var hello = newlist..sort((a, b) => a["date"].toString().compareTo(b["date"].toString()));
+
+    data = hello;
+    print(data);
 
     setState(() {
-      extractdata = thing;
-      sort = extractdata;
-      data = sort;
-     print(data);
+      data;
     });
   }
+
 
   @override
   void initState() {
@@ -123,7 +146,7 @@ class _AppointmentsState extends State<Appointments>
                     },
                   ),
                 ),
-                Container(),
+
               ],
             )),
           ),
