@@ -97,7 +97,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     setState(() {
       var extractdata = thing;
       data2 = extractdata;
+      print(data2);
       return data2.toList();
+
     });
   }
 
@@ -135,6 +137,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             },
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Container(
+              width: appConfigblockSizeWidth * 100,
               child: Column(
                 children: [
                   Column(
@@ -146,18 +149,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             //////////////TOP STREAM////////////
 
                             children: [
-                              data == null
+                              data == []
                                   ? Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          height: appConfigblockSizeHeight * 8,
+                                        SizedBox(height: appConfigblockSizeHeight * 5,),
+                                        Text(
+                                          "Welcome Danielle!",
+                                          style: TextStyle(
+                                            color:
+                                            Color.fromRGBO(34, 36, 86, 1),
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 24,
+                                          ),
                                         ),
-                                        Container(height: 120.0,
-                                          width: 120.0,
+                                        SizedBox(height: appConfigblockSizeHeight * 2,),
+                                        Container(height: 200,
+                                          width: 200,
                                           decoration: BoxDecoration(
                                             image: DecorationImage(
                                               image: AssetImage(
@@ -166,7 +177,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                             ),
                                             shape: BoxShape.circle,
                                           ),),
-                                        SizedBox(height: appConfigblockSizeHeight * 15,),
                                         Text(
                                           "Add Some Dogs",
                                           style: TextStyle(
@@ -176,7 +186,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                             fontSize: 13,
                                           ),
                                         ),
-                                        SizedBox(height: appConfigblockSizeHeight * 5,),
+                                        SizedBox(height: appConfigblockSizeHeight * 1,),
 
                                         FloatingActionButton(
                                           heroTag: 'adddoggo',
@@ -245,8 +255,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             children: [data2 == null
                                 ? Column(
                               children: [
-
-                                SizedBox(height: appConfigblockSizeHeight * 2,),
+                                Container(height: 100,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'images/supplies.png'),
+                                      fit: BoxFit.fill,
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),),
                                 Text(
                                   "Add Some Supplies",
                                   style: TextStyle(
@@ -256,7 +274,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     fontSize: 13,
                                   ),
                                 ),
-                                SizedBox(height: appConfigblockSizeHeight * 5,),
+                                SizedBox(height: appConfigblockSizeHeight * 1,),
 
                                 FloatingActionButton(
                                   heroTag: 'addsupplies',
