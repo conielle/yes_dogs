@@ -30,6 +30,7 @@ dependencies:
   shared_preferences: ^0.5.6+3
   uuid: ^2.0.4
   smooth_sort: ^1.0.1
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

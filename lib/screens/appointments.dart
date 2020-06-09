@@ -26,7 +26,7 @@ class _AppointmentsState extends State<Appointments>
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
-  var doggoStringID;
+  var dogUniqueID;
   var doggoID;
   var data;
 
@@ -124,12 +124,12 @@ class _AppointmentsState extends State<Appointments>
                     itemBuilder: (BuildContext context, i) {
                       return new ListTile(
                         onTap: () async {
-                          doggoStringID = data[i]["_id"];
-                          doggoID = doggoStringID.toString();
-                          SharedPreferences doggoinfo =
-                              await SharedPreferences.getInstance();
-                          doggoinfo.setString('doggoid', '$doggoID');
-                          print(doggoID);
+                          dogUniqueID = data[i]["uniqueID"];
+                          SharedPreferences doginfo =
+                          await SharedPreferences.getInstance();
+                          doginfo.setString('doguniqueid', '$dogUniqueID');
+                          print(dogUniqueID);
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(

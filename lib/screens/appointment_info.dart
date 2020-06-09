@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-
+import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:daniellesdoggrooming/database/database_logic.dart';
@@ -18,8 +18,12 @@ class AppointmentInfo extends StatefulWidget {
 class _AppointmentInfoState extends State<AppointmentInfo>
     with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final dbHelper = DatabaseHelper.instance;
 
-  var doggoStringID;
+  var ID = 0;
+  int indexID;
+  var dogUniqueID;
+
   var doggoID;
   List data;
 
@@ -43,9 +47,11 @@ class _AppointmentInfoState extends State<AppointmentInfo>
         selectedDate = picked;
         var stringDate = selectedDate.toString();
 
-        var date = DateTime.parse(stringDate);
-        var formattedDate = "${date.year}-${date.month}-${date.day}";
-        finalDate = formattedDate.toString();
+        var date = selectedDate;
+        var formatter = new DateFormat('yyyy-MM-dd');
+        String formatted = formatter.format(date);
+        finalDate = formatted;
+        print(formatted);
       });
     }
   }
@@ -65,41 +71,65 @@ class _AppointmentInfoState extends State<AppointmentInfo>
     }
   }
 
-  Future<String> fetchDogs() async {
-    var database = await openDatabase('database.db');
-    var thing = await database.rawQuery('SELECT * FROM doggos');
 
-    setState(() {
-      var extractdata = thing;
-      data = extractdata;
-      return data.toList();
-    });
+  fetchUniqueID() async {
+    SharedPreferences doginfo = await SharedPreferences.getInstance();
+    dogUniqueID = doginfo.getString('doguniqueid') ?? '';
+
+    print(dogUniqueID);
   }
 
-  @override
-  final dbHelper = DatabaseHelper.instance;
+
+
+  fetchID() async{
+
+    // get a reference to the database
+    Database db = await DatabaseHelper.instance.database;
+
+    // get single row
+    List<String> columnsToSelect = [
+      DatabaseHelper.columnId,
+      DatabaseHelper.columnDogUniqueId,
+      DatabaseHelper.columnDogName,
+      DatabaseHelper.columnName,
+      DatabaseHelper.columnScheduleDate,
+      DatabaseHelper.columnScheduleTime,
+      DatabaseHelper.columnAge,
+      DatabaseHelper.columnPicture,
+
+    ];
+    String whereString = '${DatabaseHelper.columnDogUniqueId} = "${dogUniqueID}"';
+    int rowId = 2;
+    List<dynamic> whereArguments = [rowId];
+    List<Map> result = await db.query(
+        DatabaseHelper.table,
+        columns: columnsToSelect,
+        where: whereString,
+        whereArgs: whereArguments);
+
+    print(result);
+
+    indexID = result[0]['_id'];
+    print ('This is the $indexID number');
+
+    setState(() {
+      var extractdata = result;
+      data = extractdata;
+      print(data);
+      return data.toList();
+    });
+
+    print("Database Query");
+
+
+  }
+
 
   @override
   void initState() {
-    this.fetchDogs();
-    loadDoggoID().then((doggoid) {
-      setState(() {
-        doggoID = doggoid;
-      });
-    });
-    super.initState();
-  }
+    fetchUniqueID();
+    fetchID();
 
-  int doggoIntID;
-  int doggoIndex;
-
-  loadDoggoID() async {
-    SharedPreferences doggoinfo = await SharedPreferences.getInstance();
-    doggoStringID = doggoinfo.getString('doggoid') ?? '';
-    doggoIntID = int.parse(doggoStringID);
-    doggoIndex = (doggoIntID - 1);
-    doggoID = doggoIndex;
-    return (doggoID);
   }
 
   @override
@@ -150,13 +180,13 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                   child: previewImage == null
                                       ? CircleAvatar(
                                           backgroundImage: AssetImage(
-                                              data[doggoID]['picture']),
+                                              data[ID]['picture']),
                                           backgroundColor: Colors.transparent,
                                           radius: appConfigblockSizeWidth * 10,
                                         )
                                       : CircleAvatar(
                                           backgroundImage:
-                                          AssetImage(data[doggoID]["picture"]),
+                                          AssetImage(data[ID]["picture"]),
                                           backgroundColor: Colors.transparent,
                                           radius: appConfigblockSizeWidth * 10,
                                         ),
@@ -165,7 +195,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                   children: <Widget>[
                                     Container(
                                       child: Text(
-                                        data[doggoID]["dog_name"],
+                                        data[ID]["dog_name"],
                                         style: TextStyle(
                                             color:
                                                 Color.fromRGBO(34, 36, 86, 1),
@@ -177,7 +207,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                       child: Row(
                                         children: [
                                           Text(
-                                            (data[doggoID]["age"]).toString(),
+                                            (data[ID]["age"]).toString(),
                                             style: TextStyle(
                                               color:
                                                   Color.fromRGBO(34, 36, 86, 1),
@@ -233,7 +263,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                         ),
                         Container(
                           child: Text(
-                            data[doggoID]["owner_name"],
+                            data[ID]["owner_name"],
                             style: TextStyle(
                               color: Color.fromRGBO(34, 36, 86, 1),
                               fontWeight: FontWeight.bold,
@@ -255,7 +285,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        data[doggoID]["dog_name"],
+                                        data[ID]["dog_name"],
                                         style: TextStyle(
                                           color: Color.fromRGBO(34, 36, 86, 1),
                                           fontWeight: FontWeight.bold,
@@ -291,7 +321,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        data[doggoID]["date"],
+                                        data[ID]["date"],
                                         style: TextStyle(
                                           color: Color.fromRGBO(34, 36, 86, 1),
                                           fontWeight: FontWeight.bold,
@@ -307,7 +337,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                         ),
                                       ),
                                       Text(
-                                        data[doggoID]["time"],
+                                        data[ID]["time"],
                                         style: TextStyle(
                                           color: Color.fromRGBO(34, 36, 86, 1),
                                           fontWeight: FontWeight.bold,
@@ -336,7 +366,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                     ),
                                   ),
                                   Text(
-                                    data[doggoID]["dog_name"],
+                                    data[ID]["dog_name"],
                                     style: TextStyle(
                                       color: Color.fromRGBO(34, 36, 86, 1),
                                       fontWeight: FontWeight.bold,
@@ -501,7 +531,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
   void _updateGroomDate() async {
 
     if(finalDate == null){} else if(finalDate != null){ Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (doggoID + 1),
+      DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnScheduleDate: "${dateCheck()}",
     };
     final rowsAffected = await dbHelper.updateDoggos(row);}
@@ -510,7 +540,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
   void _updateGroomTime() async {
 
     if(finalTime == null){} else if(finalTime != null){ Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (doggoID + 1),
+      DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnScheduleTime: "${timeCheck()}",
     };
     final rowsAffected = await dbHelper.updateDoggos(row);}
@@ -519,7 +549,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
 
   void _removeGroom() async {
     Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (doggoID + 1),
+      DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnScheduleDate: "No Grooming Scheduled",
       DatabaseHelper.columnScheduleTime: "No Time",
     };

@@ -71,6 +71,13 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
     double appConfigblockSizeHeight = appConfigHeight / 100;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+        title: Text(
+          'Furry Client List',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Container(
         color: Color.fromRGBO( 171, 177, 177, 1),
         child: Center(
@@ -165,8 +172,7 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
           children: <Widget>[
             RawMaterialButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.pushNamed(context, 'home');
               },
               shape: CircleBorder(),
               padding: const EdgeInsets.all(24.0),

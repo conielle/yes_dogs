@@ -4,7 +4,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
-
+import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
@@ -336,7 +336,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.close),
-            onPressed: () => Navigator.pushNamed(context, Supplies.id),
+            onPressed: () => Navigator.pushNamed(context, Home.id),
           ),
         ],
         leading: new Container(),

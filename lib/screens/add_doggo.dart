@@ -3,6 +3,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -261,9 +262,12 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
         selectedDate = picked;
         var stringDate = selectedDate.toString();
 
-        var date = DateTime.parse(stringDate);
-        var formattedDate = "${date.year}-${date.month}-${date.day}";
-        finalDate = formattedDate.toString();
+        var date = selectedDate;
+        var formatter = new DateFormat('yyyy-MM-dd');
+        String formatted = formatter.format(date);
+        finalDate = formatted;
+        print(formatted);
+
       });
     }
   }

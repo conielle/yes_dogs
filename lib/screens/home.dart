@@ -5,8 +5,10 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:daniellesdoggrooming/screens/doggos.dart';
+import 'package:daniellesdoggrooming/screens/doggo_info.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
+import 'package:daniellesdoggrooming/screens/supply_info.dart';
 import 'package:daniellesdoggrooming/screens/statistics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
@@ -23,10 +25,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
-  var doggoStringID;
+  var dogUniqueID;
+  var number;
   var doggoID;
-  var supplyStringID;
+
+  var supplyUniqueID;
   var supplyID;
+
   List data;
   List data2;
 
@@ -110,6 +115,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     double appConfigblockSizeHeight = appConfigHeight / 100;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+        title: Text(
+          'Whats Happening',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Container(
         color: Color.fromRGBO(171, 177, 177, 1),
         child: Center(
@@ -129,7 +141,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     children: [
                       SingleChildScrollView(
                         child: Container(
-                          height: appConfigblockSizeHeight * 65,
+                          height: appConfigblockSizeHeight * 55,
                           child: Column(
                             //////////////TOP STREAM////////////
 
@@ -180,20 +192,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                         itemBuilder: (BuildContext context, i) {
                                           return new ListTile(
                                             onTap: () async {
-                                              doggoStringID = data[i]["_id"];
-                                              doggoID =
-                                                  doggoStringID.toString();
-                                              SharedPreferences doggoinfo =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              doggoinfo.setString(
-                                                  'doggoid', '$doggoID');
-                                              print(doggoID);
 
-//                                            Navigator.push(
-//                                                context,
-//                                                MaterialPageRoute(
-//                                                    builder: (context) => DoggoInfo()));
+                                              dogUniqueID = data[i]["uniqueID"];
+                                              SharedPreferences doginfo =
+                                              await SharedPreferences.getInstance();
+                                              doginfo.setString('doguniqueid', '$dogUniqueID');
+
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => DoggoInfo()));
                                             },
                                             title:
                                                 new Text(data[i]["dog_name"]),
@@ -221,7 +229,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     children: [
                       SingleChildScrollView(
                         child: Container(
-                          height: appConfigblockSizeHeight * 35,
+                          height: appConfigblockSizeHeight * 30,
                           child: Column(
                             //////////////BOTTOM STREAM////////////
 
@@ -259,37 +267,33 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             )
                                 :
                             Expanded(
-                                child: ListView.builder(
-                                  itemCount: data2 == null ? 0 : data2.length,
-                                  itemBuilder: (BuildContext context, i) {
-                                    return new ListTile(
-                                      onTap: () async {
-                                        supplyStringID = data2[i]["_id"];
-                                        supplyID = supplyStringID.toString();
-                                        SharedPreferences supplyinfo =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        supplyinfo.setString(
-                                            'supplyID', '$supplyID');
-                                        print(supplyID);
-//                                        Navigator.push(
-//                                            context,
-//                                            MaterialPageRoute(
-//                                                builder: (context) => SupplyInfo()));
-                                      },
-                                      title: new Text(data2[i]["supply_type"]),
-                                      subtitle:
-                                          new Text(data2[i]["brand_name"]),
-                                      trailing: new Text(data2[i]['level']),
-                                      leading: new CircleAvatar(
-                                        backgroundColor: Colors.transparent,
-                                        backgroundImage:
-                                            new AssetImage(data2[i]["picture"]),
-                                      ),
-                                    );
-                                  },
-                                ),
+                              child: ListView.builder(
+                                itemCount: data2 == null ? 0 : data2.length,
+                                itemBuilder: (context, i) {
+                                  return new ListTile(
+                                    onTap: () async {
+                                      supplyUniqueID = data2[i]["uniqueID"];
+                                      SharedPreferences supplyinfo =
+                                      await SharedPreferences.getInstance();
+                                      supplyinfo.setString('supplyuniqueid', '$supplyUniqueID');
+                                      print("supplyID");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SupplyInfo()));
+                                    },
+                                    title: new Text(data2[i]["supply_type"]),
+                                    subtitle: new Text(data2[i]["brand_name"]),
+                                    trailing: new Text(data2[i]['level'],),
+                                    leading: new CircleAvatar(
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage: new AssetImage(
+                                          data2[i]["picture"]),
+                                    ),
+                                  );
+                                },
                               ),
+                            ),
                             ],
 
                             //////////////BOTTOM STREAM////////////
