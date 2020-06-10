@@ -51,9 +51,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     }
   }
 
-
-
-
   Future<String> fetchDogs() async {
     var database = await openDatabase('database.db');
     var thing = await database.rawQuery('SELECT * FROM doggos');
@@ -61,6 +58,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     setState(() {
       var extractdata = thing;
       data = extractdata;
+      print(data.length);
       return data.toList();
     });
   }
@@ -72,11 +70,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     setState(() {
       var extractdata = thing;
       data2 = extractdata;
-      print(data2);
+      print(data2.length);
       return data2.toList();
-
     });
   }
+
+//  doggoCheck(){print(data.length);}
 
   @override
   void initState() {
@@ -123,35 +122,41 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           child: Column(
                             //////////////TOP STREAM////////////
 
-                            children: [
-                              data == null
-                                  ? Column(
+                            children: <Widget>[
+                              (data == null)
+                                  ? (Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(height: appConfigblockSizeHeight * 5,),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         Text(
                                           "Welcome Danielle!",
                                           style: TextStyle(
                                             color:
-                                            Color.fromRGBO(34, 36, 86, 1),
+                                                Color.fromRGBO(34, 36, 86, 1),
                                             fontWeight: FontWeight.w900,
                                             fontSize: 24,
                                           ),
                                         ),
-                                        SizedBox(height: appConfigblockSizeHeight * 2,),
-                                        Container(height: 200,
+                                        SizedBox(
+                                          height: 2,
+                                        ),
+                                        Container(
+                                          height: 200,
                                           width: 200,
                                           decoration: BoxDecoration(
                                             image: DecorationImage(
-                                              image: AssetImage(
-                                                  'images/logo.png'),
+                                              image:
+                                                  AssetImage('images/logo.png'),
                                               fit: BoxFit.fill,
                                             ),
                                             shape: BoxShape.circle,
-                                          ),),
+                                          ),
+                                        ),
                                         Text(
                                           "Add Some Dogs",
                                           style: TextStyle(
@@ -161,56 +166,128 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                             fontSize: 13,
                                           ),
                                         ),
-                                        SizedBox(height: appConfigblockSizeHeight * 1,),
-
+                                        SizedBox(
+                                          height: 1,
+                                        ),
                                         FloatingActionButton(
                                           heroTag: 'adddoggo',
-                                          onPressed: () {;
+                                          onPressed: () {
+                                            ;
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) => AddDoggo()));
+                                                    builder: (context) =>
+                                                        AddDoggo()));
                                           },
                                           child: Icon(
                                             Icons.add,
                                           ),
-                                          backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                                          backgroundColor:
+                                              Color.fromRGBO(34, 36, 86, 1),
                                         ),
-
                                       ],
-                                    )
-                                  : Expanded(
-                                      child: ListView.builder(
-                                        itemCount:
-                                            data == null ? 0 : data.length,
-                                        itemBuilder: (BuildContext context, i) {
-                                          return new ListTile(
-                                            onTap: () async {
-
-                                              dogUniqueID = data[i]["uniqueID"];
-                                              SharedPreferences doginfo =
-                                              await SharedPreferences.getInstance();
-                                              doginfo.setString('doguniqueid', '$dogUniqueID');
-
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => DoggoInfo()));
-                                            },
-                                            title:
-                                                new Text(data[i]["dog_name"]),
-                                            subtitle:
-                                                new Text(data[i]["owner_name"]),
-                                            leading: new CircleAvatar(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              backgroundImage: new AssetImage(
-                                                  data[i]["picture"]),
+                                    ))
+                                  : (data.length == 0)
+                                      ? (Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 5,
                                             ),
-                                          );
-                                        },
-                                      ),
-                                    ),
+                                            Text(
+                                              "Welcome Danielle!",
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    34, 36, 86, 1),
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 24,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 2,
+                                            ),
+                                            Container(
+                                              height: 200,
+                                              width: 200,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'images/logo.png'),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Add Some Dogs",
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    34, 36, 86, 1),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 1,
+                                            ),
+                                            FloatingActionButton(
+                                              heroTag: 'adddoggo',
+                                              onPressed: () {
+                                                ;
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AddDoggo()));
+                                              },
+                                              child: Icon(
+                                                Icons.add,
+                                              ),
+                                              backgroundColor:
+                                                  Color.fromRGBO(34, 36, 86, 1),
+                                            ),
+                                          ],
+                                        ))
+                                      : (Expanded(
+                                          child: ListView.builder(
+                                            itemCount: data.length,
+                                            itemBuilder:
+                                                (BuildContext context, i) {
+                                              return new ListTile(
+                                                onTap: () async {
+                                                  dogUniqueID =
+                                                      data[i]["uniqueID"];
+                                                  SharedPreferences doginfo =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  doginfo.setString(
+                                                      'doguniqueid',
+                                                      '$dogUniqueID');
+
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              DoggoInfo()));
+                                                },
+                                                title: new Text(
+                                                    data[i]["dog_name"]),
+                                                subtitle: new Text(
+                                                    data[i]["owner_name"]),
+                                                leading: new CircleAvatar(
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  backgroundImage:
+                                                      new AssetImage(
+                                                          data[i]["picture"]),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ))
                             ],
 
                             //////////////TOP STREAM////////////
@@ -227,75 +304,139 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           child: Column(
                             //////////////BOTTOM STREAM////////////
 
-                            children: [data2 == null
-                                ? Column(
-                              children: [
-                                Container(height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          'images/supplies.png'),
-                                      fit: BoxFit.fill,
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),),
-                                Text(
-                                  "Add Some Supplies",
-                                  style: TextStyle(
-                                    color:
-                                    Color.fromRGBO(34, 36, 86, 1),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                SizedBox(height: appConfigblockSizeHeight * 1,),
-
-                                FloatingActionButton(
-                                  heroTag: 'addsupplies',
-                                  onPressed: () {;
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AddSupply()));
-                                  },
-                                  child: Icon(
-                                    Icons.add,
-                                  ),
-                                  backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                                ),
-
-                              ],
-                            )
-                                :
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: data2 == null ? 0 : data2.length,
-                                itemBuilder: (context, i) {
-                                  return new ListTile(
-                                    onTap: () async {
-                                      supplyUniqueID = data2[i]["uniqueID"];
-                                      SharedPreferences supplyinfo =
-                                      await SharedPreferences.getInstance();
-                                      supplyinfo.setString('supplyuniqueid', '$supplyUniqueID');
-                                      print("supplyID");
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SupplyInfo()));
-                                    },
-                                    title: new Text(data2[i]["supply_type"]),
-                                    subtitle: new Text(data2[i]["brand_name"]),
-                                    trailing: new Text(data2[i]['level'],),
-                                    leading: new CircleAvatar(
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage: new AssetImage(
-                                          data2[i]["picture"]),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
+                            children: [
+                              (data2 == null)
+                                  ? (Column(
+                                      children: [
+                                        Container(
+                                          height: 100,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'images/supplies.png'),
+                                              fit: BoxFit.fill,
+                                            ),
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Add Some Supplies",
+                                          style: TextStyle(
+                                            color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: appConfigblockSizeHeight * 1,
+                                        ),
+                                        FloatingActionButton(
+                                          heroTag: 'addsupplies',
+                                          onPressed: () {
+                                            ;
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddSupply()));
+                                          },
+                                          child: Icon(
+                                            Icons.add,
+                                          ),
+                                          backgroundColor:
+                                              Color.fromRGBO(34, 36, 86, 1),
+                                        ),
+                                      ],
+                                    ))
+                                  : (data2.length == 0)
+                                      ? (Column(
+                                          children: [
+                                            Container(
+                                              height: 100,
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'images/supplies.png'),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: BoxShape.circle,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Add Some Supplies",
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    34, 36, 86, 1),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height:
+                                                  appConfigblockSizeHeight * 1,
+                                            ),
+                                            FloatingActionButton(
+                                              heroTag: 'addsupplies',
+                                              onPressed: () {
+                                                ;
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AddSupply()));
+                                              },
+                                              child: Icon(
+                                                Icons.add,
+                                              ),
+                                              backgroundColor:
+                                                  Color.fromRGBO(34, 36, 86, 1),
+                                            ),
+                                          ],
+                                        ))
+                                      : (Expanded(
+                                          child: ListView.builder(
+                                            itemCount: data2 == null
+                                                ? 0
+                                                : data2.length,
+                                            itemBuilder: (context, i) {
+                                              return new ListTile(
+                                                onTap: () async {
+                                                  supplyUniqueID =
+                                                      data2[i]["uniqueID"];
+                                                  SharedPreferences supplyinfo =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  supplyinfo.setString(
+                                                      'supplyuniqueid',
+                                                      '$supplyUniqueID');
+                                                  print("supplyID");
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SupplyInfo()));
+                                                },
+                                                title: new Text(
+                                                    data2[i]["supply_type"]),
+                                                subtitle: new Text(
+                                                    data2[i]["brand_name"]),
+                                                trailing: new Text(
+                                                  data2[i]['level'],
+                                                ),
+                                                leading: new CircleAvatar(
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  backgroundImage:
+                                                      new AssetImage(
+                                                          data2[i]["picture"]),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        )),
                             ],
 
                             //////////////BOTTOM STREAM////////////

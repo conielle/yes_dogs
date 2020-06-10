@@ -120,7 +120,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
           children: [
             Container(
               child:  Image.asset(
-                'images/loading2.gif',
+                'images/loading.gif',
                 width: appConfigblockSizeWidth * 30,
               )
               ),
