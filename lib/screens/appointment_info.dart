@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:intl/intl.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:shared_preferences/shared_preferences.dart';

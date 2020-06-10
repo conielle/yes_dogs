@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-
 import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
@@ -12,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:smooth_sort/smooth_sort.dart';
 
 class Appointments extends StatefulWidget {
   static const String id = 'appointments';

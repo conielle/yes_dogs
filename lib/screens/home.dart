@@ -3,7 +3,6 @@ import 'package:daniellesdoggrooming/screens/add_supply.dart';
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:daniellesdoggrooming/screens/doggo_info.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';

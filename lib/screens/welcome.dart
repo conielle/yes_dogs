@@ -35,6 +35,9 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   static final columnLevel = 'level';
   static final columnPicture2 = 'picture';
 
+
+
+
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
@@ -67,7 +70,6 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     var database = await openDatabase(dbPath, version: 1, onCreate: _onCreate);
     return database;
   }
-
   ///////////CREATE DATABASE///////////
 
 
@@ -88,12 +90,6 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
     } else if (isFirstLaunch == true) {print("This Is Not The First Launch"); moveForward();
     } else {}
   }
-
-
-
-
-
-
   ///////////FIRST LAUNCH SCRIPT///////////
 
 
@@ -102,7 +98,9 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    firstLaunch();
+    Future.delayed(const Duration(seconds: 5), () {
+      firstLaunch();
+    });
   }
 
   @override
@@ -116,14 +114,25 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
       body: Container(
         width: appConfigblockSizeWidth * 100,
         height: appConfigblockSizeHeight * 100,
-        decoration: BoxDecoration(),
-        child: Container(
-          child: Image.asset(
-            "images/background.png",
-            fit: BoxFit.fitWidth,
-          ),
+        color: Color.fromRGBO(30, 30, 74, 1),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                child:  Image.asset(
+                  'images/logo.png',
+                  width: appConfigblockSizeWidth * 30,
+                )
+            ),
+            Container(
+              child:  Image.asset(
+                'images/loading.gif',
+                width: appConfigblockSizeWidth * 30,
+              )
+              ),
+          ],
         ),
-      ),
+        ),
     );
   }
 }

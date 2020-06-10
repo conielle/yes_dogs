@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'package:intl/intl.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
