@@ -2,6 +2,7 @@ import 'package:daniellesdoggrooming/screens/add_doggo.dart';
 import 'package:daniellesdoggrooming/screens/add_supply.dart';
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:daniellesdoggrooming/screens/doggo_info.dart';
@@ -98,7 +99,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
+      body: Container(width: appConfigblockSizeWidth * 100,
+        height: appConfigblockSizeHeight * 100,
+
         color: Color.fromRGBO(171, 177, 177, 1),
         child: Center(
           child: RaisedButton(
@@ -111,37 +114,71 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             },
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Container(
-              width: appConfigblockSizeWidth * 100,
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      SingleChildScrollView(
-                        child: Container(
-                          height: appConfigblockSizeHeight * 55,
-                          child: Column(
-                            //////////////TOP STREAM////////////
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: appConfigblockSizeHeight * 2,),
+                    Positioned(child: Container(child: Column(
+                      children: [
+                        Text(
+                "Welcome Danielle!",
+                  style: TextStyle(
+                        color:
+                        Color.fromRGBO(34, 36, 86, 1),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 30,
+                  ),
+                ),SizedBox(height: appConfigblockSizeHeight * 2,),
+                      ],
+                    ),),),
 
-                            children: <Widget>[
-                              (data == null)
-                                  ? (Column(
+
+                    Container(
+                        height: appConfigblockSizeHeight * 100,
+                        child:
+                        Stack(children: [Positioned(child:
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: appConfigblockSizeHeight * 1,),
+                            SingleChildScrollView(
+                              child: Container(decoration: BoxDecoration(
+                                color: Color.fromRGBO(146,146,146, 1),
+                                borderRadius: BorderRadius.only(topRight:  Radius.circular(appConfigblockSizeHeight * 5), topLeft: Radius.circular(appConfigblockSizeWidth * 5)),
+                              ),
+                                height: appConfigblockSizeHeight * 100,
+                                width: appConfigblockSizeWidth * 90,
+                                child: Column(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  //////////////TOP STREAM////////////
+                                  children: <Widget>[
+                                    (data == null)
+                                        ? (Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       children: [
                                         SizedBox(
                                           height: 5,
                                         ),
-                                        Text(
-                                          "Welcome Danielle!",
-                                          style: TextStyle(
-                                            color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: 24,
-                                          ),
-                                        ),
+
                                         SizedBox(
                                           height: 2,
                                         ),
@@ -151,7 +188,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                           decoration: BoxDecoration(
                                             image: DecorationImage(
                                               image:
-                                                  AssetImage('images/logo.png'),
+                                              AssetImage('images/logo.png'),
                                               fit: BoxFit.fill,
                                             ),
                                             shape: BoxShape.circle,
@@ -161,7 +198,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                           "Add Some Dogs",
                                           style: TextStyle(
                                             color:
-                                                Color.fromRGBO(34, 36, 86, 1),
+                                            Color.fromRGBO(34, 36, 86, 1),
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13,
                                           ),
@@ -183,130 +220,144 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                             Icons.add,
                                           ),
                                           backgroundColor:
-                                              Color.fromRGBO(34, 36, 86, 1),
+                                          Color.fromRGBO(34, 36, 86, 1),
                                         ),
                                       ],
                                     ))
-                                  : (data.length == 0)
-                                      ? (Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              height: 5,
+                                        : (data.length == 0)
+                                        ? (Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        SizedBox(
+                                          height: 2,
+                                        ),
+                                        Container(
+                                          height: 200,
+                                          width: 200,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'images/logo.png'),
+                                              fit: BoxFit.fill,
                                             ),
-                                            Text(
-                                              "Welcome Danielle!",
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.w900,
-                                                fontSize: 24,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 2,
-                                            ),
-                                            Container(
-                                              height: 200,
-                                              width: 200,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'images/logo.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Add Some Dogs",
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 1,
-                                            ),
-                                            FloatingActionButton(
-                                              heroTag: 'adddoggo',
-                                              onPressed: () {
-                                                ;
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            AddDoggo()));
-                                              },
-                                              child: Icon(
-                                                Icons.add,
-                                              ),
-                                              backgroundColor:
-                                                  Color.fromRGBO(34, 36, 86, 1),
-                                            ),
-                                          ],
-                                        ))
-                                      : (Expanded(
-                                          child: ListView.builder(
-                                            itemCount: data.length,
-                                            itemBuilder:
-                                                (BuildContext context, i) {
-                                              return new ListTile(
-                                                onTap: () async {
-                                                  dogUniqueID =
-                                                      data[i]["uniqueID"];
-                                                  SharedPreferences doginfo =
-                                                      await SharedPreferences
-                                                          .getInstance();
-                                                  doginfo.setString(
-                                                      'doguniqueid',
-                                                      '$dogUniqueID');
-
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              DoggoInfo()));
-                                                },
-                                                title: new Text(
-                                                    data[i]["dog_name"]),
-                                                subtitle: new Text(
-                                                    data[i]["owner_name"]),
-                                                leading: new CircleAvatar(
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  backgroundImage:
-                                                      new AssetImage(
-                                                          data[i]["picture"]),
-                                                ),
-                                              );
-                                            },
+                                            shape: BoxShape.circle,
                                           ),
-                                        ))
-                            ],
+                                        ),
+                                        Text(
+                                          "Add Some Dogs",
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                34, 36, 86, 1),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 1,
+                                        ),
+                                        FloatingActionButton(
+                                          heroTag: 'adddoggo',
+                                          onPressed: () {
+                                            ;
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddDoggo()));
+                                          },
+                                          child: Icon(
+                                            Icons.add,
+                                          ),
+                                          backgroundColor:
+                                          Color.fromRGBO(34, 36, 86, 1),
+                                        ),
+                                      ],
+                                    ))
+                                        : (Expanded(
+                                      child: ListView.builder(
+                                        itemCount: data.length,
+                                        itemBuilder:
+                                            (BuildContext context, i) {
+                                          return new ListTile(
+                                            onTap: () async {
+                                              dogUniqueID =
+                                              data[i]["uniqueID"];
+                                              SharedPreferences doginfo =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                              doginfo.setString(
+                                                  'doguniqueid',
+                                                  '$dogUniqueID');
 
-                            //////////////TOP STREAM////////////
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      SingleChildScrollView(
-                        child: Container(
-                          height: appConfigblockSizeHeight * 30,
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DoggoInfo()));
+                                            },
+                                            title: new Text(
+                                                data[i]["dog_name"]),
+                                            subtitle: new Text(
+                                                data[i]["owner_name"]),
+                                            leading: new CircleAvatar(
+                                              backgroundColor:
+                                              Colors.transparent,
+                                              backgroundImage:
+                                              new AssetImage(
+                                                  data[i]["picture"]),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ))
+                                  ],
+
+                                  //////////////TOP STREAM////////////
+                                ),
+                              ),
+                            )
+                          ],
+                        ),), Positioned(
+                          top: appConfigblockSizeHeight * 52,
                           child: Column(
-                            //////////////BOTTOM STREAM////////////
+                          children: [
+                            SingleChildScrollView(
+                              child: Container(
+                                width: appConfigblockSizeWidth * 90,
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(156, 156, 156, 1),
+                                  borderRadius: BorderRadius.only(topRight:  Radius.circular(appConfigblockSizeHeight * 5), topLeft: Radius.circular(appConfigblockSizeWidth * 5)),
+                                ),
+                                height: appConfigblockSizeHeight * 100,
+                                child: Column(
 
-                            children: [
-                              (data2 == null)
-                                  ? (Column(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  //////////////BOTTOM STREAM////////////
+
+                                  children: [
+                                    (data2 == null)
+                                        ? (Column(
                                       children: [
                                         Container(
                                           height: 100,
@@ -324,7 +375,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                           "Add Some Supplies",
                                           style: TextStyle(
                                             color:
-                                                Color.fromRGBO(34, 36, 86, 1),
+                                            Color.fromRGBO(34, 36, 86, 1),
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13,
                                           ),
@@ -346,106 +397,111 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                             Icons.add,
                                           ),
                                           backgroundColor:
-                                              Color.fromRGBO(34, 36, 86, 1),
+                                          Color.fromRGBO(34, 36, 86, 1),
                                         ),
                                       ],
                                     ))
-                                  : (data2.length == 0)
-                                      ? (Column(
-                                          children: [
-                                            Container(
-                                              height: 100,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'images/supplies.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                                shape: BoxShape.circle,
-                                              ),
+                                        : (data2.length == 0)
+                                        ? (Column(
+                                      children: [
+                                        Container(
+                                          height: 100,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  'images/supplies.png'),
+                                              fit: BoxFit.fill,
                                             ),
-                                            Text(
-                                              "Add Some Supplies",
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height:
-                                                  appConfigblockSizeHeight * 1,
-                                            ),
-                                            FloatingActionButton(
-                                              heroTag: 'addsupplies',
-                                              onPressed: () {
-                                                ;
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            AddSupply()));
-                                              },
-                                              child: Icon(
-                                                Icons.add,
-                                              ),
-                                              backgroundColor:
-                                                  Color.fromRGBO(34, 36, 86, 1),
-                                            ),
-                                          ],
-                                        ))
-                                      : (Expanded(
-                                          child: ListView.builder(
-                                            itemCount: data2 == null
-                                                ? 0
-                                                : data2.length,
-                                            itemBuilder: (context, i) {
-                                              return new ListTile(
-                                                onTap: () async {
-                                                  supplyUniqueID =
-                                                      data2[i]["uniqueID"];
-                                                  SharedPreferences supplyinfo =
-                                                      await SharedPreferences
-                                                          .getInstance();
-                                                  supplyinfo.setString(
-                                                      'supplyuniqueid',
-                                                      '$supplyUniqueID');
-                                                  print("supplyID");
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              SupplyInfo()));
-                                                },
-                                                title: new Text(
-                                                    data2[i]["supply_type"]),
-                                                subtitle: new Text(
-                                                    data2[i]["brand_name"]),
-                                                trailing: new Text(
-                                                  data2[i]['level'],
-                                                ),
-                                                leading: new CircleAvatar(
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  backgroundImage:
-                                                      new AssetImage(
-                                                          data2[i]["picture"]),
-                                                ),
-                                              );
-                                            },
+                                            shape: BoxShape.circle,
                                           ),
-                                        )),
-                            ],
+                                        ),
+                                        Text(
+                                          "Add Some Supplies",
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                34, 36, 86, 1),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                          appConfigblockSizeHeight * 1,
+                                        ),
+                                        FloatingActionButton(
+                                          heroTag: 'addsupplies',
+                                          onPressed: () {
+                                            ;
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddSupply()));
+                                          },
+                                          child: Icon(
+                                            Icons.add,
+                                          ),
+                                          backgroundColor:
+                                          Color.fromRGBO(34, 36, 86, 1),
+                                        ),
+                                      ],
+                                    ))
+                                        : (Expanded(
+                                      child: ListView.builder(
+                                        itemCount: data2 == null
+                                            ? 0
+                                            : data2.length,
+                                        itemBuilder: (context, i) {
+                                          return new ListTile(
+                                            onTap: () async {
+                                              supplyUniqueID =
+                                              data2[i]["uniqueID"];
+                                              SharedPreferences supplyinfo =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                              supplyinfo.setString(
+                                                  'supplyuniqueid',
+                                                  '$supplyUniqueID');
+                                              print("supplyID");
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          SupplyInfo()));
+                                            },
+                                            title: new Text(
+                                                data2[i]["supply_type"]),
+                                            subtitle: new Text(
+                                                data2[i]["brand_name"]),
+                                            trailing: new Text(
+                                              data2[i]['level'],
+                                            ),
+                                            leading: new CircleAvatar(
+                                              backgroundColor:
+                                              Colors.transparent,
+                                              backgroundImage:
+                                              new AssetImage(
+                                                  data2[i]["picture"]),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    )),
+                                  ],
 
-                            //////////////BOTTOM STREAM////////////
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                                  //////////////BOTTOM STREAM////////////
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),)],)
+
+
+
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
