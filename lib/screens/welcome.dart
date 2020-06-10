@@ -119,14 +119,8 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                child:  Image.asset(
-                  'images/logo.png',
-                  width: appConfigblockSizeWidth * 30,
-                )
-            ),
-            Container(
               child:  Image.asset(
-                'images/loading.gif',
+                'images/loading2.gif',
                 width: appConfigblockSizeWidth * 30,
               )
               ),
