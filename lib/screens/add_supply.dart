@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-import 'dart:io' as io;
+import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,8 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
-import 'package:daniellesdoggrooming/screens/supplies.dart';
 import 'package:uuid/uuid.dart';
+import 'package:daniellesdoggrooming/screens/supplies.dart';
 
 
 class random {
@@ -24,7 +24,6 @@ class random {
 }
 
 
-
 class AddSupply extends StatefulWidget {
   static const String id = 'addsupply';
 
@@ -34,10 +33,11 @@ class AddSupply extends StatefulWidget {
 
 class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  final dbHelper = DatabaseHelper.instance;
 
   String tempPath;
   String previewPath;
-  io.File previewImage;
+  File previewImage;
   String newImagePath;
   String savedImagePath;
 
@@ -48,54 +48,61 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
   var uuid = Uuid();
 
 
-  void _photoLoading() {
+  void _addPhoto() {
     showDialog(
       context: context,
-      barrierDismissible: false,
       builder: (BuildContext context) {
-        Future.delayed(Duration(seconds: 5), () {
-          Navigator.of(context).pop(true);
-        });
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          content: Container(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new Text('  '),
-                new CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
+          title: new Text("Add a photo!", style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1),),),
+          content: Container(child:
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: FloatingActionButton(
+                  backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                  onPressed: () {
+                    _getImage();
+                    Navigator.of(context).pop(true);
+                  },
+                  heroTag: 'image1',
+                  tooltip: 'Pick a photo',
+                  child: const Icon(
+                    Icons.photo_library,
+                    color: Colors.white,
+                  ),
                 ),
-                new Text('  '),
-                new Text("Processing photo."),
-              ],
-            ),
+              ),
+              SizedBox(width: 10),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: FloatingActionButton(
+                  backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                  onPressed: () {
+                    _takeImage();
+                    Navigator.of(context).pop(true);
+                  },
+                  heroTag: 'image2',
+                  tooltip: 'Take a Photo',
+                  child: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
-        );
-      },
-    );
-  }
+          ),
 
-  @override
-  ////////////ERROR POPUP////////////////
-  void _noDoggoNameDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Whoops! Big Mistake!"),
-          content: new Text("You didn't put a name for the doggo"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Close"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -106,89 +113,39 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
     );
   }
 
-  void _noOwnerDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Whoops! Big Mistake!"),
-          content: new Text("You didn't put a name for the owner"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Colors.black45,
-              onPressed: () {
-//                Navigator.pushNamed(context, AddDoggos.id);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  @override
 
-  void _onLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          content: Container(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new Text('  '),
-                new CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
-                ),
-                new Text('  '),
-                new Text("Adding Supply"),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   /////////GALLERY IMAGE SELECTOR AND RESIZER//////
-  io.File rawGalleryImage;
+  File rawGalleryImage;
 
   Future _getImage() async {
-    io.Directory tempDir = await getTemporaryDirectory();
+    Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
-    _photoLoading();
 
-    io.Directory appDocDir = await getApplicationDocumentsDirectory();
+
+    Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
 
     var galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
     print("Path : " + galleryImage.path);
     rawGalleryImage = galleryImage;
 
-    io.File myCompressedFile;
+    File myCompressedFile;
     img.Image image = img.decodeImage(rawGalleryImage.readAsBytesSync());
 
     img.Image thumbnail = img.copyResize(image, height: 200);
 
+    String labelgallery = '${random.Number()}${addSupplyName.text}gallery.jpg';
 
-    String labelgallery = '${random.Number()}${addSupplyType.text}gallery.jpg';
-
-    myCompressedFile = new io.File(appDocPath + '$labelgallery')
+    myCompressedFile = new File(appDocPath + '$labelgallery')
       ..writeAsBytesSync(img.encodeJpg(thumbnail));
     print(appDocPath + '$labelgallery');
     newImagePath = myCompressedFile.path;
     print(newImagePath);
 
-    final io.File copiedImage = await myCompressedFile.copy(
-        '$appDocPath/$labelgallery');
+    final File copiedImage =
+    await myCompressedFile.copy('$appDocPath/$labelgallery');
 
     print(copiedImage.path);
     savedImagePath = copiedImage.path;
@@ -197,26 +154,24 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
       previewImage = copiedImage;
     });
 
-
     return previewImage;
   }
 
-
   /////////CAMERA IMAGE SELECTOR AND RESIZER//////
-  io.File rawCamImage;
+  File rawCamImage;
 
   Future _takeImage() async {
-    io.Directory tempDir = await getTemporaryDirectory();
+    Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
-    _photoLoading();
 
-    io.Directory appDocDir = await getApplicationDocumentsDirectory();
+
+    Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
 
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     rawCamImage = image;
-    io.File convert = rawCamImage;
-    io.File myCompressedFile;
+    File convert = rawCamImage;
+    File myCompressedFile;
     img.Image images = img.decodeImage(convert.readAsBytesSync());
     print("Compressed");
 
@@ -226,17 +181,17 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
 
     // Save the thumbnail as a JPG.
 
-    String labelcamera = '${random.Number()}${addSupplyType.text}camera.jpg';
+    String labelcamera = '${random.Number()}${addSupplyName.text}camera.jpg';
 
-    myCompressedFile = new io.File(appDocPath + '$labelcamera')
+    myCompressedFile = new File(appDocPath + '$labelcamera')
       ..writeAsBytesSync(img.encodeJpg(thumbnail));
     print(appDocPath + '$labelcamera');
     newImagePath = myCompressedFile.path;
 
     print(newImagePath);
 
-    final io.File copiedImage = await myCompressedFile.copy(
-        '$appDocPath/$labelcamera');
+    final File copiedImage =
+    await myCompressedFile.copy('$appDocPath/$labelcamera');
 
     print(copiedImage.path);
     savedImagePath = copiedImage.path;
@@ -247,7 +202,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
     return previewImage;
   }
 
-  final dbHelper = DatabaseHelper.instance;
+
 
 
 
@@ -263,6 +218,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
         .height;
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
+    double fontSize = appConfigWidth * 0.005;
 
     return Scaffold(
       appBar: AppBar(
@@ -287,10 +243,11 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                     ),
                     Column(
                       children: [
-                        TextField(
+                        TextFormField(
                           style: TextStyle(color: Colors.white),
                           cursorColor: Color.fromRGBO(34, 36, 86, 1),
                           decoration: InputDecoration(
+                            contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                             hintText: 'Supply Type',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -299,6 +256,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                                   width: 2, color: Colors.white),
                             ),
                             hintStyle: TextStyle(
+                              fontSize: fontSize * 8,
                               color: Color.fromRGBO(34, 36, 86, 1),),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -325,6 +283,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                           style: TextStyle(color: Colors.white),
                           cursorColor: Color.fromRGBO(34, 36, 86, 1),
                           decoration: InputDecoration(
+                            contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                             hintText: 'Brand Name',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -333,6 +292,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                                   width: 2, color: Colors.white),
                             ),
                             hintStyle: TextStyle(
+                              fontSize: fontSize * 8,
                               color: Color.fromRGBO(34, 36, 86, 1),),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -358,6 +318,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                           style: TextStyle(color: Colors.white),
                           cursorColor: Color.fromRGBO(34, 36, 86, 1),
                           decoration: InputDecoration(
+                            contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                             hintText: 'Supply Level',
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -366,6 +327,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                                   width: 2, color: Colors.white),
                             ),
                             hintStyle: TextStyle(
+                              fontSize: fontSize * 8,
                               color: Color.fromRGBO(34, 36, 86, 1),),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -392,56 +354,18 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
                     SizedBox(
                       height: appConfigblockSizeWidth * 10,
                     ),
-                    Container(height: appConfigblockSizeWidth * 40,
+                    FlatButton(
+                      onPressed: () {
+                        _addPhoto();
+                      },
                       child: Container(
-                        child: previewImage == null
-                            ? Image(
-                          image: AssetImage('images/supply_add.png'),
-                        )
-                            : Image(
-                          image: AssetImage(newImagePath),
+                        child:  previewImage == null ?
+                        CircleAvatar(backgroundImage: AssetImage('images/supply_add.png'), backgroundColor: Colors.transparent, radius: appConfigblockSizeWidth * 20,) :
+                        CircleAvatar(backgroundImage: FileImage(previewImage), backgroundColor: Colors.transparent, radius: appConfigblockSizeWidth * 20,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: appConfigblockSizeWidth * 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: FloatingActionButton(
-                            backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                            onPressed: () {
-                              _getImage();
-                            },
-                            heroTag: 'image1',
-                            tooltip: 'Pick a photo',
-                            child: const Icon(
-                              Icons.photo_library,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: appConfigblockSizeWidth * 5),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: FloatingActionButton(
-                            backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                            onPressed: () {
-                              _takeImage();
-                            },
-                            heroTag: 'image2',
-                            tooltip: 'Take a Photo',
-                            child: const Icon(
-                              Icons.camera_alt,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+
                     SizedBox(
                       height: appConfigblockSizeWidth * 5,
                     ),

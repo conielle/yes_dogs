@@ -124,6 +124,7 @@ fetchID();
     double appConfigHeight = MediaQuery.of(context).size.height;
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
+    double fontSize = appConfigWidth * 0.005;
 
     return Scaffold(
         appBar: AppBar(
@@ -150,10 +151,11 @@ fetchID();
                         ),
                         Column(
                           children: [
-                            TextField(
+                            TextFormField(
                               style: TextStyle(color: Colors.white),
                               cursorColor: Color.fromRGBO(34, 36, 86, 1),
                               decoration: InputDecoration(
+                                contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                                 hintText: 'Owner\'s Name',
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
@@ -162,6 +164,7 @@ fetchID();
                                       BorderSide(width: 2, color: Colors.white),
                                 ),
                                 hintStyle: TextStyle(
+                                  fontSize: fontSize * 8,
                                   color: Color.fromRGBO(34, 36, 86, 1),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -188,10 +191,11 @@ fetchID();
                             SizedBox(
                               height: appConfigblockSizeHeight * 2,
                             ),
-                            TextField(
+                            TextFormField(
                               style: TextStyle(color: Colors.white),
                               cursorColor: Color.fromRGBO(34, 36, 86, 1),
                               decoration: InputDecoration(
+                                contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                                 hintText: 'Owner\'s ID Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
@@ -200,6 +204,7 @@ fetchID();
                                       BorderSide(width: 2, color: Colors.white),
                                 ),
                                 hintStyle: TextStyle(
+                                  fontSize: fontSize * 8,
                                   color: Color.fromRGBO(34, 36, 86, 1),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -226,10 +231,11 @@ fetchID();
                             SizedBox(
                               height: appConfigblockSizeHeight * 2.5,
                             ),
-                            TextField(
+                            TextFormField(
                               style: TextStyle(color: Colors.white),
                               cursorColor: Color.fromRGBO(34, 36, 86, 1),
                               decoration: InputDecoration(
+                                contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                                 hintText: 'Owner\'s Phone Number',
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
@@ -238,6 +244,7 @@ fetchID();
                                   BorderSide(width: 2, color: Colors.white),
                                 ),
                                 hintStyle: TextStyle(
+                                  fontSize: fontSize * 8,
                                   color: Color.fromRGBO(34, 36, 86, 1),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -268,6 +275,7 @@ fetchID();
                               style: TextStyle(color: Colors.white),
                               cursorColor: Color.fromRGBO(34, 36, 86, 1),
                               decoration: InputDecoration(
+                                contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                                 hintText: 'Owner\'s Email Address',
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
@@ -276,6 +284,7 @@ fetchID();
                                   BorderSide(width: 2, color: Colors.white),
                                 ),
                                 hintStyle: TextStyle(
+                                  fontSize: fontSize * 8,
                                   color: Color.fromRGBO(34, 36, 86, 1),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -302,7 +311,7 @@ fetchID();
                             SizedBox(
                               height: appConfigblockSizeHeight * 2.5,
                             ),
-                            TextField(
+                            TextFormField(
                               maxLines: 7,
                               style: TextStyle(
                                   color: Colors.white),
@@ -316,6 +325,7 @@ fetchID();
                                   BorderSide(width: 2, color: Colors.white),
                                 ),
                                 hintStyle: TextStyle(
+                                  fontSize: fontSize * 8,
                                   color: Color.fromRGBO(34, 36, 86, 1),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -343,10 +353,11 @@ fetchID();
                             SizedBox(
                               height: appConfigblockSizeHeight * 2.5,
                             ),
-                            TextField(
+                            TextFormField(
                               style: TextStyle(color: Colors.white),
                               cursorColor: Color.fromRGBO(34, 36, 86, 1),
                               decoration: InputDecoration(
+                                contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                                 hintText: 'Owner\'s Vet Details',
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius:
@@ -355,6 +366,7 @@ fetchID();
                                   BorderSide(width: 2, color: Colors.white),
                                 ),
                                 hintStyle: TextStyle(
+                                  fontSize: fontSize * 8,
                                   color: Color.fromRGBO(34, 36, 86, 1),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -381,7 +393,7 @@ fetchID();
                             ),
 
                             SizedBox(
-                              height: appConfigblockSizeWidth * 5,
+                              height: appConfigblockSizeWidth * 2,
                             ),
                             Padding(
                               padding:

@@ -198,6 +198,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     double appConfigHeight = MediaQuery.of(context).size.height;
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
+    double fontSize = appConfigWidth * 0.005;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -236,7 +238,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             style: TextStyle(
                               color: Color.fromRGBO(34, 36, 86, 1),
                               fontWeight: FontWeight.w900,
-                              fontSize: 30,
+                              fontSize: fontSize * 20,
                             ),
                           ),
                           Container(height: appConfigblockSizeHeight * 3,
@@ -249,16 +251,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       "Tap to add your name",
                                       style: TextStyle(
                                         color: Color.fromRGBO(34, 36, 86, 1),
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: fontSize * 10,
                                       ),
                                     )
                                   : Text(
                                       "${setUserName}",
                                       style: TextStyle(
                                         color: Color.fromRGBO(34, 36, 86, 1),
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: fontSize * 10,
                                       ),
                                     ),
                             ),

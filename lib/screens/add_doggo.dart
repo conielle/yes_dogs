@@ -11,7 +11,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
-import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:uuid/uuid.dart';
 
 class random {
@@ -261,6 +260,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     double appConfigHeight = MediaQuery.of(context).size.height;
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
+    double fontSize = appConfigWidth * 0.005;
 
     return Scaffold(
       appBar: AppBar(
@@ -284,10 +284,11 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                     children: <Widget>[
                       Column(
                         children: [
-                          TextField(
+                          TextFormField(
                             style: TextStyle(color: Colors.white),
                             cursorColor: Color.fromRGBO(34, 36, 86, 1),
                             decoration: InputDecoration(
+                              contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                               hintText: 'Doggo\'s Name',
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
@@ -296,6 +297,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                                     BorderSide(width: 2, color: Colors.white),
                               ),
                               hintStyle: TextStyle(
+                                fontSize: fontSize * 8,
                                 color: Color.fromRGBO(34, 36, 86, 1),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -321,14 +323,16 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                             controller: addDoggoName,
                           ),
                           SizedBox(
-                            height: appConfigblockSizeHeight * 2,
+                            height: appConfigblockSizeHeight * 1,
                           ),
-                          TextField(
+                          TextFormField(
 
                             style: TextStyle(
                                 color: Colors.white),
                             cursorColor: Color.fromRGBO(34, 36, 86, 1),
                             decoration: InputDecoration(
+
+                              contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                               hintText: 'Doggo\'s Age',
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
@@ -337,6 +341,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                                     BorderSide(width: 2, color: Colors.white),
                               ),
                               hintStyle: TextStyle(
+                                fontSize: fontSize * 8,
                                 color: Color.fromRGBO(34, 36, 86, 1),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -362,12 +367,14 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                             controller: addDoggoAge,
                           ),
                           SizedBox(
-                            height: appConfigblockSizeHeight * 2.5,
+                            height: appConfigblockSizeHeight * 1,
                           ),
-                          TextField(
+                          TextFormField(
                             style: TextStyle(color: Colors.white),
                             cursorColor: Color.fromRGBO(34, 36, 86, 1),
                             decoration: InputDecoration(
+
+                              contentPadding: new EdgeInsets.symmetric(vertical: appConfigblockSizeHeight * 2, horizontal: appConfigblockSizeWidth * 2),
                               hintText: 'Doggo\'s Breed',
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
@@ -376,6 +383,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                                     BorderSide(width: 2, color: Colors.white),
                               ),
                               hintStyle: TextStyle(
+                                fontSize: fontSize * 8,
                                 color: Color.fromRGBO(34, 36, 86, 1),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -403,14 +411,15 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                           Column(
                             children: [
                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
+
                                 children: [
                                   Text(
                                     'Is doggo neutered or spayed?',
                                     style: TextStyle(
+                                      fontSize: fontSize * 7,
                                         color: Color.fromRGBO(34, 36, 86, 1)),
                                   ),
+                                  SizedBox(width: fontSize * 17,),
                                   Switch(
                                       activeTrackColor:
                                           Color.fromRGBO(68, 70, 128, 1),
@@ -425,14 +434,14 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                                 ],
                               ),
                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'Is the doggo being groomed?',
                                     style: TextStyle(
+                                        fontSize: fontSize * 7,
                                         color: Color.fromRGBO(34, 36, 86, 1)),
                                   ),
+                                  SizedBox(width: fontSize * 18,),
                                   Switch(
                                       activeTrackColor:
                                       Color.fromRGBO(68, 70, 128, 1),
@@ -447,14 +456,14 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                                 ],
                               ),
                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'Is doggo being trained?',
                                     style: TextStyle(
+                                        fontSize: fontSize * 7,
                                         color: Color.fromRGBO(34, 36, 86, 1)),
                                   ),
+                                  SizedBox(width: fontSize * 37,),
                                   Switch(
                                       activeTrackColor:
                                       Color.fromRGBO(68, 70, 128, 1),
@@ -480,8 +489,8 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                             disabledColor: Colors.blueGrey,
                             disabledBorderColor: Colors.blueGrey,
                             children: <Widget>[
-                              Icon(FontAwesomeIcons.mars),
-                              Icon(FontAwesomeIcons.venus),
+                              Icon(FontAwesomeIcons.mars, size: fontSize * 14,),
+                              Icon(FontAwesomeIcons.venus, size: fontSize * 14,),
                             ],
                             isSelected: _selections,
                             onPressed: (int index) {
@@ -496,7 +505,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                         ],
                       ),
                       SizedBox(
-                        height: appConfigblockSizeWidth * 2,
+                        height: appConfigblockSizeWidth * 1,
                       ),
                       FlatButton(
                         onPressed: () {
@@ -510,7 +519,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                         ),
                       ),
                       SizedBox(
-                        height: appConfigblockSizeWidth * 2,
+                        height: appConfigblockSizeWidth * 1,
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 2, right: 2, top: 3),

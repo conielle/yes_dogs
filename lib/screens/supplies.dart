@@ -67,6 +67,7 @@ class _SuppliesState extends State<Supplies> with TickerProviderStateMixin {
         .height;
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
+    double fontSize = appConfigWidth * 0.005;
 
     return Scaffold(
       appBar: AppBar(

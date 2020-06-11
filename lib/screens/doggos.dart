@@ -66,6 +66,7 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
     double appConfigHeight = MediaQuery.of(context).size.height;
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
+    double fontSize = appConfigWidth * 0.005;
 
     return Scaffold(
       appBar: AppBar(
