@@ -64,12 +64,11 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Add a photo!"),
+          title: new Text("Add a photo!", style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Container(child:
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -115,126 +114,19 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Close"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
             ),
           ],
-        );
-      },
-    );
-  }
-
-  void _photoLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        Future.delayed(Duration(seconds: 5), () {
-          Navigator.of(context).pop(true);
-        });
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          content: Container(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new Text('  '),
-                new CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
-                ),
-                new Text('  '),
-                new Text("Processing photo."),
-              ],
-            ),
-          ),
         );
       },
     );
   }
 
   @override
-  ////////////ERROR POPUP////////////////
-  void _noDoggoNameDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Whoops! Big Mistake!"),
-          content: new Text("You didn't put a name for the doggo"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Colors.black45,
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
-  void _noOwnerDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Whoops! Big Mistake!"),
-          content: new Text("You didn't put a name for the owner"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Colors.black45,
-              onPressed: () {
-//                Navigator.pushNamed(context, AddDoggos.id);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _onLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          content: Container(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new Text('  '),
-                new CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
-                ),
-                new Text('  '),
-                new Text("Adding Doggo"),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   /////////GALLERY IMAGE SELECTOR AND RESIZER//////
   File rawGalleryImage;
@@ -242,7 +134,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   Future _getImage() async {
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
-    _photoLoading();
+
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
@@ -283,7 +175,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   Future _takeImage() async {
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
-    _photoLoading();
+
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;

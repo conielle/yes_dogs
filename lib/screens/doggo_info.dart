@@ -49,54 +49,62 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   final addOwnerName = TextEditingController();
   final addDoggoAge = TextEditingController();
 
-  void _photoLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        Future.delayed(Duration(seconds: 5), () {
-          Navigator.of(context).pop(true);
-        });
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          content: Container(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new Text('  '),
-                new CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
-                ),
-                new Text('  '),
-                new Text("Processing photo."),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
-  @override
-  ////////////ERROR POPUP////////////////
-  void _noDoggoNameDialog() {
+  void _addPhoto() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Whoops! Big Mistake!"),
-          content: new Text("You didn't put a name for the doggo"),
+          title: new Text("Add a photo!", style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1),),),
+          content: Container(child:
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: FloatingActionButton(
+                  backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                  onPressed: () {
+                    _getImage();
+                    Navigator.of(context).pop(true);
+                  },
+                  heroTag: 'image1',
+                  tooltip: 'Pick a photo',
+                  child: const Icon(
+                    Icons.photo_library,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(width: 10),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: FloatingActionButton(
+                  backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                  onPressed: () {
+                    _takeImage();
+                    Navigator.of(context).pop(true);
+                  },
+                  heroTag: 'image2',
+                  tooltip: 'Take a Photo',
+                  child: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ),
+
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Close"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -107,57 +115,9 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     );
   }
 
-  void _noOwnerDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Whoops! Big Mistake!"),
-          content: new Text("You didn't put a name for the owner"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Colors.black45,
-              onPressed: () {
-//                Navigator.pushNamed(context, AddDoggos.id);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  @override
+  ////////////ERROR POPUP////////////////
 
-  void _onLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          content: Container(
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new Text('  '),
-                new CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
-                ),
-                new Text('  '),
-                new Text("Adding Doggo"),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   /////////GALLERY IMAGE SELECTOR AND RESIZER//////
   File rawGalleryImage;
@@ -165,7 +125,6 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   Future _getImage() async {
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
-    _photoLoading();
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
@@ -207,7 +166,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   Future _takeImage() async {
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
-    _photoLoading();
+
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
@@ -785,73 +744,6 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
       },
     );
   }
-
-  void _addPhoto() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Add a photo!"),
-          content: Container(child:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                    onPressed: () {
-                      _getImage();
-                      Navigator.of(context).pop(true);
-                    },
-                    heroTag: 'image1',
-                    tooltip: 'Pick a photo',
-                    child: const Icon(
-                      Icons.photo_library,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                    onPressed: () {
-                      _takeImage();
-                      Navigator.of(context).pop(true);
-                    },
-                    heroTag: 'image2',
-                    tooltip: 'Take a Photo',
-                    child: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Colors.black45,
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
 
 
   void _updatePicture() async {
