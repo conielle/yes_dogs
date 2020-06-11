@@ -23,14 +23,14 @@ class random {
   }
 }
 
-class DoggoInfo extends StatefulWidget {
-  static const String id = 'doggoinfo';
+class OwnerInfo extends StatefulWidget {
+  static const String id = 'ownerinfo';
 
   @override
-  _DoggoInfoState createState() => _DoggoInfoState();
+  _OwnerInfoState createState() => _OwnerInfoState();
 }
 
-class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
+class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
@@ -286,6 +286,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
       DatabaseHelper.columnTemperament,
       DatabaseHelper.columnGrooming,
       DatabaseHelper.columnTraining,
+
     ];
     String whereString = '${DatabaseHelper.columnDogUniqueId} = "${dogUniqueID}"';
     int rowId = 2;
@@ -376,7 +377,6 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                                   child: Container(
                                     child: Text(
                                       data[ID]["dog_name"],
-
                                       style: TextStyle(
                                           color: Color.fromRGBO(34, 36, 86, 1),
                                           fontWeight: FontWeight.w900,
@@ -399,7 +399,6 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
                                   Text(
                                     (data[ID]["age"]).toString(),
-
                                     style: TextStyle(
                                       color: Color.fromRGBO(34, 36, 86, 1),
                                       fontWeight: FontWeight.w600,
@@ -470,7 +469,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                           },
                           child: Container(
                             child: Text(
-                              data[ID]['owner_name'],
+                              data[ID]["owner_name"],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromRGBO(34, 36, 86, 1),
@@ -637,7 +636,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
               child: new Text("Save"),
               textColor: Colors.black45,
               onPressed: () {_updateAge();
-              Navigator.of(context).pushReplacementNamed(DoggoInfo.id);
+              Navigator.of(context).pushReplacementNamed(OwnerInfo.id);
               },
             ),
           ],
@@ -707,7 +706,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
               child: new Text("Save"),
               textColor: Colors.black45,
               onPressed: () {_updateDoggoName();
-              Navigator.of(context).pushReplacementNamed(DoggoInfo.id);
+              Navigator.of(context).pushReplacementNamed(OwnerInfo.id);
               },
             ),
           ],
@@ -777,7 +776,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
               child: new Text("Save"),
               textColor: Colors.black45,
               onPressed: () {_updateOwnerName();
-              Navigator.of(context).pushReplacementNamed(DoggoInfo.id);
+              Navigator.of(context).pushReplacementNamed(OwnerInfo.id);
               },
             ),
           ],
@@ -889,11 +888,9 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnOwnerName: addOwnerName.text,
+      DatabaseHelper.columnBreed: addOwnerName.text,
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
-
-    print(rowsAffected);
   }
 
 

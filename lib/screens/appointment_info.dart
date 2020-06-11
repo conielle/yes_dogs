@@ -87,13 +87,27 @@ class _AppointmentInfoState extends State<AppointmentInfo>
     // get single row
     List<String> columnsToSelect = [
       DatabaseHelper.columnId,
-      DatabaseHelper.columnDogUniqueId,
       DatabaseHelper.columnDogName,
-      DatabaseHelper.columnName,
+      DatabaseHelper.columnDogUniqueId,
+      DatabaseHelper.columnBreed,
+      DatabaseHelper.columnFixed,
+      DatabaseHelper.columnSex,
       DatabaseHelper.columnScheduleDate,
       DatabaseHelper.columnScheduleTime,
       DatabaseHelper.columnAge,
       DatabaseHelper.columnPicture,
+      DatabaseHelper.columnOwnerName,
+      DatabaseHelper.columnOwnerID,
+      DatabaseHelper.columnPhone,
+      DatabaseHelper.columnEmail,
+      DatabaseHelper.columnAddress,
+      DatabaseHelper.columnVet,
+      DatabaseHelper.columnMyNotes,
+      DatabaseHelper.columnOwnerNotes,
+      DatabaseHelper.columnMedicalNotes,
+      DatabaseHelper.columnTemperament,
+      DatabaseHelper.columnGrooming,
+      DatabaseHelper.columnTraining,
 
     ];
     String whereString = '${DatabaseHelper.columnDogUniqueId} = "${dogUniqueID}"';

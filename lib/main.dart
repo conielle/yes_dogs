@@ -10,6 +10,9 @@ import 'package:daniellesdoggrooming/screens/statistics.dart';
 import 'package:daniellesdoggrooming/screens/add_doggo.dart';
 import 'package:daniellesdoggrooming/screens/doggo_info.dart';
 import 'package:daniellesdoggrooming/screens/appointment_info.dart';
+import 'package:daniellesdoggrooming/screens/owners.dart';
+import 'package:daniellesdoggrooming/screens/owner_info.dart';
+import 'package:daniellesdoggrooming/screens/add_owner.dart';
 
 
 
@@ -36,6 +39,9 @@ class MyApp extends StatelessWidget {
         Supplies.id: (context) => Supplies(),
         Statistics.id: (context) => Statistics(),
         AppointmentInfo.id: (context) => AppointmentInfo(),
+        AddOwner.id: (context) => AddOwner(),
+        Owners.id: (context) =>  Owners(),
+        OwnerInfo.id: (context) => OwnerInfo(),
       },
     );
   }

@@ -11,14 +11,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 
-class Doggos extends StatefulWidget {
-  static const String id = 'doggo';
+class Owners extends StatefulWidget {
+  static const String id = 'owners';
 
   @override
-  _DoggosState createState() => _DoggosState();
+  _OwnersState createState() => _OwnersState();
 }
 
-class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
+class _OwnersState extends State<Owners> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
@@ -96,10 +96,14 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
                     itemBuilder: (BuildContext context, i) {
                       return new ListTile(
                         onTap: () async {
+
+
                           dogUniqueID = data[i]["uniqueID"];
                           SharedPreferences doginfo =
                               await SharedPreferences.getInstance();
                           doginfo.setString('doguniqueid', '$dogUniqueID');
+
+
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => DoggoInfo()));
                         },
                         title: new Text(data[i]["dog_name"]),

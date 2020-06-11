@@ -18,16 +18,37 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
 
   ///////////CREATE DATABASE///////////
+  //DOG TABLE//
   static final table = 'doggos';
   static final columnId = '_id';
+
+  //DOG INFORMATION//
   static final columnDogUniqueId = 'uniqueID';
   static final columnDogName = 'dog_name';
-  static final columnName = 'owner_name';
-  static final columnAge = 'age';
+  static final columnBreed = 'breed';
+  static final columnFixed = 'fixed';
+  static final columnSex = 'sex';
   static final columnScheduleDate = 'date';
   static final columnScheduleTime = 'time';
+  static final columnAge = 'age';
   static final columnPicture = 'picture';
+  static final columnMyNotes = 'mynotes';
+  static final columnTemperament = 'temperament';
+  static final columnOwnerNotes = 'ownernotes';
+  static final columnMedicalNotes = 'medicalnotes';
 
+  //OWNER INFORMATION//
+  static final columnOwnerName = 'owner_name';
+  static final columnOwnerID = 'idnumber';
+  static final columnAddress = 'address';
+  static final columnPhone = 'phone';
+  static final columnEmail = 'email';
+  static final columnVet = 'vet';
+  static final columnTraining = 'training';
+  static final columnGrooming = 'grooming';
+
+
+  //SUPPLIES TABLE//
   static final table2 = 'supplies';
   static final columnSupplyUniqueId = 'uniqueID';
   static final columnType = 'supply_type';
@@ -37,18 +58,32 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
 
 
-
+  // SQL Code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-          CREATE TABLE $table (
+                  CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
             $columnDogUniqueId TEXT NOT NULL,
             $columnDogName TEXT NOT NULL,
-            $columnName TEXT NOT NULL,
+            $columnBreed TEXT NOT NULL,
+            $columnFixed TEXT NOT NULL,
+            $columnSex TEXT NOT NULL,
             $columnScheduleDate TEXT NOT NULL,
             $columnScheduleTime TEXT NOT NULL,
             $columnAge TEXT NOT NULL,
-            $columnPicture TEXT NOT NULL
+            $columnPicture TEXT NOT NULL,
+            $columnMyNotes TEXT NOT NULL,
+            $columnTemperament TEXT NOT NULL,
+            $columnOwnerNotes TEXT NOT NULL,
+            $columnMedicalNotes TEXT NOT NULL,
+            $columnOwnerName TEXT NOT NULL,
+            $columnOwnerID TEXT NOT NULL,
+            $columnAddress TEXT NOT NULL,
+            $columnPhone TEXT NOT NULL,
+            $columnEmail TEXT NOT NULL,
+            $columnTraining TEXT NOT NULL,
+            $columnGrooming TEXT NOT NULL,
+            $columnVet TEXT NOT NULL
           )
           ''');
     await db.execute('''
@@ -98,7 +133,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       firstLaunch();
     });
   }
