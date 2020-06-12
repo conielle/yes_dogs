@@ -224,6 +224,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             },
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Container(
+              height: appConfigblockSizeHeight * 100,
+              width: appConfigblockSizeWidth * 100,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -238,7 +240,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             style: TextStyle(
                               color: Color.fromRGBO(34, 36, 86, 1),
                               fontWeight: FontWeight.w900,
-                              fontSize: fontSize * 20,
+                              fontSize: fontSize * 14,
                             ),
                           ),
                           Container(height: appConfigblockSizeHeight * 3,
@@ -252,7 +254,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       style: TextStyle(
                                         color: Color.fromRGBO(34, 36, 86, 1),
                                         fontWeight: FontWeight.w500,
-                                        fontSize: fontSize * 10,
+                                        fontSize: fontSize * 7
                                       ),
                                     )
                                   : Text(
@@ -260,7 +262,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       style: TextStyle(
                                         color: Color.fromRGBO(34, 36, 86, 1),
                                         fontWeight: FontWeight.w500,
-                                        fontSize: fontSize * 10,
+                                        fontSize: fontSize * 7,
                                       ),
                                     ),
                             ),
