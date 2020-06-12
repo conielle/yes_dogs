@@ -308,13 +308,13 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                 children: [
                   Container(decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeWidth * 4)),
-                    color: Color.fromRGBO(101,107,107,1),),
+                    color: Color.fromRGBO(111,117,117,1),),
                     child: FlatButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeHeight * 2),
                           )),
-                      color: Color.fromRGBO(111, 117, 117, 1),
+                      color: Color.fromRGBO(101, 107, 107, 1),
                       textColor: Color.fromRGBO(34, 36, 86, 1),
                       padding: EdgeInsets.all(0),
                       onPressed: () {Navigator.push(
@@ -339,7 +339,7 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(111,117,117, 1),
+                      color: Color.fromRGBO(101,107,107, 1),
 
                     ),
 
@@ -355,7 +355,7 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeHeight * 2), bottomRight: Radius.circular(appConfigblockSizeHeight * 2, ),
                             )),
-                        color: Color.fromRGBO(101, 107, 107, 1),
+                        color: Color.fromRGBO(131, 137, 137, 1),
                         textColor: Color.fromRGBO(34, 36, 86, 1),
                         padding: EdgeInsets.all(0),
                         onPressed: () {},

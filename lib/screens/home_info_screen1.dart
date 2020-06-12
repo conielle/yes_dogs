@@ -298,7 +298,8 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
         leading: new Container(),
       ),
       body: SingleChildScrollView(
-        child: Container(padding: EdgeInsets.only(top: 0),
+        child: Container(
+            padding: EdgeInsets.only(top: 0),
             height: appConfigblockSizeHeight * 100,
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Column(children: [
@@ -306,21 +307,32 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeWidth * 4)),
-                    color: Color.fromRGBO(101,107,107,1),),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeWidth * 4)),
+                      color: Color.fromRGBO(101, 107, 107, 1),
+                    ),
                     child: FlatButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(appConfigblockSizeHeight * 2), bottomLeft: Radius.circular(appConfigblockSizeHeight * 2),
-                          )),
-                      color: Color.fromRGBO(111, 117, 117, 1),
+                        borderRadius: BorderRadius.only(
+                          bottomRight:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                        ),
+                      ),
+                      color: Color.fromRGBO(131, 137, 137, 1),
                       textColor: Color.fromRGBO(34, 36, 86, 1),
                       padding: EdgeInsets.all(0),
                       onPressed: () {},
                       child: Container(
                         width: appConfigblockSizeWidth * 33.3,
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "Overview",
@@ -335,22 +347,29 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(81, 87, 87, 1),),
+                      color: Color.fromRGBO(81, 87, 87, 1),
+                    ),
                     child: FlatButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(appConfigblockSizeHeight * 2),
-                          )),
+                          borderRadius: BorderRadius.only(
+                        bottomRight:
+                            Radius.circular(appConfigblockSizeHeight * 2),
+                      )),
                       color: Color.fromRGBO(101, 107, 107, 1),
                       textColor: Color.fromRGBO(34, 36, 86, 1),
                       padding: EdgeInsets.all(0),
-                      onPressed: () { Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  HomeInfo2()));},
-                      child: Container(width: appConfigblockSizeWidth * 33.3,
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeInfo2()));
+                      },
+                      child: Container(
+                        width: appConfigblockSizeWidth * 33.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "Owner",
@@ -366,28 +385,34 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                   Container(
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(81, 87, 87, 1),
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(appConfigblockSizeWidth * 4))),
+                        borderRadius: BorderRadius.only(
+                            bottomRight:
+                                Radius.circular(appConfigblockSizeWidth * 4))),
                     padding: EdgeInsets.all(0),
-
-                    child: FlatButton(materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: FlatButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(appConfigblockSizeHeight * 2), bottomLeft: Radius.circular(appConfigblockSizeHeight * 2),
-                          ),
-                          ),
+                        borderRadius: BorderRadius.only(
+                          bottomRight:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                        ),
+                      ),
                       color: Color.fromRGBO(81, 87, 87, 1),
                       textColor: Color.fromRGBO(34, 36, 86, 1),
                       padding: EdgeInsets.all(0),
                       onPressed: () {
-
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    HomeInfo3()));
-
+                                builder: (context) => HomeInfo3()));
                       },
-                      child: Container(width: appConfigblockSizeWidth * 33.3,
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+                      child: Container(
+                        width: appConfigblockSizeWidth * 33.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "Notes",

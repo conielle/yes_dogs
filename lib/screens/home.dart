@@ -23,11 +23,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-
   ////KEYS FOR FILE////
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
-
 
   ////DEfINITIONS////
   var dogUniqueID;
@@ -42,7 +40,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   final userName = TextEditingController();
   String setUserName;
-
 
   ////POPUP FOR USERNAME////
   void _userName() {
@@ -112,7 +109,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
-
   ////SAVE USERNAME TO MEMORY////
   _setUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -123,7 +119,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     });
   }
 
-
   ////CHECK FOR USERNAME AND LOAD TO MEMORY////
   userNameCheck() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -133,14 +128,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     });
   }
 
-
   ////SET FIRST LAUNCH VARIABLE/////
   void firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isFirstLaunch', true);
     print("Not First Launch Anymore");
   }
-
 
   ////CHECK IF ITS FIRST LAUNCH AND PULLING DATABASE DATA////
   fetchDataCheck() async {
@@ -153,7 +146,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       fetchSupplies();
     }
   }
-
 
   /////FETCH DOGS INFO FROM DATABASE/////
   Future<String> fetchDogs() async {
@@ -168,7 +160,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     });
   }
 
-
   /////FETCH SUPPLIES INFO FROM DATABASE/////
   Future<String> fetchSupplies() async {
     var database = await openDatabase('database.db');
@@ -182,7 +173,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     });
   }
 
-
   ////INITIATE TASKS////
   @override
   void initState() {
@@ -190,7 +180,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     userNameCheck();
     firstLaunch();
   }
-
 
   ////WHATS VISIBLE ON SCREEN////
   @override
@@ -200,7 +189,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
     double fontSize = appConfigWidth * 0.005;
-
 
     return Scaffold(
       appBar: AppBar(
@@ -225,249 +213,322 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             },
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Container(
-              height: appConfigblockSizeHeight * 100,
-              width: appConfigblockSizeWidth * 100,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: appConfigblockSizeHeight * 1,
-                    ),
-                    Container(
-                      child: Column(
+                height: appConfigblockSizeHeight * 100,
+                width: appConfigblockSizeWidth * 100,
+                child: Center(
+                  child: Stack(
+                    children: [
+                      Column(
                         children: [
-                          Text(
-                            "Welcome",
-                            style: TextStyle(
-                              color: Color.fromRGBO(34, 36, 86, 1),
-                              fontWeight: FontWeight.w900,
-                              fontSize: fontSize * 14,
-                            ),
-                          ),
-                          Container(height: appConfigblockSizeHeight * 3,
-                            child: FlatButton(
-                              onPressed: () {
-                                _userName();
-                              },
-                              child: setUserName == null
-                                  ? Text(
-                                      "Tap to add your name",
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(34, 36, 86, 1),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: fontSize * 7
-                                      ),
-                                    )
-                                  : Text(
-                                      "${setUserName}",
-                                      style: TextStyle(
-                                        color: Color.fromRGBO(34, 36, 86, 1),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: fontSize * 7,
-                                      ),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(height: appConfigblockSizeHeight * 1,)
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: appConfigblockSizeHeight * 1),
 
-                        ],
-                      ),
-                    ),
-                    Container(
-                        height: appConfigblockSizeHeight * 100,
-                        child: Stack(
-                          children: [
-
-                            Column(
+                            height: appConfigblockSizeHeight * 10,
+                            width: appConfigblockSizeWidth * 80,
+                            child: Column(
                               children: [
-                                SingleChildScrollView(
-                                  child: Container(
-                                    width: appConfigblockSizeWidth * 90,
-                                    decoration: BoxDecoration(
-                                      color: Color.fromRGBO(136, 136, 136, 1),
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(
-                                              appConfigblockSizeHeight * 5),
-                                          topLeft: Radius.circular(
-                                              appConfigblockSizeWidth * 5)),
-                                    ),
-
-                                    height: appConfigblockSizeHeight * 50,
-                                    child: Column(
-
-                                      //////////////TOP STREAM////////////
-                                      children: <Widget>[
-                                        (data == null)
-                                            ? (Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-
-                                            SizedBox(
-                                              height: 2,
-                                            ),
-                                            Container(
-                                              height: 200,
-                                              width: 200,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image:
-                                                  AssetImage('images/logo.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Add Some Dogs",
-                                              style: TextStyle(
-                                                color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 1,
-                                            ),
-                                            FloatingActionButton(
-                                              heroTag: 'adddoggo',
-                                              onPressed: () {
-                                                ;
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            AddDoggo()));
-                                              },
-                                              child: Icon(
-                                                Icons.add,
-                                              ),
-                                              backgroundColor:
-                                              Color.fromRGBO(34, 36, 86, 1),
-                                            ),
-                                          ],
-                                        ))
-                                            : (data.length == 0)
-                                            ? (Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            SizedBox(
-                                              height: 2,
-                                            ),
-                                            Container(
-                                              height: 200,
-                                              width: 200,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'images/logo.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Add Some Dogs",
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 1,
-                                            ),
-                                            FloatingActionButton(
-                                              heroTag: 'adddoggo',
-                                              onPressed: () {
-                                                ;
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            AddDoggo()));
-                                              },
-                                              child: Icon(
-                                                Icons.add,
-                                              ),
-                                              backgroundColor:
-                                              Color.fromRGBO(34, 36, 86, 1),
-                                            ),
-                                          ],
-                                        ))
-                                            : (Expanded(
-                                          child: ListView.builder(
-                                            itemCount: data.length,
-                                            itemBuilder:
-                                                (BuildContext context, i) {
-                                              return new ListTile(
-                                                onTap: () async {
-                                                  dogUniqueID =
-                                                  data[i]["uniqueID"];
-                                                  SharedPreferences doginfo =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                                  doginfo.setString(
-                                                      'doguniqueid',
-                                                      '$dogUniqueID');
-
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                             HomeInfo1()));
-                                                },
-                                                title: new Text(
-                                                    data[i]["dog_name"]),
-                                                subtitle: new Text(
-                                                    data[i]["owner_name"]),
-                                                leading: new CircleAvatar(
-                                                  backgroundColor:
-                                                  Colors.transparent,
-                                                  backgroundImage:
-                                                  new AssetImage(
-                                                      data[i]["picture"]),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ))
-                                      ],
-
-                                    ),
+                                Text(
+                                  "Welcome",
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(34, 36, 86, 1),
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: fontSize * 14,
                                   ),
                                 ),
+                                Container(
+                                  height: appConfigblockSizeHeight * 3,
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      _userName();
+                                    },
+                                    child: setUserName == null
+                                        ? Text(
+                                            "Tap to add your name",
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    34, 36, 86, 1),
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: fontSize * 7),
+                                          )
+                                        : Text(
+                                            "${setUserName}",
+                                            style: TextStyle(
+                                              color:
+                                                  Color.fromRGBO(34, 36, 86, 1),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: fontSize * 7,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: appConfigblockSizeHeight * 1,
+                                )
                               ],
                             ),
-                            Positioned(top: appConfigblockSizeHeight * 45,
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                              bottom: 0,
+                              top: appConfigblockSizeWidth * 0.5,
+                              left: appConfigblockSizeWidth * 2,
+                              right: appConfigblockSizeWidth * 2,
+                            ),
+                            height: appConfigblockSizeHeight * 52,
+                            width: appConfigblockSizeWidth * 80,
+                            child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  SingleChildScrollView(
+                                  Padding(
+                                    padding: const EdgeInsets.all(2),
                                     child: Container(
-                                      width: appConfigblockSizeWidth * 90,
+                                      width: appConfigblockSizeWidth * 80,
+                                      height: appConfigblockSizeHeight * 52,
                                       decoration: BoxDecoration(
+                                        color: Color.fromRGBO(136, 136, 136, 1),
+
+
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                            Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
+                                          ),
+                                        ],
+
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(
+                                                appConfigblockSizeHeight * 5),
+                                            topLeft: Radius.circular(
+                                                appConfigblockSizeHeight * 5)),
+                                      ),
+                                      child: Column(
+                                        //////////////TOP STREAM////////////
+                                        children: <Widget>[
+                                          (data == null)
+                                              ? (Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 2,
+                                                    ),
+                                                    Container(
+                                                      height: 200,
+                                                      width: 200,
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: AssetImage(
+                                                              'images/logo.png'),
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "Add Some Dogs",
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 13,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1,
+                                                    ),
+                                                    FloatingActionButton(
+                                                      heroTag: 'adddoggo',
+                                                      onPressed: () {
+                                                        ;
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        AddDoggo()));
+                                                      },
+                                                      child: Icon(
+                                                        Icons.add,
+                                                      ),
+                                                      backgroundColor:
+                                                          Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                    ),
+                                                  ],
+                                                ))
+                                              : (data.length == 0)
+                                                  ? (Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                          height: 5,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 2,
+                                                        ),
+                                                        Container(
+                                                          height: 200,
+                                                          width: 200,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            image:
+                                                                DecorationImage(
+                                                              image: AssetImage(
+                                                                  'images/logo.png'),
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          "Add Some Dogs",
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 13,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 1,
+                                                        ),
+                                                        FloatingActionButton(
+                                                          heroTag: 'adddoggo',
+                                                          onPressed: () {
+                                                            ;
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            AddDoggo()));
+                                                          },
+                                                          child: Icon(
+                                                            Icons.add,
+                                                          ),
+                                                          backgroundColor:
+                                                              Color.fromRGBO(34,
+                                                                  36, 86, 1),
+                                                        ),
+                                                      ],
+                                                    ))
+                                                  : Container(
+                                                      child: (Expanded(
+                                                        child: ListView.builder(
+                                                          itemCount:
+                                                              data.length,
+                                                          itemBuilder:
+                                                              (BuildContext
+                                                                      context,
+                                                                  i) {
+                                                            return new ListTile(
+                                                              onTap: () async {
+                                                                dogUniqueID = data[
+                                                                        i][
+                                                                    "uniqueID"];
+                                                                SharedPreferences
+                                                                    doginfo =
+                                                                    await SharedPreferences
+                                                                        .getInstance();
+                                                                doginfo.setString(
+                                                                    'doguniqueid',
+                                                                    '$dogUniqueID');
+
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                HomeInfo1()));
+                                                              },
+                                                              title: new Text(data[
+                                                                      i]
+                                                                  ["dog_name"]),
+                                                              subtitle:
+                                                                  new Text(data[
+                                                                          i][
+                                                                      "owner_name"]),
+                                                              leading:
+                                                                  new CircleAvatar(
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                backgroundImage:
+                                                                    new AssetImage(
+                                                                        data[i][
+                                                                            "picture"]),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      )),
+                                                    )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Positioned(
+                        top: appConfigblockSizeHeight * 56,
+                        child: Container(
+                            padding:
+                                EdgeInsets.only(left: appConfigblockSizeWidth * 1, right: appConfigblockSizeWidth * 1, top: appConfigblockSizeWidth * 1),
+
+                            height: appConfigblockSizeHeight * 34,
+                            width: appConfigblockSizeWidth * 80,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(2),
+                                    child: Container(
+                                      height: appConfigblockSizeHeight * 34,
+                                      width: appConfigblockSizeWidth * 87,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
+                                          ),
+                                        ],
                                         color: Color.fromRGBO(156, 156, 156, 1),
                                         borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(
                                                 appConfigblockSizeHeight * 5),
                                             topLeft: Radius.circular(
-                                                appConfigblockSizeWidth * 5)),
+                                                appConfigblockSizeHeight * 5)),
                                       ),
-
-                                      height: appConfigblockSizeHeight * 40,
                                       child: Column(
                                         //////////////BOTTOM STREAM////////////
 
@@ -509,9 +570,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        AddSupply()));
+                                                                builder: (context) =>
+                                                                    AddSupply()));
                                                       },
                                                       child: Icon(
                                                         Icons.add,
@@ -543,12 +603,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                         Text(
                                                           "Add Some Supplies",
                                                           style: TextStyle(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    34,
-                                                                    36,
-                                                                    86,
-                                                                    1),
+                                                            color: Color.fromRGBO(
+                                                                34, 36, 86, 1),
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 13,
@@ -560,8 +616,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                   1,
                                                         ),
                                                         FloatingActionButton(
-                                                          heroTag:
-                                                              'addsupplies',
+                                                          heroTag: 'addsupplies',
                                                           onPressed: () {
                                                             ;
                                                             Navigator.push(
@@ -575,8 +630,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                             Icons.add,
                                                           ),
                                                           backgroundColor:
-                                                              Color.fromRGBO(34,
-                                                                  36, 86, 1),
+                                                              Color.fromRGBO(
+                                                                  34, 36, 86, 1),
                                                         ),
                                                       ],
                                                     ))
@@ -608,8 +663,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                               SupplyInfo()));
                                                             },
                                                             title: new Text(data2[
-                                                                    i][
-                                                                "supply_type"]),
+                                                                    i]
+                                                                ["supply_type"]),
                                                             subtitle: new Text(
                                                                 data2[i][
                                                                     "brand_name"]),
@@ -638,13 +693,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   ),
                                 ],
                               ),
-                            )
-                          ],
-                        )),
-                  ],
-                ),
-              ),
-            ),
+                            )),
+                      ),
+                    ],
+                  ),
+                )),
           ),
         ),
       ),
@@ -727,5 +780,4 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
-
 }
