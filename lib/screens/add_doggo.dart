@@ -58,6 +58,12 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   List<bool> _selections = List.generate(2, (_) => false);
 
 
+  var uuiddog;
+  uniqueIDGenerated() {
+    uuiddog = uuid.v1();
+    print(uuiddog);
+    return uuiddog;
+  }
 
   void _addPhoto() {
     showDialog(
@@ -252,6 +258,12 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
         finalTime = formattedTime.toString();
       });
     }
+  }
+
+  @override
+  void initState() {
+    uniqueIDGenerated();
+    super.initState();
   }
 
   @override
@@ -530,10 +542,10 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                           textColor: Colors.white,
                           color: Color.fromRGBO(34, 36, 86, 1),
                           onPressed: () async {
-                            SharedPreferences ownerinfo =
+                            uniqueIDGenerated();
+                            SharedPreferences doggoinfo =
                                 await SharedPreferences.getInstance();
-                            ownerinfo.setString('owneruniqueid', '${uniqueIDGenerated()}');
-                            print('${uniqueIDGenerated()}');
+                            doggoinfo.setString('doggouniqueid', '$uuiddog');
                             _insert();
                             Navigator.push(
                                 context,
@@ -576,10 +588,10 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
   isDoggoFixed() {
     if (isSwitched == true) {
-      doggoFixed = "fixed";
+      doggoFixed = "is";
       print('Doggo Is Fixed');
     } else if (isSwitched == false) {
-      doggoFixed = "is not fixed";
+      doggoFixed = "is not";
       print("Doggo Is Not Fixed");
     }
 
@@ -588,10 +600,10 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
   isDoggoTraining() {
     if (isTrainingSwitched == true) {
-      doggoTrained = "yes";
+      doggoTrained = "is";
       print('Doggo Is Training');
     } else if (isTrainingSwitched == false) {
-      doggoTrained = "no";
+      doggoTrained = "is not";
       print("Doggo Is Not Training");
     }
 
@@ -600,10 +612,10 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
   isDoggoGrooming() {
     if (isGroomingSwitched == true) {
-      doggoGroomed = "yes";
+      doggoGroomed = "is";
       print('Doggo Is Grooming');
     } else if (isGroomingSwitched == false) {
-      doggoGroomed = "no";
+      doggoGroomed = "is not";
       print("Doggo Is Not Grooming");
     }
 
@@ -681,13 +693,6 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     return date;
   }
 
-  uniqueIDGenerated() {
-    var uuiddog;
-
-    uuiddog = uuid.v1();
-
-    return uuiddog;
-  }
 
   void _insert() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -696,7 +701,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnDogName: '${isThereADogName()}',
-      DatabaseHelper.columnDogUniqueId: '${uniqueIDGenerated()}',
+      DatabaseHelper.columnDogUniqueId: '$uuiddog',
       DatabaseHelper.columnBreed: '${isThereABreed()}',
       DatabaseHelper.columnFixed: '${isDoggoFixed()}',
       DatabaseHelper.columnSex: '${isThereASex()}',
@@ -704,8 +709,8 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
       DatabaseHelper.columnScheduleTime: '${timeCheck()}',
       DatabaseHelper.columnAge: '${isThereAnAge()}',
       DatabaseHelper.columnPicture: '${isThereAPic()}',
-      DatabaseHelper.columnTraining: '${isDoggoGrooming()}',
-      DatabaseHelper.columnGrooming: '${isDoggoTraining()}',
+      DatabaseHelper.columnTraining: '${isDoggoTraining()}',
+      DatabaseHelper.columnGrooming: '${isDoggoGrooming()}',
       DatabaseHelper.columnOwnerName: 'Nameless Owner',
       DatabaseHelper.columnOwnerID: 'No ID Number',
       DatabaseHelper.columnPhone: 'No Phone Number}',

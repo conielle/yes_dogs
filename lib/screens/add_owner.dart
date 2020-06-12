@@ -6,6 +6,8 @@ import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../database/database_logic.dart';
+
 
 class AddOwner extends StatefulWidget {
   static const String id = 'addowner';
@@ -32,11 +34,11 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
 
 
   fetchUniqueID() async {
-    SharedPreferences ownerinfo = await SharedPreferences.getInstance();
-    ownerUniqueID = ownerinfo.getString('owneruniqueid') ?? '';
+    SharedPreferences doggoinfo = await SharedPreferences.getInstance();
+    ownerUniqueID = doggoinfo.getString('doggouniqueid') ?? '';
 
     print('Unique ID Fetched on Owner Page');
-    return ownerUniqueID;
+    fetchID();
   }
 
   fetchID() async{
@@ -80,25 +82,19 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
 
     indexID = result[0]['_id'];
     print ('This is the $indexID number');
-
-    setState(() {
-      var extractdata = result;
-      data = extractdata;
-      print(data);
-      return data.toList();
-    });
-
     print("Database Query");
-
+    return indexID;
 
   }
+
+
 
   @override
   void initState() {
-fetchUniqueID();
-fetchID();
-  }
 
+    fetchUniqueID();
+    super.initState();
+  }
 
 
   @override
@@ -422,7 +418,7 @@ fetchID();
     if (addOwnerName.text == null) {finalName = "Nameless Owner";
     } else if (addOwnerName.text == ''){finalName = "Nameless Owner";
     } else {finalName = addOwnerName.text;}
-    return finalName;
+     return finalName;
   }
 
    isThereID() {
@@ -478,6 +474,8 @@ fetchID();
 
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
+    print(rowsAffected);
+    print(indexID);
     print('database updated');
   }
 }
