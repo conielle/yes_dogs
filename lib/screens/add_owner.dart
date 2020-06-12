@@ -1,28 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-import 'dart:io';
-import 'dart:math';
-import 'dart:convert';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image/image.dart' as img;
-import 'package:path_provider/path_provider.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
-import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart';
 
-class random {
-  static final Random _random = Random.secure();
-
-  static String Number([int length = 6]) {
-    var values = List<int>.generate(length, (i) => _random.nextInt(256));
-
-    return base64Url.encode(values);
-  }
-}
 
 class AddOwner extends StatefulWidget {
   static const String id = 'addowner';

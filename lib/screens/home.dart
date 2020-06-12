@@ -1,5 +1,6 @@
 import 'package:daniellesdoggrooming/screens/add_doggo.dart';
 import 'package:daniellesdoggrooming/screens/add_supply.dart';
+import 'package:daniellesdoggrooming/screens/home_info_screen1.dart';
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/rendering.dart';
@@ -427,7 +428,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              DoggoInfo()));
+                                                             HomeInfo1()));
                                                 },
                                                 title: new Text(
                                                     data[i]["dog_name"]),
