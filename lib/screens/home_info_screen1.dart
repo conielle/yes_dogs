@@ -443,7 +443,8 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                               child: Column(
                                 children: [
                                   //HEADER
-                                  Container(width: appConfigblockSizeWidth * 90,
+                                  Container(
+                                    width: appConfigblockSizeWidth * 90,
                                     padding: EdgeInsets.all(
                                         appConfigblockSizeWidth * 4),
                                     decoration: BoxDecoration(
@@ -521,6 +522,27 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                                     ),
                                                     Text(
                                                       ' years old, ',
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      (data[ID]["breed"])
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      ', ',
                                                       style: TextStyle(
                                                         color: Color.fromRGBO(
                                                             34, 36, 86, 1),
@@ -651,57 +673,75 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                               MainAxisAlignment.center,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
-                                          children: [(data[ID]['grooming'] == 'is') ?
-                                            Container(
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    (data[ID]["dog_name"])
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w400,
+                                          children: [
+                                            (data[ID]['grooming'] == 'is')
+                                                ? Container(
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          (data[ID]["dog_name"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' ',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          (data[ID]["grooming"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' being groomed.',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    ' ',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    (data[ID]["grooming"])
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    ' being groomed.',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ) : Container(),
+                                                  )
+                                                : Container(),
                                           ],
                                         ),
                                         SizedBox(
@@ -713,57 +753,75 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                               MainAxisAlignment.center,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
-                                          children: [(data[ID]['training'] == 'is') ?
-                                            Container(
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    (data[ID]["dog_name"])
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w400,
+                                          children: [
+                                            (data[ID]['training'] == 'is')
+                                                ? Container(
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          (data[ID]["dog_name"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' ',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          (data[ID]["training"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' being trained.',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    ' ',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    (data[ID]["training"])
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    ' being trained.',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ) : Container(),
+                                                  )
+                                                : Container(),
                                           ],
                                         ),
                                       ],
@@ -780,7 +838,7 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                       boxShadow: [
                                         BoxShadow(
                                           color:
-                                          Colors.black54.withOpacity(0.5),
+                                              Colors.black54.withOpacity(0.5),
                                           spreadRadius: 1,
                                           blurRadius: 1,
                                           offset: Offset(0,
@@ -792,7 +850,6 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                           Radius.circular(
                                               appConfigblockSizeWidth * 4)),
                                     ),
-
                                     child: Column(
                                       children: [
                                         Container(
@@ -805,7 +862,9 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                                 fontSize: fontSize * 8),
                                           ),
                                         ),
-                                        SizedBox(height: appConfigblockSizeHeight * 2,),
+                                        SizedBox(
+                                          height: appConfigblockSizeHeight * 2,
+                                        ),
                                         Container(
                                           child: Text(
                                             data[ID]['owner_name'],
@@ -818,7 +877,8 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         SizedBox(
-                                          height: appConfigblockSizeHeight * 0.5,
+                                          height:
+                                              appConfigblockSizeHeight * 0.5,
                                         ),
                                         Container(
                                           child: Text(
@@ -832,7 +892,8 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         SizedBox(
-                                          height: appConfigblockSizeHeight * 0.5,
+                                          height:
+                                              appConfigblockSizeHeight * 0.5,
                                         ),
                                         Container(
                                           child: Text(
