@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image/image.dart' as img;
-import 'package:path_provider/path_provider.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -40,173 +36,12 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
   var dogUniqueID;
   List data;
 
-  String tempPath;
-  String previewPath;
-  File previewImage;
-  String newImagePath;
-  String savedImagePath;
-
-  final addDoggoName = TextEditingController();
-  final addOwnerName = TextEditingController();
-  final addDoggoAge = TextEditingController();
-
-  void _addPhoto() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text(
-            "Add a photo!",
-            style: TextStyle(
-              color: Color.fromRGBO(34, 36, 86, 1),
-            ),
-          ),
-          content: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                    onPressed: () {
-                      _getImage();
-                      Navigator.of(context).pop(true);
-                    },
-                    heroTag: 'image1',
-                    tooltip: 'Pick a photo',
-                    child: const Icon(
-                      Icons.photo_library,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                    onPressed: () {
-                      _takeImage();
-                      Navigator.of(context).pop(true);
-                    },
-                    heroTag: 'image2',
-                    tooltip: 'Take a Photo',
-                    child: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Color.fromRGBO(34, 36, 86, 1),
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  final addTemperament = TextEditingController();
+  final addOwnerNotes = TextEditingController();
+  final addMedicalNotes = TextEditingController();
+  final addMyOwnNotes = TextEditingController();
 
   @override
-  ////////////ERROR POPUP////////////////
-
-  /////////GALLERY IMAGE SELECTOR AND RESIZER//////
-  File rawGalleryImage;
-
-  Future _getImage() async {
-    Directory tempDir = await getTemporaryDirectory();
-    tempPath = tempDir.path;
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-
-    var galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-    print("Path : " + galleryImage.path);
-    rawGalleryImage = galleryImage;
-
-    File myCompressedFile;
-    img.Image image = img.decodeImage(rawGalleryImage.readAsBytesSync());
-
-    img.Image thumbnail = img.copyResize(image, height: 200);
-
-    String labelgallery = '${random.Number()}${addDoggoName.text}gallery.jpg';
-
-    myCompressedFile = new File(appDocPath + '$labelgallery')
-      ..writeAsBytesSync(img.encodeJpg(thumbnail));
-    print(appDocPath + '$labelgallery');
-    newImagePath = myCompressedFile.path;
-    print(newImagePath);
-
-    final File copiedImage =
-        await myCompressedFile.copy('$appDocPath/$labelgallery');
-
-    print(copiedImage.path);
-    savedImagePath = copiedImage.path;
-
-    setState(() {
-      previewImage = copiedImage;
-    });
-    _updatePicture();
-    return previewImage;
-  }
-
-  /////////CAMERA IMAGE SELECTOR AND RESIZER//////
-  File rawCamImage;
-
-  Future _takeImage() async {
-    Directory tempDir = await getTemporaryDirectory();
-    tempPath = tempDir.path;
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    rawCamImage = image;
-    File convert = rawCamImage;
-    File myCompressedFile;
-    img.Image images = img.decodeImage(convert.readAsBytesSync());
-    print("Compressed");
-
-    // Resize the image to a 200x? thumbnail (maintaining the aspect ratio).
-    img.Image thumbnail = img.copyResize(images, height: 200);
-    img.Image rotated = img.copyRotate(thumbnail, 90);
-
-    // Save the thumbnail as a JPG.
-
-    String labelcamera = '${random.Number()}${addDoggoName.text}camera.jpg';
-
-    myCompressedFile = new File(appDocPath + '$labelcamera')
-      ..writeAsBytesSync(img.encodeJpg(thumbnail));
-    print(appDocPath + '$labelcamera');
-    newImagePath = myCompressedFile.path;
-
-    print(newImagePath);
-
-    final File copiedImage =
-        await myCompressedFile.copy('$appDocPath/$labelcamera');
-
-    print(copiedImage.path);
-    savedImagePath = copiedImage.path;
-    setState(() {
-      previewImage = copiedImage;
-    });
-
-    _updatePicture();
-    return previewImage;
-  }
-
   fetchUniqueID() async {
     SharedPreferences doginfo = await SharedPreferences.getInstance();
     dogUniqueID = doginfo.getString('doguniqueid') ?? '';
@@ -298,33 +133,43 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
         leading: new Container(),
       ),
       body: SingleChildScrollView(
-        child: Container(padding: EdgeInsets.only(top: 0),
-            height: appConfigblockSizeHeight * 100,
+        child: Container(
+            padding: EdgeInsets.only(top: 0),
+            height: appConfigblockSizeHeight * 180,
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeWidth * 4)),
-                    color: Color.fromRGBO(81,87,87,1),),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeWidth * 4)),
+                      color: Color.fromRGBO(81, 87, 87, 1),
+                    ),
                     child: FlatButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeHeight * 2),
-                          )),
+                          borderRadius: BorderRadius.only(
+                        bottomLeft:
+                            Radius.circular(appConfigblockSizeHeight * 2),
+                      )),
                       color: Color.fromRGBO(81, 87, 87, 1),
                       textColor: Color.fromRGBO(34, 36, 86, 1),
                       padding: EdgeInsets.all(0),
-                      onPressed: () {Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  HomeInfo1()));},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeInfo1()));
+                      },
                       child: Container(
                         width: appConfigblockSizeWidth * 33.3,
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "Overview",
@@ -339,32 +184,37 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(81,87,87, 1),
-
+                      color: Color.fromRGBO(81, 87, 87, 1),
                     ),
-
                     child: Container(
-
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeHeight * 2),),
-                        color: Color.fromRGBO(101,107,107, 1),
-
+                        borderRadius: BorderRadius.only(
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                        ),
+                        color: Color.fromRGBO(101, 107, 107, 1),
                       ),
                       child: FlatButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(appConfigblockSizeHeight * 2),
-                            )),
+                            borderRadius: BorderRadius.only(
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                        )),
                         color: Color.fromRGBO(101, 107, 107, 1),
                         textColor: Color.fromRGBO(34, 36, 86, 1),
                         padding: EdgeInsets.all(0),
-                        onPressed: () {Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    HomeInfo2()));},
-                        child: Container(width: appConfigblockSizeWidth * 33.3,
-                          child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeInfo2()));
+                        },
+                        child: Container(
+                          width: appConfigblockSizeWidth * 33.3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 "Owner",
@@ -381,20 +231,29 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                   Container(
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(101, 107, 107, 1),
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(appConfigblockSizeWidth * 4))),
+                        borderRadius: BorderRadius.only(
+                            bottomRight:
+                                Radius.circular(appConfigblockSizeWidth * 4))),
                     padding: EdgeInsets.all(0),
-
-                    child: FlatButton(materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: FlatButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(appConfigblockSizeHeight * 2), bottomLeft: Radius.circular(appConfigblockSizeHeight * 2),
+                        borderRadius: BorderRadius.only(
+                          bottomRight:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeHeight * 2),
                         ),
                       ),
                       color: Color.fromRGBO(131, 137, 137, 1),
                       textColor: Color.fromRGBO(34, 36, 86, 1),
                       padding: EdgeInsets.all(0),
                       onPressed: () {},
-                      child: Container(width: appConfigblockSizeWidth * 33.3,
-                        child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+                      child: Container(
+                        width: appConfigblockSizeWidth * 33.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "Notes",
@@ -411,8 +270,127 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
               ),
               SizedBox(height: appConfigblockSizeHeight * 5),
               Container(
+                height: appConfigblockSizeHeight * 150,
+                width: appConfigblockSizeWidth * 80,
                 child: Column(
-                  children: [],
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          'Temperament',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromRGBO(34, 36, 86, 1),
+                            fontSize: 20,
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            _addTemperament();
+                          },
+                          child: Container(
+                            child: Text(
+                              data[ID]['temperament'],
+                              style: TextStyle(
+                                color: Color.fromRGBO(34, 36, 86, 1),
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: appConfigblockSizeHeight * 4,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'Medical Notes',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromRGBO(34, 36, 86, 1),
+                            fontSize: 20,
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            _addMedicalNotes();
+                          },
+                          child: Container(
+                            child: Text(
+                              data[ID]['medicalnotes'],
+                              style: TextStyle(
+                                color: Color.fromRGBO(34, 36, 86, 1),
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: appConfigblockSizeHeight * 4,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'Owner\'s Notes',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromRGBO(34, 36, 86, 1),
+                            fontSize: 20,
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            _addOwnerNotes();
+                          },
+                          child: Container(
+                            child: Text(
+                              data[ID]['ownernotes'],
+                              style: TextStyle(
+                                color: Color.fromRGBO(34, 36, 86, 1),
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: appConfigblockSizeHeight * 4,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'My Own Notes',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromRGBO(34, 36, 86, 1),
+                            fontSize: 20,
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            _addMyOwnNotes();
+                          },
+                          child: Container(
+                            child: Text(
+                              data[ID]['mynotes'],
+                              style: TextStyle(
+                                color: Color.fromRGBO(34, 36, 86, 1),
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: appConfigblockSizeHeight * 4,
+                    ),
+                  ],
                 ),
               )
             ])),
@@ -420,65 +398,59 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
     );
   }
 
-  isThereADogName() {
-    String dogNameValue;
-    if (addDoggoName.text == null) {
-      dogNameValue = 'No Named Doggo';
-    } else if (addDoggoName.text == "") {
-      dogNameValue = 'No Named Doggo';
+  //TEXT CHECKERS
+
+  isThereATemperament() {
+    String temperamentValue;
+    if (addTemperament.text == null) {
+      temperamentValue = 'No Recorded Temperament Details for Doggo';
+    } else if (addTemperament.text == "") {
+      temperamentValue = data[0]['temperament'];
     } else {
-      dogNameValue = addDoggoName.text;
+      temperamentValue = addTemperament.text;
     }
-    return dogNameValue;
+    return temperamentValue;
   }
 
-  isThereAName() {
-    String nameValue;
-    if (addOwnerName.text == null) {
-      nameValue = 'No Named Owner';
-    } else if (addOwnerName.text == '') {
-      nameValue = 'No Named Owner';
+  isThereAMedicalNote() {
+    String medicalValue;
+    if (addMedicalNotes.text == null) {
+      medicalValue = 'No Recorded Medical Notes for Doggo';
+    } else if (addMedicalNotes.text == '') {
+      medicalValue = data[0]['medicalnotes'];
     } else {
-      nameValue = addOwnerName.text;
+      medicalValue = addMedicalNotes.text;
     }
-    return nameValue;
+    return medicalValue;
   }
 
-  isThereAnAge() {
-    String ageValue;
-    if (addDoggoAge.text == null) {
-      ageValue = 'Doggo has no age';
-    } else if (addDoggoAge.text == "") {
-      ageValue = 'Doggo has no age';
+  isThereAnOwnerNote() {
+    String ownerValue;
+    if (addOwnerNotes.text == null) {
+      ownerValue = 'No Recorded Owner\'s Notes For Doggo';
+    } else if (addOwnerNotes.text == "") {
+      ownerValue = data[0]['ownernotes'];
     } else {
-      ageValue = addDoggoAge.text;
+      ownerValue = addOwnerNotes.text;
     }
-    return ageValue;
+    return ownerValue;
   }
 
-  isThereAPic() {
-    String picturePath;
-    if (newImagePath == null) {
-      picturePath = 'images/doggo.png';
+  isThereAMyOwnNote() {
+    String myNotes;
+    if (addMyOwnNotes.text == null) {
+      myNotes = 'My Notes Are Ewmpty, For Now';
+    } else if (addMyOwnNotes.text == '') {
+      myNotes = 'My Notes Are empty, For Now';
     } else {
-      picturePath = newImagePath;
+      myNotes = addMyOwnNotes.text;
     }
-    return picturePath;
+    return myNotes;
   }
 
-  void _insert() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnDogName: '${isThereADogName()}',
-      DatabaseHelper.columnBreed: '${isThereAName()}',
-      DatabaseHelper.columnAge: '${isThereAnAge()}',
-      DatabaseHelper.columnPicture: '${isThereAPic()}',
-    };
-    final id = await dbHelper.insertDoggos(row);
-    print('${addDoggoName.text}');
-    print('inserted row id: $id');
-  }
+  //POPUP INPUTS
 
-  void _changeAge() {
+  void _addTemperament() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -487,18 +459,21 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Age Change!"),
+          title: new Text(
+            "How's the Temperament?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the doggos age?"),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
+              TextFormField(
+                maxLines: 14,
                 style: TextStyle(color: Colors.white),
                 cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
-                  hintText: 'Doggo\'s Age',
+                  hintText: 'Add a note about the doggo\'s temperament',
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     borderSide: BorderSide(width: 2, color: Colors.white),
@@ -516,13 +491,9 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                         color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
-                  icon: Icon(
-                    FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
                 ),
                 textAlign: TextAlign.center,
-                controller: addDoggoAge,
+                controller: addTemperament,
               ),
             ],
           ),
@@ -539,7 +510,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
               child: new Text("Save"),
               textColor: Colors.black45,
               onPressed: () {
-                _updateAge();
+                _updateTemperament();
                 Navigator.of(context).pushReplacementNamed(HomeInfo3.id);
               },
             ),
@@ -549,7 +520,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
     );
   }
 
-  void _changeDoggoName() {
+  void _addMedicalNotes() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -558,18 +529,21 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Doggo Name Change!"),
+          title: new Text(
+            "Any Medical Notes?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the doggos real name?"),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
+              TextFormField(
+                maxLines: 14,
                 style: TextStyle(color: Colors.white),
                 cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
-                  hintText: 'Doggo\'s Name',
+                  hintText: 'Add some medical notes about the doggo.',
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     borderSide: BorderSide(width: 2, color: Colors.white),
@@ -587,13 +561,9 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                         color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
-                  icon: Icon(
-                    FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
                 ),
                 textAlign: TextAlign.center,
-                controller: addDoggoName,
+                controller: addMedicalNotes,
               ),
             ],
           ),
@@ -610,7 +580,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
               child: new Text("Save"),
               textColor: Colors.black45,
               onPressed: () {
-                _updateDoggoName();
+                _updateMedicalNotes();
                 Navigator.of(context).pushReplacementNamed(HomeInfo3.id);
               },
             ),
@@ -620,7 +590,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
     );
   }
 
-  void _changeOwnerName() {
+  void _addOwnerNotes() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -629,18 +599,21 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Owner Name Change!"),
+          title: new Text(
+            "Any Owners Notes?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the owners real name?"),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
+              TextFormField(
+                maxLines: 14,
                 style: TextStyle(color: Colors.white),
                 cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
-                  hintText: 'Owner\'s Name',
+                  hintText: 'Add some notes from the owner about the doggo.',
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     borderSide: BorderSide(width: 2, color: Colors.white),
@@ -658,13 +631,9 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                         color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
-                  icon: Icon(
-                    FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
                 ),
                 textAlign: TextAlign.center,
-                controller: addOwnerName,
+                controller: addOwnerNotes,
               ),
             ],
           ),
@@ -681,7 +650,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
               child: new Text("Save"),
               textColor: Colors.black45,
               onPressed: () {
-                _updateOwnerName();
+                _updateOwnerNotes();
                 Navigator.of(context).pushReplacementNamed(HomeInfo3.id);
               },
             ),
@@ -691,43 +660,115 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
     );
   }
 
-  void _updatePicture() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnPicture: savedImagePath
-    };
-    final rowsAffected = await dbHelper.updateDoggos(row);
+  void _addMyOwnNotes() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
+          title: new Text(
+            "Add Your Own Notes?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                maxLines: 14,
+                style: TextStyle(color: Colors.white),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
+                decoration: InputDecoration(
+                  hintText: 'Add a few notes about the doggo.',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    borderSide: BorderSide(width: 2, color: Colors.white),
+                  ),
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(34, 36, 86, 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                ),
+                textAlign: TextAlign.center,
+                controller: addMyOwnNotes,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              textColor: Colors.black45,
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+            new FlatButton(
+              child: new Text("Save"),
+              textColor: Colors.black45,
+              onPressed: () {
+                _updateMyOwnNotes();
+                Navigator.of(context).pushReplacementNamed(HomeInfo3.id);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  void _updateAge() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnAge: addDoggoAge.text,
-    };
-    final rowsAffected = await dbHelper.updateDoggos(row);
-  }
+  //DATABASE
 
-  void _updateDoggoName() async {
+  void _updateTemperament() async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnDogName: addDoggoName.text,
-    };
-    final rowsAffected = await dbHelper.updateDoggos(row);
-  }
-
-  void _updateOwnerName() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnOwnerName: addOwnerName.text,
+      DatabaseHelper.columnTemperament: isThereATemperament()
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
 
     print(rowsAffected);
   }
 
-  void _deleteDoggos() async {
-    final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.deleteDoggos(indexID);
-    print('deleted $rowsDeleted row(s): row $id');
+  void _updateMedicalNotes() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnMedicalNotes: isThereAMedicalNote(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateOwnerNotes() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnOwnerNotes: isThereAnOwnerNote(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateMyOwnNotes() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnMyNotes: isThereAMyOwnNote(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
   }
 }

@@ -299,7 +299,6 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
       ),
       body: SingleChildScrollView(
         child: Container(padding: EdgeInsets.only(top: 0),
-            height: appConfigblockSizeHeight * 100,
             color: Color.fromRGBO(171, 177, 177, 1),
             child: Column(children: [
               Row(
@@ -409,10 +408,390 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              SizedBox(height: appConfigblockSizeHeight * 5),
-              Container(
+              Container(height: appConfigblockSizeHeight * 150,
                 child: Column(
-                  children: [],
+                  children: [ Container(
+                    child: Container(
+                      color: Color.fromRGBO(171, 177, 177, 1),
+                      child: Center(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 20),
+                            child: Container(
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    //HEADER
+                                    Text('Owner', style: TextStyle(
+                                        color: Color.fromRGBO(
+                                            34, 36, 86, 1),
+                                        fontWeight:
+                                        FontWeight.w900,
+                                        fontSize: fontSize * 14),),
+                                    SizedBox(height: appConfigblockSizeHeight * 2.5,),
+                                    Container(
+                                      width: appConfigblockSizeWidth * 90,
+                                      padding: EdgeInsets.all(
+                                          appConfigblockSizeWidth * 2),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                            Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
+                                          ),
+                                        ],
+                                        color: Color.fromRGBO(156, 156, 156, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                appConfigblockSizeWidth * 4)),
+                                      ),
+                                      child: SingleChildScrollView(
+                                        child: Row(
+
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                //DOG NAME
+                                                Container(
+                                                  child: Text(
+                                                    data[ID]["owner_name"],
+                                                    style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                        FontWeight.w900,
+                                                        fontSize: fontSize * 8),
+                                                  ),
+                                                ),
+
+                                                //AGE
+                                                Container(
+                                                  child: Row(
+
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: [
+
+                                                      Text(
+                                                        'ID Number: ',
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w400,
+                                                          fontSize: fontSize * 7,
+                                                        ),
+                                                      ),
+
+                                                      Text(
+                                                        (data[ID]["idnumber"])
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w600,
+                                                          fontSize: fontSize * 7,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                                Container(
+                                                  child: Row(
+
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: [
+
+                                                      Text(
+                                                        'Phone Number: ',
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w400,
+                                                          fontSize: fontSize * 7,
+                                                        ),
+                                                      ),
+
+                                                      Text(
+                                                        (data[ID]["phone"])
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w600,
+                                                          fontSize: fontSize * 7,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                                Container(
+                                                  child: Row(
+
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                    children: [
+
+                                                      Text(
+                                                        'Email: ',
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w400,
+                                                          fontSize: fontSize * 7,
+                                                        ),
+                                                      ),
+
+                                                      Text(
+                                                        (data[ID]["email"])
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w600,
+                                                          fontSize: fontSize * 7,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: appConfigblockSizeHeight * 2,
+                                    ),
+                                    Container(
+                                      width: appConfigblockSizeWidth * 90,
+                                      padding: EdgeInsets.all(
+                                          appConfigblockSizeWidth * 2),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                            Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
+                                          ),
+                                        ],
+                                        color: Color.fromRGBO(156, 156, 156, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                appConfigblockSizeWidth * 4)),
+                                      ),
+                                      child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'Address',
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: fontSize * 8),
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      (data[ID]["address"])
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                        FontWeight.w400,
+                                                        fontSize: fontSize * 7,
+                                                      ),
+                                                    ),
+
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: appConfigblockSizeHeight * 2,
+                                    ),
+                                    Container(
+                                      width: appConfigblockSizeWidth * 90,
+                                      padding: EdgeInsets.all(
+                                          appConfigblockSizeWidth * 4),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                            Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
+                                          ),
+                                        ],
+                                        color: Color.fromRGBO(156, 156, 156, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                appConfigblockSizeWidth * 4)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'Medical',
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: fontSize * 8),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['vet'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                                fontSize: fontSize * 7,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            appConfigblockSizeHeight * 0.5,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['medicalnotes'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                                fontSize: fontSize * 7,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    SizedBox(
+                                      height: appConfigblockSizeHeight * 2,
+                                    ),
+                                    Container(
+                                      width: appConfigblockSizeWidth * 90,
+                                      padding: EdgeInsets.all(
+                                          appConfigblockSizeWidth * 4),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                            Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
+                                          ),
+                                        ],
+                                        color: Color.fromRGBO(156, 156, 156, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                appConfigblockSizeWidth * 4)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'Notes',
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: fontSize * 8),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['ownernotes'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                                fontSize: fontSize * 7,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            appConfigblockSizeHeight * 0.5,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['mynotes'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                                fontSize: fontSize * 7,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),],
                 ),
               )
             ])),

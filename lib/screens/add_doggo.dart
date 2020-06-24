@@ -717,10 +717,10 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
       DatabaseHelper.columnEmail: 'No Email Address',
       DatabaseHelper.columnAddress: 'No Address',
       DatabaseHelper.columnVet: 'No Vet Details',
-      DatabaseHelper.columnMyNotes: 'No Personal Notes',
-      DatabaseHelper.columnOwnerNotes: 'No Owner Notes',
-      DatabaseHelper.columnMedicalNotes: 'No Medical Notes',
-      DatabaseHelper.columnTemperament: 'No Temperament Details',
+      DatabaseHelper.columnMyNotes: 'My Notes Are Empty, For Now',
+      DatabaseHelper.columnOwnerNotes: 'No Recorded Owner\'s Notes For Doggo',
+      DatabaseHelper.columnMedicalNotes: 'No Recorded Medical Notes for Doggo',
+      DatabaseHelper.columnTemperament: 'No Recorded Temperament Details for Doggo',
     };
     final id = await dbHelper.insertDoggos(row);
     print('inserted row id: $id');

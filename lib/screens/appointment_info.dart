@@ -5,6 +5,7 @@ import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:flutter/cupertino.dart';
 
 class AppointmentInfo extends StatefulWidget {
   static const String id = 'appointmentinfo';
@@ -32,6 +33,61 @@ class _AppointmentInfoState extends State<AppointmentInfo>
 
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
+
+  DateTime _setDate = DateTime.now();
+  Duration initialtimer = new Duration();
+  int selectitem = 1;
+
+
+  Widget datetime() {
+    return CupertinoDatePicker(
+      initialDateTime: DateTime.now(),
+      onDateTimeChanged: (DateTime newdate) {
+        var date = newdate;
+        var formatter = new DateFormat('yyyy-MM-dd');
+        String formatted = formatter.format(date);
+        finalDate = formatted;
+        print(formatted);
+      },
+      use24hFormat: true,
+      maximumDate: new DateTime(2100, 12, 30),
+      minimumYear: 2020,
+      maximumYear: 2100,
+      minuteInterval: 1,
+      mode: CupertinoDatePickerMode.dateAndTime,
+    );
+  }
+
+
+
+  Widget time() {
+    var time;
+    return CupertinoDatePicker(
+      mode: CupertinoDatePickerMode.time,
+      initialDateTime: DateTime.now(),
+      use24hFormat: true,
+      onDateTimeChanged: (DateTime newDateTime) {
+        //setState(() => time = newDateTime);
+        time = new TimeOfDay(hour: newDateTime.hour, minute: newDateTime.minute);
+        print(time);
+
+
+        setState(() {
+          selectedTime = time;
+          final MaterialLocalizations localizations =
+          MaterialLocalizations.of(context);
+          final String formattedTime =
+          localizations.formatTimeOfDay(selectedTime);
+          finalTime = formattedTime.toString();
+          print(finalTime);
+        });
+
+      },
+
+    );
+  }
+
+
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -433,7 +489,19 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                               )),
                                           textColor: Colors.white,
                                           color: Color.fromRGBO(34, 36, 86, 1),
-                                          onPressed: () => _selectDate(context),
+
+                                          onPressed: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (BuildContext builder) {
+                                                  return Container(
+                                                      height:
+                                                      MediaQuery.of(context).copyWith().size.height /
+                                                          3,
+                                                      child: datetime());
+                                                });
+                                          },
+
                                           child: Text('Select date'),
                                         ),
                                       ],
@@ -454,7 +522,21 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                               )),
                                           textColor: Colors.white,
                                           color: Color.fromRGBO(34, 36, 86, 1),
-                                          onPressed: () => _selectTime(context),
+
+
+                                          onPressed: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (BuildContext builder) {
+                                                  return Container(
+                                                      height:
+                                                      MediaQuery.of(context).copyWith().size.height /
+                                                          3,
+                                                      child: time());
+                                                });
+                                          },
+
+
                                           child: Text('Select time'),
                                         ),
                                       ],
