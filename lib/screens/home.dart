@@ -6,7 +6,6 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
-import 'package:daniellesdoggrooming/screens/doggo_info.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
 import 'package:daniellesdoggrooming/screens/supply_info.dart';
@@ -181,6 +180,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     firstLaunch();
   }
 
+
+
   ////WHATS VISIBLE ON SCREEN////
   @override
   Widget build(BuildContext context) {
@@ -189,6 +190,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
     double fontSize = appConfigWidth * 0.005;
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -670,7 +673,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                 data2[i][
                                                                     "brand_name"]),
                                                             trailing: new Text(
-                                                              data2[i]['level'],
+                                                                '${data2[i]['level']}%'
+
                                                             ),
                                                             leading:
                                                                 new CircleAvatar(
