@@ -268,12 +268,20 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              SizedBox(height: appConfigblockSizeHeight * 5),
+              SizedBox(height: appConfigblockSizeHeight * 1.5),
               Container(
                 height: appConfigblockSizeHeight * 150,
                 width: appConfigblockSizeWidth * 80,
                 child: Column(
                   children: [
+                    Text(
+                      'Tap on the body of the note to change it.',
+                      style: TextStyle(
+                        color: Color.fromRGBO(34, 36, 86, 1),
+                        fontSize: fontSize * 6,
+                      ),
+                    ),
+                    SizedBox(height: appConfigblockSizeHeight * 1.5),
                     Column(
                       children: [
                         Text(
@@ -281,7 +289,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: 20,
+                            fontSize: fontSize * 12,
                           ),
                         ),
                         FlatButton(
@@ -293,7 +301,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['temperament'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: 14,
+                                fontSize: fontSize * 8,
                               ),
                             ),
                           ),
@@ -310,7 +318,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: 20,
+                            fontSize: fontSize * 12,
                           ),
                         ),
                         FlatButton(
@@ -322,7 +330,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['medicalnotes'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: 14,
+                                fontSize: fontSize * 8,
                               ),
                             ),
                           ),
@@ -339,7 +347,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: 20,
+                            fontSize: fontSize * 12,
                           ),
                         ),
                         FlatButton(
@@ -351,7 +359,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['ownernotes'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: 14,
+                                fontSize: fontSize * 8,
                               ),
                             ),
                           ),
@@ -368,7 +376,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                           style: TextStyle(
                             fontWeight: FontWeight.w900,
                             color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: 20,
+                            fontSize: fontSize * 12,
                           ),
                         ),
                         FlatButton(
@@ -380,7 +388,7 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['mynotes'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: 14,
+                                fontSize: fontSize * 8,
                               ),
                             ),
                           ),

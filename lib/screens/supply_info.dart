@@ -38,6 +38,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
   int indexID;
   var supplyUniqueID;
   List data2;
+  List data3;
 
   Future<String> fetchDogs() async {
     var database = await openDatabase('database.db');
@@ -268,6 +269,9 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
 
 
 
+
+
+
   fetchID() async{
 
     // get a reference to the database
@@ -301,7 +305,56 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
       var extractdata = result;
       data2 = extractdata;
       print(data2);
+
+
+
       return data2.toList();
+    });
+
+    print("Database Query");
+
+
+  }
+
+  fetchNumber() async{
+
+    // get a reference to the database
+    Database db = await DatabaseHelper.instance.database;
+
+    // get single row
+    List<String> columnsToSelect = [
+      DatabaseHelper.columnId,
+      DatabaseHelper.columnSupplyUniqueId,
+      DatabaseHelper.columnType,
+      DatabaseHelper.columnBrand,
+      DatabaseHelper.columnLevel,
+      DatabaseHelper.columnPicture2,
+
+    ];
+    String whereString = '${DatabaseHelper.columnSupplyUniqueId} = "${supplyUniqueID}"';
+    int rowId = 2;
+    List<dynamic> whereArguments = [rowId];
+    List<Map> result = await db.query(
+        DatabaseHelper.table2,
+        columns: columnsToSelect,
+        where: whereString,
+        whereArgs: whereArguments);
+
+    print(result);
+
+    indexID = result[0]['_id'];
+    print ('This is the $indexID number');
+
+    setState(() {
+      var extractdata = result;
+      data3 = extractdata;
+      print(data3);
+
+
+      var number = data3[0]['level'];
+      _value = double.parse(number);
+
+      return _value;
     });
 
     print("Database Query");
@@ -314,8 +367,11 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
   void initState() {
     fetchUniqueID();
     fetchID();
+    fetchNumber();
 
   }
+
+  double _value = 50;
 
 
   @override
@@ -325,6 +381,8 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
     double fontSize = appConfigWidth * 0.005;
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -393,9 +451,20 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                               child: Row(mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
 
-                                  Text(
+                                  Text('The current supply level is ',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(34, 36, 86, 1),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
 
-                                    (data2[ID]["level"]).toString(),
+                                  Text('$_value',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(34, 36, 86, 1),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(' %',
                                     style: TextStyle(
                                       color: Color.fromRGBO(34, 36, 86, 1),
                                       fontWeight: FontWeight.w600,
@@ -413,10 +482,60 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                             _addPhoto();
                           },
                           child: Container(
-                            child:  previewImage == null ?
-                            CircleAvatar(backgroundImage: AssetImage(data2[ID]['picture']), backgroundColor: Colors.transparent, radius: appConfigblockSizeWidth * 20,) :
-                            CircleAvatar(backgroundImage: FileImage(previewImage), backgroundColor: Colors.transparent, radius: appConfigblockSizeWidth * 20,
-                            ),
+                            child: Stack(children: <Widget>[
+
+                              Row(mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    height: appConfigblockSizeHeight * 30,
+                                    child: Image.asset('images/supplybottle.png'),
+                                  ),
+                                ],
+                              ),
+
+                              RotatedBox(
+                                quarterTurns: 3,
+                                child: SliderTheme(
+
+                                  data: SliderTheme.of(context).copyWith(
+                                    activeTrackColor: Colors.blue,
+                                    inactiveTrackColor: Colors.blue[100],
+                                    trackShape: RectangularSliderTrackShape(),
+                                    trackHeight: 10.0,
+                                    thumbColor: Colors.indigo,
+                                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20.0),
+                                    overlayColor: Colors.red.withAlpha(32),
+                                    overlayShape: RoundSliderOverlayShape(overlayRadius: 40.0),
+
+                                    valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+                                    valueIndicatorColor: Colors.indigoAccent,
+                                    valueIndicatorTextStyle: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+
+                                  child: Slider(
+
+                                    min: 0,
+                                    max: 100,
+                                    divisions: 20,
+                                    value: _value,
+                                    label: '$_value',
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _value = value;
+                                        _updateSupplyLevel();
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+
+                            ],)
+
+
+
                           ),
                           ),
                         SizedBox(
@@ -814,6 +933,12 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
   }
 
 
+  _addSupplyLevel(){
+    var number;
+    number = _value.toString();
+    return number;
+
+  }
 
   void _updatePicture() async {
 
@@ -830,7 +955,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnLevel: addSupplyLevel.text,
+      DatabaseHelper.columnLevel: _addSupplyLevel(),
     };
     final rowsAffected = await dbHelper.updateSupplies(row);
   }
