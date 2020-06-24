@@ -340,7 +340,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                                       style: TextStyle(
                                           color: Color.fromRGBO(34, 36, 86, 1),
                                           fontWeight: FontWeight.w900,
-                                          fontSize: 25),
+                                          fontSize: fontSize * 14),
                                     ),
                                   ),
                                 ),
@@ -363,6 +363,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                                     style: TextStyle(
                                       color: Color.fromRGBO(34, 36, 86, 1),
                                       fontWeight: FontWeight.w600,
+                                        fontSize: fontSize * 8
                                     ),
                                   ),
                                   Text(
@@ -371,6 +372,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                                       fontStyle: FontStyle.italic,
                                       color: Color.fromRGBO(34, 36, 86, 1),
                                       fontWeight: FontWeight.w400,
+                                        fontSize: fontSize * 8
                                     ),
                                   ),
                                 ],
@@ -401,6 +403,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                               "This beautiful ",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
+                                  fontSize: fontSize * 8,
                                 color: Color.fromRGBO(34, 36, 86, 1),
                               ),
                             ),
@@ -408,6 +411,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                               "doggo",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: fontSize * 8,
                                   color: Color.fromRGBO(34, 36, 86, 1),
                                   fontStyle: FontStyle.italic),
 
@@ -416,6 +420,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                               " belongs to...",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
+                                  fontSize: fontSize * 8,
                                 color: Color.fromRGBO(34, 36, 86, 1),
                               ),
                             ),
@@ -434,7 +439,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: 25,
+                                  fontSize: fontSize * 10,
                               ),
                             ),
                           ),

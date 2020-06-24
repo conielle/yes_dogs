@@ -633,16 +633,20 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                               Container(
                                                 child: Row(
                                                   children: [
-                                                    Text(
-                                                      (data[ID]["address"])
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                        FontWeight.w400,
-                                                        fontSize: fontSize * 7,
+                                                    FlatButton(
+                                                      child: Text(
+                                                        (data[ID]["address"])
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w400,
+                                                          fontSize: fontSize * 7,
+                                                        ),
                                                       ),
+
+                                                      onPressed: (){},
                                                     ),
 
                                                   ],

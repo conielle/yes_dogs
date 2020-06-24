@@ -301,7 +301,9 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['temperament'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: fontSize * 8,
+                                fontWeight:
+                                FontWeight.w400,
+                                fontSize: fontSize * 7,
                               ),
                             ),
                           ),
@@ -330,7 +332,9 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['medicalnotes'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: fontSize * 8,
+                                fontWeight:
+                                FontWeight.w400,
+                                fontSize: fontSize * 7,
                               ),
                             ),
                           ),
@@ -359,7 +363,9 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['ownernotes'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: fontSize * 8,
+                                fontWeight:
+                                FontWeight.w400,
+                                fontSize: fontSize * 7,
                               ),
                             ),
                           ),
@@ -388,7 +394,9 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                               data[ID]['mynotes'],
                               style: TextStyle(
                                 color: Color.fromRGBO(34, 36, 86, 1),
-                                fontSize: fontSize * 8,
+                                fontWeight:
+                                FontWeight.w400,
+                                fontSize: fontSize * 7,
                               ),
                             ),
                           ),

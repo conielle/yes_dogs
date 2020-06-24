@@ -54,7 +54,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
       minimumYear: 2020,
       maximumYear: 2100,
       minuteInterval: 1,
-      mode: CupertinoDatePickerMode.dateAndTime,
+      mode: CupertinoDatePickerMode.date,
     );
   }
 
