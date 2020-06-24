@@ -282,129 +282,217 @@ class _HomeInfo3State extends State<HomeInfo3> with TickerProviderStateMixin {
                       ),
                     ),
                     SizedBox(height: appConfigblockSizeHeight * 1.5),
-                    Column(
-                      children: [
-                        Text(
-                          'Temperament',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: fontSize * 12,
+                    Container(
+
+                      width: appConfigblockSizeWidth * 90,
+                      padding: EdgeInsets.all(
+                          appConfigblockSizeWidth * 2),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                            Colors.black54.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: Offset(0,
+                                0), // changes position of shadow
                           ),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            _addTemperament();
-                          },
-                          child: Container(
-                            child: Text(
-                              data[ID]['temperament'],
-                              style: TextStyle(
-                                color: Color.fromRGBO(34, 36, 86, 1),
-                                fontWeight:
-                                FontWeight.w400,
-                                fontSize: fontSize * 7,
+                        ],
+                        color: Color.fromRGBO(156, 156, 156, 1),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(
+                                appConfigblockSizeWidth * 4)),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Temperament',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromRGBO(34, 36, 86, 1),
+                              fontSize: fontSize * 8,
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              _addTemperament();
+                            },
+                            child: Container(
+                              child: Text(
+                                data[ID]['temperament'],
+                                style: TextStyle(
+                                  color: Color.fromRGBO(34, 36, 86, 1),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: fontSize * 7,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: appConfigblockSizeHeight * 4,
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          'Medical Notes',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: fontSize * 12,
-                          ),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            _addMedicalNotes();
-                          },
-                          child: Container(
-                            child: Text(
-                              data[ID]['medicalnotes'],
-                              style: TextStyle(
-                                color: Color.fromRGBO(34, 36, 86, 1),
-                                fontWeight:
-                                FontWeight.w400,
-                                fontSize: fontSize * 7,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: appConfigblockSizeHeight * 4,
+                      height: appConfigblockSizeHeight * 2,
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          'Owner\'s Notes',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: fontSize * 12,
+                    Container(
+
+                      width: appConfigblockSizeWidth * 90,
+                      padding: EdgeInsets.all(
+                          appConfigblockSizeWidth * 2),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                            Colors.black54.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: Offset(0,
+                                0), // changes position of shadow
                           ),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            _addOwnerNotes();
-                          },
-                          child: Container(
-                            child: Text(
-                              data[ID]['ownernotes'],
-                              style: TextStyle(
-                                color: Color.fromRGBO(34, 36, 86, 1),
-                                fontWeight:
-                                FontWeight.w400,
-                                fontSize: fontSize * 7,
+                        ],
+                        color: Color.fromRGBO(156, 156, 156, 1),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(
+                                appConfigblockSizeWidth * 4)),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Medical Notes',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromRGBO(34, 36, 86, 1),
+                              fontSize: fontSize * 8,
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              _addMedicalNotes();
+                            },
+                            child: Container(
+                              child: Text(
+                                data[ID]['medicalnotes'],
+                                style: TextStyle(
+                                  color: Color.fromRGBO(34, 36, 86, 1),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: fontSize * 7,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: appConfigblockSizeHeight * 4,
+                      height: appConfigblockSizeHeight * 2,
                     ),
-                    Column(
-                      children: [
-                        Text(
-                          'My Own Notes',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromRGBO(34, 36, 86, 1),
-                            fontSize: fontSize * 12,
+                    Container(
+
+                      width: appConfigblockSizeWidth * 90,
+                      padding: EdgeInsets.all(
+                          appConfigblockSizeWidth * 2),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                            Colors.black54.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: Offset(0,
+                                0), // changes position of shadow
                           ),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            _addMyOwnNotes();
-                          },
-                          child: Container(
-                            child: Text(
-                              data[ID]['mynotes'],
-                              style: TextStyle(
-                                color: Color.fromRGBO(34, 36, 86, 1),
-                                fontWeight:
-                                FontWeight.w400,
-                                fontSize: fontSize * 7,
+                        ],
+                        color: Color.fromRGBO(156, 156, 156, 1),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(
+                                appConfigblockSizeWidth * 4)),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Owner\'s Notes',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromRGBO(34, 36, 86, 1),
+                              fontSize: fontSize * 8,
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              _addOwnerNotes();
+                            },
+                            child: Container(
+                              child: Text(
+                                data[ID]['ownernotes'],
+                                style: TextStyle(
+                                  color: Color.fromRGBO(34, 36, 86, 1),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: fontSize * 7,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      height: appConfigblockSizeHeight * 4,
+                      height: appConfigblockSizeHeight * 2,
+                    ),
+                    Container(
+                      width: appConfigblockSizeWidth * 90,
+                      padding: EdgeInsets.all(
+                          appConfigblockSizeWidth * 2),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                            Colors.black54.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            offset: Offset(0,
+                                0), // changes position of shadow
+                          ),
+                        ],
+                        color: Color.fromRGBO(156, 156, 156, 1),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(
+                                appConfigblockSizeWidth * 4)),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'My Own Notes',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Color.fromRGBO(34, 36, 86, 1),
+                              fontSize: fontSize * 8,
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              _addMyOwnNotes();
+                            },
+                            child: Container(
+                              child: Text(
+                                data[ID]['mynotes'],
+                                style: TextStyle(
+                                  color: Color.fromRGBO(34, 36, 86, 1),
+                                  fontWeight:
+                                  FontWeight.w400,
+                                  fontSize: fontSize * 7,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: appConfigblockSizeHeight * 2,
                     ),
                   ],
                 ),

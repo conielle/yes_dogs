@@ -298,249 +298,379 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
         ],
         leading: new Container(),
       ),
-      body: Container(
-          padding: EdgeInsets.only(top: 0),
-          height: appConfigblockSizeHeight * 100,
-          color: Color.fromRGBO(171, 177, 177, 1),
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft:
-                            Radius.circular(appConfigblockSizeWidth * 4)),
-                    color: Color.fromRGBO(101, 107, 107, 1),
-                  ),
-                  child: FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
+      body: SingleChildScrollView(
+        child: Container(
+            padding: EdgeInsets.only(top: 0),
+            height: appConfigblockSizeHeight * 100,
+            color: Color.fromRGBO(171, 177, 177, 1),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        bottomRight:
-                            Radius.circular(appConfigblockSizeHeight * 2),
-                        bottomLeft:
-                            Radius.circular(appConfigblockSizeHeight * 2),
-                      ),
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeWidth * 4)),
+                      color: Color.fromRGBO(101, 107, 107, 1),
                     ),
-                    color: Color.fromRGBO(131, 137, 137, 1),
-                    textColor: Color.fromRGBO(34, 36, 86, 1),
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {},
-                    child: Container(
-                      width: appConfigblockSizeWidth * 33.3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Overview",
-                            style: TextStyle(
-                              fontSize: fontSize * 7,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(81, 87, 87, 1),
-                  ),
-                  child: FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
+                    child: FlatButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
-                      bottomRight:
-                          Radius.circular(appConfigblockSizeHeight * 2),
-                    )),
-                    color: Color.fromRGBO(101, 107, 107, 1),
-                    textColor: Color.fromRGBO(34, 36, 86, 1),
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeInfo2()));
-                    },
-                    child: Container(
-                      width: appConfigblockSizeWidth * 33.3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Owner",
-                            style: TextStyle(
-                              fontSize: fontSize * 7,
+                          bottomRight:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                        ),
+                      ),
+                      color: Color.fromRGBO(131, 137, 137, 1),
+                      textColor: Color.fromRGBO(34, 36, 86, 1),
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {},
+                      child: Container(
+                        width: appConfigblockSizeWidth * 33.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Overview",
+                              style: TextStyle(
+                                fontSize: fontSize * 7,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
+                  Container(
+                    decoration: BoxDecoration(
                       color: Color.fromRGBO(81, 87, 87, 1),
-                      borderRadius: BorderRadius.only(
-                          bottomRight:
-                              Radius.circular(appConfigblockSizeWidth * 4))),
-                  padding: EdgeInsets.all(0),
-                  child: FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
+                    ),
+                    child: FlatButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
                         bottomRight:
                             Radius.circular(appConfigblockSizeHeight * 2),
-                        bottomLeft:
-                            Radius.circular(appConfigblockSizeHeight * 2),
-                      ),
-                    ),
-                    color: Color.fromRGBO(81, 87, 87, 1),
-                    textColor: Color.fromRGBO(34, 36, 86, 1),
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeInfo3()));
-                    },
-                    child: Container(
-                      width: appConfigblockSizeWidth * 33.3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Notes",
-                            style: TextStyle(
-                              fontSize: fontSize * 7,
+                      )),
+                      color: Color.fromRGBO(101, 107, 107, 1),
+                      textColor: Color.fromRGBO(34, 36, 86, 1),
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeInfo2()));
+                      },
+                      child: Container(
+                        width: appConfigblockSizeWidth * 33.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Owner",
+                              style: TextStyle(
+                                fontSize: fontSize * 7,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SingleChildScrollView(
-              child: Container(
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(81, 87, 87, 1),
+                        borderRadius: BorderRadius.only(
+                            bottomRight:
+                                Radius.circular(appConfigblockSizeWidth * 4))),
+                    padding: EdgeInsets.all(0),
+                    child: FlatButton(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomRight:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                          bottomLeft:
+                              Radius.circular(appConfigblockSizeHeight * 2),
+                        ),
+                      ),
+                      color: Color.fromRGBO(81, 87, 87, 1),
+                      textColor: Color.fromRGBO(34, 36, 86, 1),
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeInfo3()));
+                      },
+                      child: Container(
+                        width: appConfigblockSizeWidth * 33.3,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Notes",
+                              style: TextStyle(
+                                fontSize: fontSize * 7,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SingleChildScrollView(
                 child: Container(
-                  color: Color.fromRGBO(171, 177, 177, 1),
-                  child: Center(
+                  height: appConfigblockSizeHeight * 90,
+                  child: Container(
+                    color: Color.fromRGBO(171, 177, 177, 1),
                     child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 20),
-                        child: Container(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 20),
                           child: Container(
-                            child: Column(
-                              children: [
-                                //HEADER
-                                Text('Overview', style: TextStyle(
-                                    color: Color.fromRGBO(
-                                        34, 36, 86, 1),
-                                    fontWeight:
-                                    FontWeight.w900,
-                                    fontSize: fontSize * 14),),
-                                SizedBox(height: appConfigblockSizeHeight * 2.5,),
-                                Container(
-                                  width: appConfigblockSizeWidth * 90,
-                                  padding: EdgeInsets.all(
-                                      appConfigblockSizeWidth * 2),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:
-                                            Colors.black54.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: Offset(0,
-                                            0), // changes position of shadow
-                                      ),
-                                    ],
-                                    color: Color.fromRGBO(156, 156, 156, 1),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                            appConfigblockSizeWidth * 4)),
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  //HEADER
+                                  Text(
+                                    'Overview',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(34, 36, 86, 1),
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: fontSize * 14),
                                   ),
-                                  child: SingleChildScrollView(
-                                    child: Row(
-                                      children: [
-                                        //PICTURE
-                                        Container(
-                                          child: previewImage == null
-                                              ? CircleAvatar(
-                                                  backgroundImage: AssetImage(
-                                                      data[ID]['picture']),
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  radius:
-                                                      appConfigblockSizeWidth *
-                                                          10,
-                                                )
-                                              : CircleAvatar(
-                                                  backgroundImage: AssetImage(
-                                                      data[ID]["picture"]),
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  radius:
-                                                      appConfigblockSizeWidth *
-                                                          10,
+                                  SizedBox(
+                                    height: appConfigblockSizeHeight * 2.5,
+                                  ),
+                                  Container(
+                                    width: appConfigblockSizeWidth * 90,
+                                    padding: EdgeInsets.all(
+                                        appConfigblockSizeWidth * 2),
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Colors.black54.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(0,
+                                              0), // changes position of shadow
+                                        ),
+                                      ],
+                                      color: Color.fromRGBO(156, 156, 156, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              appConfigblockSizeWidth * 4)),
+                                    ),
+                                    child: SingleChildScrollView(
+                                      child: Row(
+                                        children: [
+                                          //PICTURE
+                                          Container(
+                                            child: previewImage == null
+                                                ? CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        data[ID]['picture']),
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    radius:
+                                                        appConfigblockSizeWidth *
+                                                            10,
+                                                  )
+                                                : CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        data[ID]["picture"]),
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    radius:
+                                                        appConfigblockSizeWidth *
+                                                            10,
+                                                  ),
+                                          ),
+                                          SizedBox(
+                                            width: appConfigblockSizeWidth * 4,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              //DOG NAME
+                                              Container(
+                                                child: Text(
+                                                  data[ID]["dog_name"],
+                                                  style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          34, 36, 86, 1),
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                      fontSize: fontSize * 8),
                                                 ),
+                                              ),
+
+                                              //AGE
+                                              Container(
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      (data[ID]["age"])
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      ' years old, ',
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      ', ',
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      (data[ID]["sex"])
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+
+                                              Text(
+                                                (data[ID]["breed"]).toString(),
+                                                style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height:
+                                                    appConfigblockSizeHeight *
+                                                        0.5,
+                                              ),
+                                              (data[0]['date'] == "No Grooming Scheduled") ? Row(children: [Text(
+                                                'Groom To Be Scheduled',
+                                                style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight:
+                                                  FontWeight.w400,
+                                                  fontSize: fontSize * 7,
+                                                ),
+                                              ),
+                                              ],) : Row(
+                                                children: [
+                                                  Text(
+                                                    'Due for a groom on ',
+                                                    style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          34, 36, 86, 1),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: fontSize * 7,
+                                                    ),
+                                                  ),
+                                                  Text(data[0]['date'],
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: fontSize * 7,
+                                                      ))
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: appConfigblockSizeHeight * 2,
+                                  ),
+                                  Container(
+                                    width: appConfigblockSizeWidth * 90,
+                                    padding: EdgeInsets.all(
+                                        appConfigblockSizeWidth * 4),
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Colors.black54.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(0,
+                                              0), // changes position of shadow
+                                        ),
+                                      ],
+                                      color: Color.fromRGBO(156, 156, 156, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              appConfigblockSizeWidth * 4)),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            'Doggo',
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    34, 36, 86, 1),
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: fontSize * 8),
+                                          ),
                                         ),
                                         SizedBox(
-                                          width: appConfigblockSizeWidth * 4,
+                                          height: appConfigblockSizeHeight * 2,
                                         ),
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            //DOG NAME
-                                            Container(
-                                              child: Text(
-                                                data[ID]["dog_name"],
-                                                style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        34, 36, 86, 1),
-                                                    fontWeight:
-                                                        FontWeight.w900,
-                                                    fontSize: fontSize * 8),
-                                              ),
-                                            ),
-
-                                            //AGE
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
                                             Container(
                                               child: Row(
                                                 children: [
                                                   Text(
-                                                    (data[ID]["age"])
+                                                    (data[ID]["dog_name"])
                                                         .toString(),
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    ' years old, ',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-
-                                                  Text(
-                                                    ', ',
                                                     style: TextStyle(
                                                       color: Color.fromRGBO(
                                                           34, 36, 86, 1),
@@ -551,400 +681,339 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                   Text(
-                                                    (data[ID]["sex"])
+                                                    ' ',
+                                                    style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          34, 36, 86, 1),
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    (data[ID]["fixed"])
                                                         .toString(),
                                                     style: TextStyle(
                                                       color: Color.fromRGBO(
                                                           34, 36, 86, 1),
                                                       fontWeight:
                                                           FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    ' neutered or spayed.',
+                                                    style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          34, 36, 86, 1),
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-
-                                            Text(
-                                              (data[ID]["breed"])
-                                                  .toString(),
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight:
-                                                FontWeight.w600,
-                                              ),
-                                            ),
-
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              appConfigblockSizeHeight * 0.5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            (data[ID]['grooming'] == 'is')
+                                                ? Container(
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          (data[ID]["dog_name"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' ',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          (data[ID]["grooming"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' being groomed.',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : Container(),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              appConfigblockSizeHeight * 0.5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            (data[ID]['training'] == 'is')
+                                                ? Container(
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          (data[ID]["dog_name"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' ',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          (data[ID]["training"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ' being trained.',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : Container(),
                                           ],
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: appConfigblockSizeHeight * 2,
-                                ),
-                                Container(
-                                  width: appConfigblockSizeWidth * 90,
-                                  padding: EdgeInsets.all(
-                                      appConfigblockSizeWidth * 4),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:
-                                            Colors.black54.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: Offset(0,
-                                            0), // changes position of shadow
-                                      ),
-                                    ],
-                                    color: Color.fromRGBO(156, 156, 156, 1),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                            appConfigblockSizeWidth * 4)),
+                                  SizedBox(
+                                    height: appConfigblockSizeHeight * 2,
                                   ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          'Doggo',
-                                          style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  34, 36, 86, 1),
-                                              fontWeight: FontWeight.w900,
-                                              fontSize: fontSize * 8),
+                                  Container(
+                                    width: appConfigblockSizeWidth * 90,
+                                    padding: EdgeInsets.all(
+                                        appConfigblockSizeWidth * 4),
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Colors.black54.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(0,
+                                              0), // changes position of shadow
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: appConfigblockSizeHeight * 2,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  (data[ID]["dog_name"])
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        34, 36, 86, 1),
-                                                    fontStyle:
-                                                        FontStyle.italic,
-                                                    fontWeight:
-                                                        FontWeight.w400,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  ' ',
-                                                  style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        34, 36, 86, 1),
-                                                    fontStyle:
-                                                        FontStyle.italic,
-                                                    fontWeight:
-                                                        FontWeight.w400,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  (data[ID]["fixed"])
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        34, 36, 86, 1),
-                                                    fontWeight:
-                                                        FontWeight.w600,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  ' neutered or spayed.',
-                                                  style: TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        34, 36, 86, 1),
-                                                    fontStyle:
-                                                        FontStyle.italic,
-                                                    fontWeight:
-                                                        FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
+                                      ],
+                                      color: Color.fromRGBO(156, 156, 156, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              appConfigblockSizeWidth * 4)),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            'Owner',
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    34, 36, 86, 1),
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: fontSize * 8),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: appConfigblockSizeHeight * 2,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            data[ID]['owner_name'],
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color:
+                                                  Color.fromRGBO(34, 36, 86, 1),
+                                              fontSize: fontSize * 7,
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            appConfigblockSizeHeight * 0.5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          (data[ID]['grooming'] == 'is')
-                                              ? Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        (data[ID]["dog_name"])
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontStyle: FontStyle
-                                                              .italic,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        ' ',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontStyle: FontStyle
-                                                              .italic,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        (data[ID]["grooming"])
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        ' being groomed.',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontStyle: FontStyle
-                                                              .italic,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              : Container(),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            appConfigblockSizeHeight * 0.5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          (data[ID]['training'] == 'is')
-                                              ? Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        (data[ID]["dog_name"])
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontStyle: FontStyle
-                                                              .italic,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        ' ',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontStyle: FontStyle
-                                                              .italic,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        (data[ID]["training"])
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        ' being trained.',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color.fromRGBO(
-                                                                  34,
-                                                                  36,
-                                                                  86,
-                                                                  1),
-                                                          fontStyle: FontStyle
-                                                              .italic,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              : Container(),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: appConfigblockSizeHeight * 2,
-                                ),
-                                Container(
-                                  width: appConfigblockSizeWidth * 90,
-                                  padding: EdgeInsets.all(
-                                      appConfigblockSizeWidth * 4),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:
-                                            Colors.black54.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: Offset(0,
-                                            0), // changes position of shadow
-                                      ),
-                                    ],
-                                    color: Color.fromRGBO(156, 156, 156, 1),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                            appConfigblockSizeWidth * 4)),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          'Owner',
-                                          style: TextStyle(
-                                              color: Color.fromRGBO(
-                                                  34, 36, 86, 1),
-                                              fontWeight: FontWeight.w900,
-                                              fontSize: fontSize * 8),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: appConfigblockSizeHeight * 2,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          data[ID]['owner_name'],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w800,
-                                            color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                            fontSize: fontSize * 8,
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            appConfigblockSizeHeight * 0.5,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          data[ID]['phone'],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                            fontSize: fontSize * 8,
+                                        SizedBox(
+                                          height:
+                                              appConfigblockSizeHeight * 0.5,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            data[ID]['phone'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                color: Color.fromRGBO(
+                                                    34, 36, 86, 1),
+                                                fontSize: fontSize * 7),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            appConfigblockSizeHeight * 0.5,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          data[ID]['email'],
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                            fontSize: fontSize * 8,
+                                        SizedBox(
+                                          height:
+                                              appConfigblockSizeHeight * 0.5,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            data[ID]['email'],
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              color:
+                                                  Color.fromRGBO(34, 36, 86, 1),
+                                              fontSize: fontSize * 7,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    SizedBox(height: appConfigblockSizeHeight * 2,),
-                                    Text("Would you like to remove this doggo?",
-                                      style: TextStyle(
-                                        fontSize: fontSize * 6,
-                                        color: Color.fromRGBO(34, 36, 86, 1),),
+                                      ],
                                     ),
-                                    SizedBox(height:  appConfigblockSizeHeight * 1.5,),
-                                    FloatingActionButton(
-                                      heroTag: 'remove',
-                                      onPressed: () {
-                                        _deleteDoggos();
-                                        Navigator.pushNamed(context, 'doggo');
-                                      },
-                                      child: Icon(
-                                        Icons.remove,
-                                      ),
-                                      backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                                  ),
+                                  SizedBox(
+                                    height: appConfigblockSizeHeight * 2,
+                                  ),
+                                  Container(
+                                    width: appConfigblockSizeWidth * 90,
+                                    padding: EdgeInsets.all(
+                                        appConfigblockSizeWidth * 2),
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Colors.black54.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(0,
+                                              0), // changes position of shadow
+                                        ),
+                                      ],
+                                      color: Color.fromRGBO(156, 156, 156, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              appConfigblockSizeWidth * 4)),
                                     ),
-                                  ],
-                                ),
-                              ],
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'My Notes About ${data[0]['dog_name']}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                            fontSize: fontSize * 8,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: appConfigblockSizeHeight * 2,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            data[ID]['mynotes'],
+                                            style: TextStyle(
+                                              color:
+                                                  Color.fromRGBO(34, 36, 86, 1),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: fontSize * 7,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -953,8 +1022,8 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            ),
-          ])),
+            ])),
+      ),
     );
   }
 

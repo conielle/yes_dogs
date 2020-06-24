@@ -685,7 +685,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     var date;
 
     if (finalDate == null) {
-      date = 'No Groom Scheduled';
+      date = 'No Grooming Scheduled';
     } else {
       date = finalDate;
     }

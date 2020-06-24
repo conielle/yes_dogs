@@ -46,166 +46,14 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
   String newImagePath;
   String savedImagePath;
 
-  final addDoggoName = TextEditingController();
-  final addOwnerName = TextEditingController();
-  final addDoggoAge = TextEditingController();
-
-  void _addPhoto() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text(
-            "Add a photo!",
-            style: TextStyle(
-              color: Color.fromRGBO(34, 36, 86, 1),
-            ),
-          ),
-          content: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                    onPressed: () {
-                      _getImage();
-                      Navigator.of(context).pop(true);
-                    },
-                    heroTag: 'image1',
-                    tooltip: 'Pick a photo',
-                    child: const Icon(
-                      Icons.photo_library,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: FloatingActionButton(
-                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                    onPressed: () {
-                      _takeImage();
-                      Navigator.of(context).pop(true);
-                    },
-                    heroTag: 'image2',
-                    tooltip: 'Take a Photo',
-                    child: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Color.fromRGBO(34, 36, 86, 1),
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  final updateAddress = TextEditingController();
+  final updateOwnerName = TextEditingController();
+  final updatePhoneNumber = TextEditingController();
+  final updateEmail = TextEditingController();
+  final updateIDNumber = TextEditingController();
+  final updateVet = TextEditingController();
 
   @override
-  ////////////ERROR POPUP////////////////
-
-  /////////GALLERY IMAGE SELECTOR AND RESIZER//////
-  File rawGalleryImage;
-
-  Future _getImage() async {
-    Directory tempDir = await getTemporaryDirectory();
-    tempPath = tempDir.path;
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-
-    var galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-    print("Path : " + galleryImage.path);
-    rawGalleryImage = galleryImage;
-
-    File myCompressedFile;
-    img.Image image = img.decodeImage(rawGalleryImage.readAsBytesSync());
-
-    img.Image thumbnail = img.copyResize(image, height: 200);
-
-    String labelgallery = '${random.Number()}${addDoggoName.text}gallery.jpg';
-
-    myCompressedFile = new File(appDocPath + '$labelgallery')
-      ..writeAsBytesSync(img.encodeJpg(thumbnail));
-    print(appDocPath + '$labelgallery');
-    newImagePath = myCompressedFile.path;
-    print(newImagePath);
-
-    final File copiedImage =
-        await myCompressedFile.copy('$appDocPath/$labelgallery');
-
-    print(copiedImage.path);
-    savedImagePath = copiedImage.path;
-
-    setState(() {
-      previewImage = copiedImage;
-    });
-    _updatePicture();
-    return previewImage;
-  }
-
-  /////////CAMERA IMAGE SELECTOR AND RESIZER//////
-  File rawCamImage;
-
-  Future _takeImage() async {
-    Directory tempDir = await getTemporaryDirectory();
-    tempPath = tempDir.path;
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    rawCamImage = image;
-    File convert = rawCamImage;
-    File myCompressedFile;
-    img.Image images = img.decodeImage(convert.readAsBytesSync());
-    print("Compressed");
-
-    // Resize the image to a 200x? thumbnail (maintaining the aspect ratio).
-    img.Image thumbnail = img.copyResize(images, height: 200);
-    img.Image rotated = img.copyRotate(thumbnail, 90);
-
-    // Save the thumbnail as a JPG.
-
-    String labelcamera = '${random.Number()}${addDoggoName.text}camera.jpg';
-
-    myCompressedFile = new File(appDocPath + '$labelcamera')
-      ..writeAsBytesSync(img.encodeJpg(thumbnail));
-    print(appDocPath + '$labelcamera');
-    newImagePath = myCompressedFile.path;
-
-    print(newImagePath);
-
-    final File copiedImage =
-        await myCompressedFile.copy('$appDocPath/$labelcamera');
-
-    print(copiedImage.path);
-    savedImagePath = copiedImage.path;
-    setState(() {
-      previewImage = copiedImage;
-    });
-
-    _updatePicture();
-    return previewImage;
-  }
 
   fetchUniqueID() async {
     SharedPreferences doginfo = await SharedPreferences.getInstance();
@@ -422,14 +270,6 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                               child: Container(
                                 child: Column(
                                   children: [
-                                    //HEADER
-                                    Text('Owner', style: TextStyle(
-                                        color: Color.fromRGBO(
-                                            34, 36, 86, 1),
-                                        fontWeight:
-                                        FontWeight.w900,
-                                        fontSize: fontSize * 14),),
-                                    SizedBox(height: appConfigblockSizeHeight * 2.5,),
                                     Container(
                                       width: appConfigblockSizeWidth * 90,
                                       padding: EdgeInsets.all(
@@ -464,122 +304,147 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                               crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                               children: <Widget>[
+                                                Text(
+                                                  'Tap on an item below to change it.',
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(34, 36, 86, 1),
+                                                    fontSize: fontSize * 6,
+                                                  ),
+                                                ),
                                                 //DOG NAME
-                                                Container(
-                                                  child: Text(
-                                                    data[ID]["owner_name"],
-                                                    style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                        FontWeight.w900,
-                                                        fontSize: fontSize * 8),
+                                                FlatButton(
+                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  onPressed: (){_addOwnerName();},
+                                                  child: Container(
+                                                    child: Text(
+                                                      data[ID]["owner_name"],
+                                                      style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                          FontWeight.w900,
+                                                          fontSize: fontSize * 8),
+                                                    ),
                                                   ),
                                                 ),
 
                                                 //AGE
-                                                Container(
-                                                  child: Row(
+                                                FlatButton(
+                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  onPressed: (){_addIDNumber();},
+                                                  child: Container(
+                                                    child: Row(
 
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: [
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: [
 
-                                                      Text(
-                                                        'ID Number: ',
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(
-                                                              34, 36, 86, 1),
-                                                          fontWeight:
-                                                          FontWeight.w400,
-                                                          fontSize: fontSize * 7,
+                                                        Text(
+                                                          'ID Number: ',
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                            fontWeight:
+                                                            FontWeight.w400,
+                                                            fontSize: fontSize * 7,
+                                                          ),
                                                         ),
-                                                      ),
 
-                                                      Text(
-                                                        (data[ID]["idnumber"])
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(
-                                                              34, 36, 86, 1),
-                                                          fontWeight:
-                                                          FontWeight.w600,
-                                                          fontSize: fontSize * 7,
+                                                        Text(
+                                                          (data[ID]["idnumber"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            fontSize: fontSize * 7,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
 
                                                 Container(
-                                                  child: Row(
+                                                  child: FlatButton(
+                                                    padding: EdgeInsets.all(0),
+                                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                    onPressed: (){_addPhoneNumber();},
+                                                    child: Row(
 
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: [
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: [
 
-                                                      Text(
-                                                        'Phone Number: ',
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(
-                                                              34, 36, 86, 1),
-                                                          fontWeight:
-                                                          FontWeight.w400,
-                                                          fontSize: fontSize * 7,
+                                                        Text(
+                                                          'Phone Number: ',
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                            fontWeight:
+                                                            FontWeight.w400,
+                                                            fontSize: fontSize * 7,
+                                                          ),
                                                         ),
-                                                      ),
 
-                                                      Text(
-                                                        (data[ID]["phone"])
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(
-                                                              34, 36, 86, 1),
-                                                          fontWeight:
-                                                          FontWeight.w600,
-                                                          fontSize: fontSize * 7,
+                                                        Text(
+                                                          (data[ID]["phone"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            fontSize: fontSize * 7,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
 
                                                 Container(
-                                                  child: Row(
+                                                  child: FlatButton(
+                                                    padding: EdgeInsets.all(0),
+                                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                    onPressed: (){_addEmail();},
+                                                    child: Row(
 
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: [
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      children: [
 
-                                                      Text(
-                                                        'Email: ',
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(
-                                                              34, 36, 86, 1),
-                                                          fontWeight:
-                                                          FontWeight.w400,
-                                                          fontSize: fontSize * 7,
+                                                        Text(
+                                                          'Email: ',
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                            fontWeight:
+                                                            FontWeight.w400,
+                                                            fontSize: fontSize * 7,
+                                                          ),
                                                         ),
-                                                      ),
 
-                                                      Text(
-                                                        (data[ID]["email"])
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(
-                                                              34, 36, 86, 1),
-                                                          fontWeight:
-                                                          FontWeight.w600,
-                                                          fontSize: fontSize * 7,
+                                                        Text(
+                                                          (data[ID]["email"])
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            fontSize: fontSize * 7,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
 
@@ -634,6 +499,7 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                                 child: Row(
                                                   children: [
                                                     FlatButton(
+                                                      onPressed: (){_addAddress();},
                                                       child: Text(
                                                         (data[ID]["address"])
                                                             .toString(),
@@ -646,7 +512,6 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                                         ),
                                                       ),
 
-                                                      onPressed: (){},
                                                     ),
 
                                                   ],
@@ -692,14 +557,17 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                                   fontSize: fontSize * 8),
                                             ),
                                           ),
-                                          Container(
-                                            child: Text(
-                                              data[ID]['vet'],
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                                fontSize: fontSize * 7,
+                                          FlatButton(onPressed: (){_addVet();},
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            child: Container(
+                                              child: Text(
+                                                data[ID]['vet'],
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                  Color.fromRGBO(34, 36, 86, 1),
+                                                  fontSize: fontSize * 7,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -772,17 +640,6 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                             height:
                                             appConfigblockSizeHeight * 0.5,
                                           ),
-                                          Container(
-                                            child: Text(
-                                              data[ID]['mynotes'],
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                                fontSize: fontSize * 7,
-                                              ),
-                                            ),
-                                          ),
                                         ],
                                       ),
                                     ),
@@ -803,65 +660,85 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
     );
   }
 
-  isThereADogName() {
-    String dogNameValue;
-    if (addDoggoName.text == null) {
-      dogNameValue = 'No Named Doggo';
-    } else if (addDoggoName.text == "") {
-      dogNameValue = 'No Named Doggo';
+
+
+  //TEXT CHECKERS
+
+  isThereAnOwnerName() {
+    String ownerValue;
+    if (updateOwnerName.text == null) {
+      ownerValue = data[0]['owner_name'];
+    } else if (updateOwnerName.text == "") {
+      ownerValue = data[0]['owner_name'];
     } else {
-      dogNameValue = addDoggoName.text;
+      ownerValue = updateOwnerName.text;
     }
-    return dogNameValue;
+    return ownerValue;
   }
 
-  isThereAName() {
-    String nameValue;
-    if (addOwnerName.text == null) {
-      nameValue = 'No Named Owner';
-    } else if (addOwnerName.text == '') {
-      nameValue = 'No Named Owner';
+  isThereAnIDNumber() {
+    String idNumValue;
+    if (updateIDNumber.text == null) {
+      idNumValue = data[0]['idnumber'];
+    } else if (updateIDNumber.text == '') {
+      idNumValue = data[0]['idnumber'];
     } else {
-      nameValue = addOwnerName.text;
+      idNumValue = updateIDNumber.text;
     }
-    return nameValue;
+    return idNumValue;
   }
 
-  isThereAnAge() {
-    String ageValue;
-    if (addDoggoAge.text == null) {
-      ageValue = 'Doggo has no age';
-    } else if (addDoggoAge.text == "") {
-      ageValue = 'Doggo has no age';
+  isThereAPhoneNumber() {
+    String phoneValue;
+    if (updatePhoneNumber.text == null) {
+      phoneValue = data[0]['phone'];
+    } else if (updatePhoneNumber.text == "") {
+      phoneValue = data[0]['phone'];
     } else {
-      ageValue = addDoggoAge.text;
+      phoneValue = updatePhoneNumber.text;
     }
-    return ageValue;
+    return phoneValue;
   }
 
-  isThereAPic() {
-    String picturePath;
-    if (newImagePath == null) {
-      picturePath = 'images/doggo.png';
+  isThereAEmail() {
+    String emailValue;
+    if (updateEmail.text == null) {
+      emailValue = data[0]['email'];
+    } else if (updateEmail.text == '') {
+      emailValue = data[0]['email'];
     } else {
-      picturePath = newImagePath;
+      emailValue = updateEmail.text;
     }
-    return picturePath;
+    return emailValue;
   }
 
-  void _insert() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnDogName: '${isThereADogName()}',
-      DatabaseHelper.columnBreed: '${isThereAName()}',
-      DatabaseHelper.columnAge: '${isThereAnAge()}',
-      DatabaseHelper.columnPicture: '${isThereAPic()}',
-    };
-    final id = await dbHelper.insertDoggos(row);
-    print('${addDoggoName.text}');
-    print('inserted row id: $id');
+  isThereAnAddress() {
+    String addressValue;
+    if (updateAddress.text == null) {
+      addressValue = data[0]['address'];
+    } else if (updateAddress.text == '') {
+      addressValue = data[0]['address'];
+    } else {
+      addressValue = updateAddress.text;
+    }
+    return addressValue;
   }
 
-  void _changeAge() {
+  isThereVet() {
+    String vetValue;
+    if (updateVet.text == null) {
+      vetValue = data[0]['vet'];
+    } else if (updateVet.text == '') {
+      vetValue = data[0]['vet'];
+    } else {
+      vetValue = updateAddress.text;
+    }
+    return vetValue;
+  }
+
+  //POPUP INPUTS
+
+  void _addOwnerName() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -870,89 +747,20 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Age Change!"),
-          content: Column(
-            children: <Widget>[
-              Text("What is the doggos age?"),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
-                style: TextStyle(color: Colors.white),
-                cursorColor: Color.fromRGBO(34, 36, 86, 1),
-                decoration: InputDecoration(
-                  hintText: 'Doggo\'s Age',
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                    borderSide: BorderSide(width: 2, color: Colors.white),
-                  ),
-                  hintStyle: TextStyle(
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                  ),
-                  icon: Icon(
-                    FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
-                ),
-                textAlign: TextAlign.center,
-                controller: addDoggoAge,
-              ),
-            ],
+          title: new Text(
+            "Change Owner's Name?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
           ),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Colors.black45,
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            ),
-            new FlatButton(
-              child: new Text("Save"),
-              textColor: Colors.black45,
-              onPressed: () {
-                _updateAge();
-                Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _changeDoggoName() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Doggo Name Change!"),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the doggos real name?"),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
+              TextFormField(
                 style: TextStyle(color: Colors.white),
                 cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
-                  hintText: 'Doggo\'s Name',
+                  hintText: 'Type Owner\'s Name',
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     borderSide: BorderSide(width: 2, color: Colors.white),
@@ -970,84 +778,9 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                         color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
-                  icon: Icon(
-                    FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
                 ),
                 textAlign: TextAlign.center,
-                controller: addDoggoName,
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              textColor: Colors.black45,
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            ),
-            new FlatButton(
-              child: new Text("Save"),
-              textColor: Colors.black45,
-              onPressed: () {
-                _updateDoggoName();
-                Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _changeOwnerName() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Owner Name Change!"),
-          content: Column(
-            children: <Widget>[
-              Text("What is the owners real name?"),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
-                style: TextStyle(color: Colors.white),
-                cursorColor: Color.fromRGBO(34, 36, 86, 1),
-                decoration: InputDecoration(
-                  hintText: 'Owner\'s Name',
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                    borderSide: BorderSide(width: 2, color: Colors.white),
-                  ),
-                  hintStyle: TextStyle(
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                  ),
-                  icon: Icon(
-                    FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(34, 36, 86, 1),
-                  ),
-                ),
-                textAlign: TextAlign.center,
-                controller: addOwnerName,
+                controller: updateOwnerName,
               ),
             ],
           ),
@@ -1074,43 +807,418 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
     );
   }
 
-  void _updatePicture() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnPicture: savedImagePath
-    };
-    final rowsAffected = await dbHelper.updateDoggos(row);
+  void _addIDNumber() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
+          title: new Text(
+            "Change ID Number?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                style: TextStyle(color: Colors.white),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
+                decoration: InputDecoration(
+                  hintText: 'Type new ID Number',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    borderSide: BorderSide(width: 2, color: Colors.white),
+                  ),
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(34, 36, 86, 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                ),
+                textAlign: TextAlign.center,
+                controller: updateIDNumber,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              textColor: Colors.black45,
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+            new FlatButton(
+              child: new Text("Save"),
+              textColor: Colors.black45,
+              onPressed: () {
+                _updateIDNumber();
+                Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  void _updateAge() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnAge: addDoggoAge.text,
-    };
-    final rowsAffected = await dbHelper.updateDoggos(row);
+  void _addPhoneNumber() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
+          title: new Text(
+            "Change Phone Number?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                style: TextStyle(color: Colors.white),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
+                decoration: InputDecoration(
+                  hintText: 'Type new phone number',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    borderSide: BorderSide(width: 2, color: Colors.white),
+                  ),
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(34, 36, 86, 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                ),
+                textAlign: TextAlign.center,
+                controller: updatePhoneNumber,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              textColor: Colors.black45,
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+            new FlatButton(
+              child: new Text("Save"),
+              textColor: Colors.black45,
+              onPressed: () {
+                _updatePhoneNumber();
+                Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  void _updateDoggoName() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnDogName: addDoggoName.text,
-    };
-    final rowsAffected = await dbHelper.updateDoggos(row);
+  void _addEmail() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
+          title: new Text(
+            "Change Owner's Email?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                style: TextStyle(color: Colors.white),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
+                decoration: InputDecoration(
+                  hintText: 'Type new Email',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    borderSide: BorderSide(width: 2, color: Colors.white),
+                  ),
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(34, 36, 86, 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                ),
+                textAlign: TextAlign.center,
+                controller: updateEmail,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              textColor: Colors.black45,
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+            new FlatButton(
+              child: new Text("Save"),
+              textColor: Colors.black45,
+              onPressed: () {
+                _updateEmail();
+                Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
+
+  void _addAddress() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
+          title: new Text(
+            "Change the Address?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                maxLines: 7,
+                style: TextStyle(color: Colors.white),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
+                decoration: InputDecoration(
+                  hintText: 'Type new Address here',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    borderSide: BorderSide(width: 2, color: Colors.white),
+                  ),
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(34, 36, 86, 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                ),
+                textAlign: TextAlign.center,
+                controller: updateAddress,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              textColor: Colors.black45,
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+            new FlatButton(
+              child: new Text("Save"),
+              textColor: Colors.black45,
+              onPressed: () {
+                _updateAddress();
+                Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _addVet() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          backgroundColor: Color.fromRGBO(171, 177, 177, 1),
+          title: new Text(
+            "Change the Vet?",
+            style: TextStyle(
+              color: Color.fromRGBO(34, 36, 86, 1),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                maxLines: 7,
+                style: TextStyle(color: Colors.white),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
+                decoration: InputDecoration(
+                  hintText: 'Type new Vet here',
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    borderSide: BorderSide(width: 2, color: Colors.white),
+                  ),
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(34, 36, 86, 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                  ),
+                ),
+                textAlign: TextAlign.center,
+                controller: updateVet,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              textColor: Colors.black45,
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+            new FlatButton(
+              child: new Text("Save"),
+              textColor: Colors.black45,
+              onPressed: () {
+                _updateVet();
+                Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  //DATABASE
 
   void _updateOwnerName() async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnOwnerName: addOwnerName.text,
+      DatabaseHelper.columnOwnerName: isThereAnOwnerName()
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
 
     print(rowsAffected);
   }
 
-  void _deleteDoggos() async {
-    final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.deleteDoggos(indexID);
-    print('deleted $rowsDeleted row(s): row $id');
+  void _updateIDNumber() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnOwnerID: isThereAnIDNumber(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
   }
+
+  void _updatePhoneNumber() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnPhone: isThereAPhoneNumber(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateEmail() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnEmail: isThereAEmail(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateAddress() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnAddress: isThereAnAddress(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateVet() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnVet: isThereVet(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+
+
+
+
 }

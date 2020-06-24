@@ -371,7 +371,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
 
   }
 
-  double _value = 50;
+  double _value = 100;
 
 
   @override
@@ -443,39 +443,34 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                           ],
                         ),
                         Container(
-                          child: FlatButton(
-                            onPressed: () {
-                              _changeSupplyLevel();
-                            },
-                            child: Container(
-                              child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
+                          child: Container(
+                            child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
 
-                                  Text('The current supply level is ',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(34, 36, 86, 1),
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                Text('The current supply level is ',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(34, 36, 86, 1),
+                                    fontWeight: FontWeight.w600,
                                   ),
+                                ),
 
-                                  Text('$_value',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(34, 36, 86, 1),
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                Text('$_value',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(34, 36, 86, 1),
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                  Text(' %',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(34, 36, 86, 1),
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                ),
+                                Text(' %',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(34, 36, 86, 1),
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        SizedBox(
+                        SizedBox(height: appConfigblockSizeHeight * 3,
                         ),
                         FlatButton(
                           onPressed: () {
@@ -488,7 +483,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Container(
-                                    height: appConfigblockSizeHeight * 30,
+                                    height: appConfigblockSizeHeight * 28,
                                     child: Image.asset('images/supplybottle.png'),
                                   ),
                                 ],
@@ -502,7 +497,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                                     activeTrackColor: Colors.blue,
                                     inactiveTrackColor: Colors.blue[100],
                                     trackShape: RectangularSliderTrackShape(),
-                                    trackHeight: 10.0,
+                                    trackHeight: 5.0,
                                     thumbColor: Colors.indigo,
                                     thumbShape: RoundSliderThumbShape(enabledThumbRadius: 20.0),
                                     overlayColor: Colors.red.withAlpha(32),
@@ -519,7 +514,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
 
                                     min: 0,
                                     max: 100,
-                                    divisions: 20,
+                                    divisions: 10,
                                     value: _value,
                                     label: '$_value',
                                     onChanged: (value) {

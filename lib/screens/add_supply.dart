@@ -429,9 +429,9 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
 
     var supplyLevelValue;
     if (addSupplyLevel.text == null) {
-      supplyLevelValue = 0;
+      supplyLevelValue = 100;
     } else if (addSupplyLevel.text == "") {
-      supplyLevelValue = 0;
+      supplyLevelValue = 100;
     }
     else {
       supplyLevelValue = addSupplyLevel.text;
