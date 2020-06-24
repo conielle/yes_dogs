@@ -280,7 +280,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
         title: Text(
           'Add A Doggo',
           style: TextStyle(color: Colors.white),
-        ),
+        ),leading: new Container(),
       ),
       body: SingleChildScrollView(
         child: Container(

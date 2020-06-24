@@ -75,7 +75,7 @@ class _SuppliesState extends State<Supplies> with TickerProviderStateMixin {
         title: Text(
           'Supplies List',
           style: TextStyle(color: Colors.white),
-        ),
+        ),leading: new Container(),
       ),
       body: Container(
         color: Color.fromRGBO( 171, 177, 177, 1),

@@ -111,7 +111,7 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
           title: Text(
             'Owner Details',
             style: TextStyle(color: Colors.white),
-          ),
+          ),leading: new Container(),
         ),
         body: SingleChildScrollView(
           child: Container(

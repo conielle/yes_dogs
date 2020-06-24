@@ -337,7 +337,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.close),
-            onPressed: () => Navigator.pushNamed(context, Home.id),
+            onPressed: () => Navigator.pushNamed(context, Supplies.id),
           ),
         ],
         leading: new Container(),

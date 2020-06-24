@@ -443,6 +443,13 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                               child: Column(
                                 children: [
                                   //HEADER
+                                  Text('Overview', style: TextStyle(
+                                      color: Color.fromRGBO(
+                                          34, 36, 86, 1),
+                                      fontWeight:
+                                      FontWeight.w900,
+                                      fontSize: fontSize * 18),),
+                                  SizedBox(height: appConfigblockSizeHeight * 2.5,),
                                   Container(
                                     width: appConfigblockSizeWidth * 90,
                                     padding: EdgeInsets.all(
@@ -492,6 +499,8 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                             width: appConfigblockSizeWidth * 4,
                                           ),
                                           Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
                                               //DOG NAME
                                               Container(
@@ -531,16 +540,7 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                                             FontWeight.w400,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      (data[ID]["breed"])
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
+
                                                     Text(
                                                       ', ',
                                                       style: TextStyle(
@@ -565,6 +565,18 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                                   ],
                                                 ),
                                               ),
+
+                                              Text(
+                                                (data[ID]["breed"])
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight:
+                                                  FontWeight.w600,
+                                                ),
+                                              ),
+
                                             ],
                                           ),
                                         ],
@@ -598,13 +610,16 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                       children: [
                                         Container(
                                           child: Text(
-                                            'Brief Overview',
+                                            'Doggo',
                                             style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     34, 36, 86, 1),
                                                 fontWeight: FontWeight.w900,
                                                 fontSize: fontSize * 8),
                                           ),
+                                        ),
+                                        SizedBox(
+                                          height: appConfigblockSizeHeight * 2,
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -854,7 +869,7 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                       children: [
                                         Container(
                                           child: Text(
-                                            'Owner Overview',
+                                            'Owner',
                                             style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     34, 36, 86, 1),
@@ -908,7 +923,29 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
-                                  )
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      SizedBox(height: appConfigblockSizeHeight * 2,),
+                                      Text("Would you like to remove this doggo?",
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(34, 36, 86, 1),),
+                                      ),
+                                      SizedBox(height:  appConfigblockSizeHeight * 1.5,),
+                                      FloatingActionButton(
+                                        heroTag: 'remove',
+                                        onPressed: () {
+                                          _deleteDoggos();
+                                          Navigator.pushNamed(context, 'doggo');
+                                        },
+                                        child: Icon(
+                                          Icons.remove,
+                                        ),
+                                        backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                                      ),
+                                      SizedBox(height: appConfigblockSizeHeight * 2,)
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),

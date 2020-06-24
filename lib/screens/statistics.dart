@@ -33,7 +33,7 @@ class _StatisticsState extends State<Statistics> with TickerProviderStateMixin {
         title: Text(
           'Statistics',
           style: TextStyle(color: Colors.white),
-        ),
+        ),leading: new Container(),
       ),
       body: Container(
         color: Color.fromRGBO( 171, 177, 177, 1),

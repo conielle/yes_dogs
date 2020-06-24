@@ -98,7 +98,7 @@ class _AppointmentsState extends State<Appointments>
         title: Text(
           'Schedule',
           style: TextStyle(color: Colors.white),
-        ),
+        ),leading: new Container(),
       ),
       body: Container(
         color: Color.fromRGBO(171, 177, 177, 1),

@@ -197,6 +197,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           'Whats Happening',
           style: TextStyle(color: Colors.white),
         ),
+        leading: new Container(),
       ),
       body: Container(
         width: appConfigblockSizeWidth * 100,

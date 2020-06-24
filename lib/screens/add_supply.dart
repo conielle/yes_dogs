@@ -226,7 +226,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
         title: Text(
           'Add A Supply', style: TextStyle(
             color: Colors.white),
-        ),
+        ),leading: new Container(),
       ),
       body: SingleChildScrollView(
         child: Container(height: appConfigblockSizeHeight * 100,

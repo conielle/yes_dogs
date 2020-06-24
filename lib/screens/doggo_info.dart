@@ -300,7 +300,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.close),
-            onPressed: () => Navigator.pushNamed(context, Home.id),
+            onPressed: () => Navigator.pushNamed(context, Doggos.id),
           ),
         ],
         leading: new Container(),
