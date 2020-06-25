@@ -431,23 +431,27 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          (finalDate == null)
-                                              ? data[ID]["date"]
-                                              : finalDate,
-                                          style: TextStyle(
-                                            color: Color.fromRGBO(34, 36, 86, 1),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: fontSize * 12,
-                                          ),
+                                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              (finalDate == null)
+                                                  ? data[ID]["date"]
+                                                  : finalDate,
+                                              style: TextStyle(
+                                                color: Color.fromRGBO(34, 36, 86, 1),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: fontSize * 10,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         Text(
                                           " at ",
                                           style: TextStyle(
                                             color: Color.fromRGBO(34, 36, 86, 1),
                                             fontWeight: FontWeight.bold,
-                                            fontSize: fontSize * 10,
-                                          ),
+                                            fontSize: fontSize * 8.5)
                                         ),
                                         Text(
                                           (finalTime == null)

@@ -904,133 +904,137 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                   SizedBox(
                                     height: appConfigblockSizeHeight * 2,
                                   ),
-                                  Container(
-                                    width: appConfigblockSizeWidth * 90,
-                                    padding: EdgeInsets.all(
-                                        appConfigblockSizeWidth * 4),
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color:
-                                              Colors.black54.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 1,
-                                          offset: Offset(0,
-                                              0), // changes position of shadow
-                                        ),
-                                      ],
-                                      color: Color.fromRGBO(156, 156, 156, 1),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(
-                                              appConfigblockSizeWidth * 4)),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            'Owner',
-                                            style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.w900,
-                                                fontSize: fontSize * 8),
+                                  InkWell(onTap: (){ Navigator.of(context).pushReplacementNamed(HomeInfo2.id);},
+                                    child: Container(
+                                      width: appConfigblockSizeWidth * 90,
+                                      padding: EdgeInsets.all(
+                                          appConfigblockSizeWidth * 4),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: appConfigblockSizeHeight * 2,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            data[ID]['owner_name'],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              color:
-                                                  Color.fromRGBO(34, 36, 86, 1),
-                                              fontSize: fontSize * 7,
+                                        ],
+                                        color: Color.fromRGBO(156, 156, 156, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                appConfigblockSizeWidth * 4)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            child: Text(
+                                              'Owner',
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: fontSize * 8),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              appConfigblockSizeHeight * 0.5,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            data[ID]['phone'],
-                                            style: TextStyle(
+                                          SizedBox(
+                                            height: appConfigblockSizeHeight * 2,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['owner_name'],
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color:
+                                                    Color.fromRGBO(34, 36, 86, 1),
+                                                fontSize: fontSize * 7,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                appConfigblockSizeHeight * 0.5,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['phone'],
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontSize: fontSize * 7),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                appConfigblockSizeHeight * 0.5,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['email'],
+                                              style: TextStyle(
                                                 fontWeight: FontWeight.w400,
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontSize: fontSize * 7),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              appConfigblockSizeHeight * 0.5,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            data[ID]['email'],
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              color:
-                                                  Color.fromRGBO(34, 36, 86, 1),
-                                              fontSize: fontSize * 7,
+                                                color:
+                                                    Color.fromRGBO(34, 36, 86, 1),
+                                                fontSize: fontSize * 7,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
                                     height: appConfigblockSizeHeight * 2,
                                   ),
-                                  Container(
-                                    width: appConfigblockSizeWidth * 90,
-                                    padding: EdgeInsets.all(
-                                        appConfigblockSizeWidth * 2),
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color:
-                                              Colors.black54.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 1,
-                                          offset: Offset(0,
-                                              0), // changes position of shadow
-                                        ),
-                                      ],
-                                      color: Color.fromRGBO(156, 156, 156, 1),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(
-                                              appConfigblockSizeWidth * 4)),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'My Notes About ${data[0]['dog_name']}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w900,
+                                  InkWell(onTap: (){ Navigator.of(context).pushReplacementNamed(HomeInfo3.id);},
+                                    child: Container(
+                                      width: appConfigblockSizeWidth * 90,
+                                      padding: EdgeInsets.all(
+                                          appConfigblockSizeWidth * 2),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
                                             color:
-                                                Color.fromRGBO(34, 36, 86, 1),
-                                            fontSize: fontSize * 8,
+                                                Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: appConfigblockSizeHeight * 2,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            data[ID]['mynotes'],
+                                        ],
+                                        color: Color.fromRGBO(156, 156, 156, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                appConfigblockSizeWidth * 4)),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'My Notes About ${data[0]['dog_name']}',
                                             style: TextStyle(
+                                              fontWeight: FontWeight.w900,
                                               color:
                                                   Color.fromRGBO(34, 36, 86, 1),
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: fontSize * 7,
+                                              fontSize: fontSize * 8,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            height: appConfigblockSizeHeight * 2,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              data[ID]['mynotes'],
+                                              style: TextStyle(
+                                                color:
+                                                    Color.fromRGBO(34, 36, 86, 1),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: fontSize * 7,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],

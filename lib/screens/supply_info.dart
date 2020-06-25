@@ -730,16 +730,18 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Supply Type Change!"),
-          content: Column(
+          title: new Text("Supply Type Change!", style: TextStyle(
+        color: Color.fromRGBO(34, 36, 86, 1),),),
+          content: Column(mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the supplies real type?"),
+              Text("What is the real supply type?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
               TextField(
                 style: TextStyle(color: Colors.white),
-                cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
                   hintText: 'Supply Type',
                   focusedBorder: OutlineInputBorder(
@@ -747,21 +749,21 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                     borderSide: BorderSide(width: 2, color: Colors.white),
                   ),
                   hintStyle: TextStyle(
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   icon: Icon(
                     FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                 ),
                 textAlign: TextAlign.center,
@@ -780,7 +782,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateSupplyType();
               Navigator.of(context).pushReplacementNamed(SupplyInfo.id);
               },
@@ -800,16 +802,19 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Brand Name Change!"),
+          title: new Text("Brand Name Change!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the brands real name?"),
+              Text("What is the brands real name?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
               TextField(
                 style: TextStyle(color: Colors.white),
-                cursorColor: Color.fromRGBO(245, 66, 145, 1),
+                cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
                   hintText: 'Brand\'s Name',
                   focusedBorder: OutlineInputBorder(
@@ -817,21 +822,21 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                     borderSide: BorderSide(width: 2, color: Colors.white),
                   ),
                   hintStyle: TextStyle(
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: Color.fromRGBO(245, 66, 145, 1), width: 2),
+                        color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                   ),
                   icon: Icon(
                     FontAwesomeIcons.solidHourglass,
-                    color: Color.fromRGBO(245, 66, 145, 1),
+                    color: Color.fromRGBO(34, 36, 86, 1),
                   ),
                 ),
                 textAlign: TextAlign.center,
@@ -850,7 +855,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateSupplyBrand();
               Navigator.of(context).pushReplacementNamed(SupplyInfo.id);
               },
@@ -860,6 +865,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
       },
     );
   }
+
 
   void _addPhoto() {
     showDialog(

@@ -585,10 +585,12 @@ class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Age Change!"),
+          title: new Text("Age Change!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Column(
             children: <Widget>[
-              Text("What is the doggos age?"),
+              Text("What is the doggos age?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
@@ -635,7 +637,7 @@ class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateAge();
               Navigator.of(context).pushReplacementNamed(OwnerInfo.id);
               },
@@ -655,10 +657,12 @@ class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Doggo Name Change!"),
+          title: new Text("Doggo Name Change!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Column(
             children: <Widget>[
-              Text("What is the doggos real name?"),
+              Text("What is the doggos real name?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
@@ -705,7 +709,7 @@ class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateDoggoName();
               Navigator.of(context).pushReplacementNamed(OwnerInfo.id);
               },
@@ -725,10 +729,12 @@ class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Owner Name Change!"),
+          title: new Text("Owner Name Change!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Column(
             children: <Widget>[
-              Text("What is the owners real name?"),
+              Text("What is the owners real name?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
@@ -775,7 +781,7 @@ class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateOwnerName();
               Navigator.of(context).pushReplacementNamed(OwnerInfo.id);
               },
@@ -795,7 +801,8 @@ class _OwnerInfoState extends State<OwnerInfo> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Add a photo!"),
+          title: new Text("Add a photo!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Container(child:
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

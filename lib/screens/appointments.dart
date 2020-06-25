@@ -166,19 +166,19 @@ class _AppointmentsState extends State<Appointments>
                 color: Colors.white,
               )),
             ),
-            RawMaterialButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Statistics()));
-              },
-              shape: CircleBorder(),
-              padding: const EdgeInsets.all(24.0),
-              child: IconButton(
-                  icon: FaIcon(
-                FontAwesomeIcons.sortNumericDownAlt,
-                color: Colors.white,
-              )),
-            ),
+//            RawMaterialButton(
+//              onPressed: () {
+//                Navigator.push(context,
+//                    MaterialPageRoute(builder: (context) => Statistics()));
+//              },
+//              shape: CircleBorder(),
+//              padding: const EdgeInsets.all(24.0),
+//              child: IconButton(
+//                  icon: FaIcon(
+//                FontAwesomeIcons.sortNumericDownAlt,
+//                color: Colors.white,
+//              )),
+//            ),
             RawMaterialButton(
               onPressed: () {
                 Navigator.push(context,

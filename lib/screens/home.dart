@@ -38,7 +38,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     'Belly Rub?',
     'Scratch Back!',
     'Dun Tickle Paws!',
-    'I Want Go Outside!',
+    'Wants Go Outsides!',
     'Mmmm Cat Poop! Delicious!'
   ], growable: false);
   random() {
@@ -771,19 +771,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           animationDuration: const Duration(milliseconds: 800),
           animationCurve: Curves.easeInOutCirc,
           children: <Widget>[
-            RawMaterialButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Statistics()));
-              },
-              shape: CircleBorder(),
-              padding: const EdgeInsets.all(24.0),
-              child: IconButton(
-                  icon: FaIcon(
-                FontAwesomeIcons.sortNumericDownAlt,
-                color: Colors.white,
-              )),
-            ),
+//            RawMaterialButton(
+//              onPressed: () {
+//                Navigator.push(context,
+//                    MaterialPageRoute(builder: (context) => Statistics()));
+//              },
+//              shape: CircleBorder(),
+//              padding: const EdgeInsets.all(24.0),
+//              child: IconButton(
+//                  icon: FaIcon(
+//                FontAwesomeIcons.sortNumericDownAlt,
+//                color: Colors.white,
+//              )),
+//            ),
             RawMaterialButton(
               onPressed: () {
                 Navigator.push(context,

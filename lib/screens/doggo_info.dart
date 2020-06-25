@@ -711,11 +711,13 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Age Change!"),
+          title: new Text("Age Change!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the doggos age?"),
+              Text("What is the doggos age?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
@@ -762,7 +764,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateAge();
               Navigator.of(context).pushReplacementNamed(DoggoInfo.id);
               },
@@ -782,11 +784,13 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Doggo Name Change!"),
+          title: new Text("Doggo Name Change!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the doggos real name?"),
+              Text("What is the doggos real name?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
@@ -833,7 +837,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateDoggoName();
               Navigator.of(context).pushReplacementNamed(DoggoInfo.id);
               },
@@ -853,11 +857,13 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Doggo Breed Change!"),
+          title: new Text("Doggo Breed Change!", style: TextStyle(
+            color: Color.fromRGBO(34, 36, 86, 1),),),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the doggos real breed?"),
+              Text("What is the doggos real breed?", style: TextStyle(
+                color: Color.fromRGBO(34, 36, 86, 1),),),
               SizedBox(
                 height: 20,
               ),
@@ -904,7 +910,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {_updateDoggoBreed();
               Navigator.of(context).pushReplacementNamed(DoggoInfo.id);
               },

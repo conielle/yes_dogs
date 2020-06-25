@@ -932,7 +932,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 _updateOwnerName();
                 Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
@@ -1001,7 +1001,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 _updateIDNumber();
                 Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
@@ -1070,7 +1070,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 _updatePhoneNumber();
                 Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
@@ -1139,7 +1139,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 _updateEmail();
                 Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
@@ -1209,7 +1209,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 _updateAddress();
                 Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
@@ -1279,7 +1279,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
             ),
             new FlatButton(
               child: new Text("Save"),
-              textColor: Colors.black45,
+              textColor: Color.fromRGBO(34, 36, 86, 1),
               onPressed: () {
                 _updateVet();
                 Navigator.of(context).pushReplacementNamed(HomeInfo2.id);
