@@ -132,91 +132,80 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
   @override
 
+  //UNIQUE ID GENERATOR
 
-  /////////GALLERY IMAGE SELECTOR AND RESIZER//////
-  File rawGalleryImage;
-
-  Future _getImage() async {
-    Directory tempDir = await getTemporaryDirectory();
-    tempPath = tempDir.path;
-
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-
-    var galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-    print("Path : " + galleryImage.path);
-    rawGalleryImage = galleryImage;
-
-    File myCompressedFile;
-    img.Image image = img.decodeImage(rawGalleryImage.readAsBytesSync());
-
-    img.Image thumbnail = img.copyResize(image, height: 200);
-
-    String labelgallery = '${random.Number()}${addDoggoName.text}gallery.jpg';
-
-    myCompressedFile = new File(appDocPath + '$labelgallery')
-      ..writeAsBytesSync(img.encodeJpg(thumbnail));
-    print(appDocPath + '$labelgallery');
-    newImagePath = myCompressedFile.path;
-    print(newImagePath);
-
-    final File copiedImage =
-        await myCompressedFile.copy('$appDocPath/$labelgallery');
-
-    print(copiedImage.path);
-    savedImagePath = copiedImage.path;
-
-    setState(() {
-      previewImage = copiedImage;
-    });
-
-    return previewImage;
+  String appDocPath;
+  var uuidimage;
+  uniqueImage() {
+    uuidimage = uuid.v1();
+    print(uuidimage);
+    return uuidimage;
   }
 
-  /////////CAMERA IMAGE SELECTOR AND RESIZER//////
-  File rawCamImage;
+  /////////GALLERY IMAGE SELECTOR//////
 
-  Future _takeImage() async {
+  Future _getImage() async {
+    //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
 
-
     Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
+    appDocPath = appDocDir.path;
 
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    rawCamImage = image;
-    File convert = rawCamImage;
-    File myCompressedFile;
-    img.Image images = img.decodeImage(convert.readAsBytesSync());
-    print("Compressed");
+    String labelgallery = '${uuidimage}gallery.jpg';
+    File _image;
+    File savedImage;
+    final picker = ImagePicker();
 
-    // Resize the image to a 200x? thumbnail (maintaining the aspect ratio).
-    img.Image thumbnail = img.copyResize(images, height: 200);
-    img.Image rotated = img.copyRotate(thumbnail, 90);
+    //LOGIC
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    previewImage = savedImage;
+    print(savedImage);
 
-    // Save the thumbnail as a JPG.
-
-    String labelcamera = '${random.Number()}${addDoggoName.text}camera.jpg';
-
-    myCompressedFile = new File(appDocPath + '$labelcamera')
-      ..writeAsBytesSync(img.encodeJpg(thumbnail));
-    print(appDocPath + '$labelcamera');
-    newImagePath = myCompressedFile.path;
-
-    print(newImagePath);
-
-    final File copiedImage =
-        await myCompressedFile.copy('$appDocPath/$labelcamera');
-
-    print(copiedImage.path);
-    savedImagePath = copiedImage.path;
     setState(() {
-      previewImage = copiedImage;
+      _image = File(pickedFile.path);
+      previewImage = _image;
+
+      savedImagePath = previewImage.path;
+      print(savedImagePath);
     });
 
-    return previewImage;
+    savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    isThereAPic();
+    return  previewImage;
+  }
+
+  /////////CAMERA IMAGE SELECTOR//////
+
+  Future _takeImage() async {
+    //DEFINITIONS
+    Directory tempDir = await getTemporaryDirectory();
+    tempPath = tempDir.path;
+
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    appDocPath = appDocDir.path;
+
+    String labelgallery = '${uuidimage}camera.jpg';
+    File _image;
+    File savedImage;
+    final picker = ImagePicker();
+
+    //LOGIC
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    previewImage = savedImage;
+    print(savedImage);
+
+    setState(() {
+      _image = File(pickedFile.path);
+      previewImage = _image;
+
+      savedImagePath = previewImage.path;
+      print(savedImagePath);
+    });
+
+    savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    isThereAPic();
+    return  previewImage;
   }
 
   final dbHelper = DatabaseHelper.instance;
@@ -661,10 +650,10 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
   isThereAPic() {
     String picturePath;
-    if (newImagePath == null) {
+    if (savedImagePath == null) {
       picturePath = 'images/doggo.png';
     } else {
-      picturePath = newImagePath;
+      picturePath = savedImagePath;
     }
     return picturePath;
   }

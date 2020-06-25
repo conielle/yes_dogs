@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../database/database_logic.dart';
 
 
