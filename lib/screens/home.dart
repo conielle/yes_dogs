@@ -13,6 +13,7 @@ import 'package:daniellesdoggrooming/screens/statistics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:sqflite/sqflite.dart';
+import 'dart:math';
 
 class Home extends StatefulWidget {
   static const String id = 'home';
@@ -26,7 +27,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
 
-  ////DEfINITIONS////
+  //WELCOME CYCLE
+  var welcomeList = List.from([
+     'Welcome', 'Woof Woof', 'Boof!', 'GRRRRRR!', 'Where Go? I Come!', 'Give Me Chimpkin Nugger!', 'Belly Rub?', 'Scratch Back!', 'Don\'t Tickle Paws!', 'I Want Go Outside!', 'Mmmm Cat Poop! Delicious!'], growable: false);
+  random(){
+    Random rnd;
+    int min = 0;
+    int max = 11;
+    int r;
+    rnd = new Random();
+    r = min + rnd.nextInt(max - min);
+    print("$r is in the range of $min and $max");
+
+    return r;
+  }
+
+  ////DEFINITIONS////
   var dogUniqueID;
   var number;
   var doggoID;
@@ -233,11 +249,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             child: Column(
                               children: [
                                 Text(
-                                  "Welcome",
+                                 welcomeList[random()],
                                   style: TextStyle(
                                     color: Color.fromRGBO(34, 36, 86, 1),
                                     fontWeight: FontWeight.w900,
-                                    fontSize: fontSize * 14,
+                                    fontSize: fontSize * 10,
                                   ),
                                 ),
                                 Container(
