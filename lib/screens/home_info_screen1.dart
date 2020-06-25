@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:daniellesdoggrooming/screens/home_info_screen2.dart';
 import 'package:daniellesdoggrooming/screens/home_info_screen3.dart';
+import 'doggo_info.dart';
 
 class random {
   static final Random _random = Random.secure();
@@ -453,171 +454,191 @@ class _HomeInfo1State extends State<HomeInfo1> with TickerProviderStateMixin {
                                   SizedBox(
                                     height: appConfigblockSizeHeight * 2.5,
                                   ),
-                                  Container(
-                                    width: appConfigblockSizeWidth * 90,
-                                    padding: EdgeInsets.all(
-                                        appConfigblockSizeWidth * 2),
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color:
-                                              Colors.black54.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 1,
-                                          offset: Offset(0,
-                                              0), // changes position of shadow
-                                        ),
-                                      ],
-                                      color: Color.fromRGBO(156, 156, 156, 1),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(
-                                              appConfigblockSizeWidth * 4)),
-                                    ),
-                                    child: SingleChildScrollView(
-                                      child: Row(
-                                        children: [
-                                          //PICTURE
-                                          Container(
-                                            child: previewImage == null
-                                                ? CircleAvatar(
-                                                    backgroundImage: AssetImage(
-                                                        data[ID]['picture']),
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    radius:
-                                                        appConfigblockSizeWidth *
-                                                            10,
-                                                  )
-                                                : CircleAvatar(
-                                                    backgroundImage: AssetImage(
-                                                        data[ID]["picture"]),
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    radius:
-                                                        appConfigblockSizeWidth *
-                                                            10,
-                                                  ),
-                                          ),
-                                          SizedBox(
-                                            width: appConfigblockSizeWidth * 4,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              //DOG NAME
-                                              Container(
-                                                child: Text(
-                                                  data[ID]["dog_name"],
-                                                  style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      fontSize: fontSize * 8),
-                                                ),
-                                              ),
+                                  InkWell(
+                                    onTap: () async {
+                                      dogUniqueID = data[ID][
+                                      "uniqueID"];
+                                      SharedPreferences
+                                      doginfo =
+                                      await SharedPreferences
+                                          .getInstance();
+                                      doginfo.setString(
+                                          'doguniqueid',
+                                          '$dogUniqueID');
 
-                                              //AGE
-                                              Container(
-                                                child: Row(
-                                                  children: [
-                                                    Text(
-                                                      (data[ID]["age"])
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      ' years old, ',
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      ', ',
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontStyle:
-                                                            FontStyle.italic,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      (data[ID]["sex"])
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-
-                                              Text(
-                                                (data[ID]["breed"]).toString(),
-                                                style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      34, 36, 86, 1),
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height:
-                                                    appConfigblockSizeHeight *
-                                                        0.5,
-                                              ),
-                                              (data[0]['date'] == "No Grooming Scheduled") ? Row(children: [Text(
-                                                'Groom To Be Scheduled',
-                                                style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      34, 36, 86, 1),
-                                                  fontWeight:
-                                                  FontWeight.w400,
-                                                  fontSize: fontSize * 7,
-                                                ),
-                                              ),
-                                              ],) : Row(
-                                                children: [
-                                                  Text(
-                                                    'Due for a groom on ',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          34, 36, 86, 1),
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: fontSize * 7,
-                                                    ),
-                                                  ),
-                                                  Text(data[0]['date'],
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: fontSize * 7,
-                                                      ))
-                                                ],
-                                              )
-                                            ],
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder:
+                                                  (context) =>
+                                                  DoggoInfo()));
+                                    },
+                                    child: Container(
+                                      width: appConfigblockSizeWidth * 90,
+                                      padding: EdgeInsets.all(
+                                          appConfigblockSizeWidth * 2),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black54.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            offset: Offset(0,
+                                                0), // changes position of shadow
                                           ),
                                         ],
+                                        color: Color.fromRGBO(156, 156, 156, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                appConfigblockSizeWidth * 4)),
+                                      ),
+                                      child: SingleChildScrollView(
+                                        child: Row(
+                                          children: [
+                                            //PICTURE
+                                            Container(
+                                              child: previewImage == null
+                                                  ? CircleAvatar(
+                                                      backgroundImage: AssetImage(
+                                                          data[ID]['picture']),
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      radius:
+                                                          appConfigblockSizeWidth *
+                                                              10,
+                                                    )
+                                                  : CircleAvatar(
+                                                      backgroundImage: AssetImage(
+                                                          data[ID]["picture"]),
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      radius:
+                                                          appConfigblockSizeWidth *
+                                                              10,
+                                                    ),
+                                            ),
+                                            SizedBox(
+                                              width: appConfigblockSizeWidth * 4,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                //DOG NAME
+                                                Container(
+                                                  child: Text(
+                                                    data[ID]["dog_name"],
+                                                    style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize: fontSize * 8),
+                                                  ),
+                                                ),
+
+                                                //AGE
+                                                Container(
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        (data[ID]["age"])
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ' years old, ',
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ', ',
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        (data[ID]["sex"])
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                                Text(
+                                                  (data[ID]["breed"]).toString(),
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        34, 36, 86, 1),
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height:
+                                                      appConfigblockSizeHeight *
+                                                          0.5,
+                                                ),
+                                                (data[0]['date'] == "No Grooming Scheduled") ? Row(children: [Text(
+                                                  'Groom To Be Scheduled',
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        34, 36, 86, 1),
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    fontSize: fontSize * 7,
+                                                  ),
+                                                ),
+                                                ],) : Row(
+                                                  children: [
+                                                    Text(
+                                                      'Due for a groom on ',
+                                                      style: TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            34, 36, 86, 1),
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: fontSize * 7,
+                                                      ),
+                                                    ),
+                                                    Text(data[0]['date'],
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: fontSize * 7,
+                                                        ))
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

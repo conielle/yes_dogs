@@ -715,7 +715,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
       DatabaseHelper.columnOwnerID: 'No ID Number',
       DatabaseHelper.columnPhone: 'No Phone Number}',
       DatabaseHelper.columnEmail: 'No Email Address',
-      DatabaseHelper.columnAddress: 'No Address',
+      DatabaseHelper.columnAddress: 'No Physical Address',
       DatabaseHelper.columnVet: 'No Vet Details',
       DatabaseHelper.columnMyNotes: 'My Notes Are Empty, For Now',
       DatabaseHelper.columnOwnerNotes: 'No Recorded Owner\'s Notes For Doggo',

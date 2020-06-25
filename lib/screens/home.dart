@@ -29,8 +29,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   //WELCOME CYCLE
   var welcomeList = List.from([
-     'Welcome', 'Woof Woof', 'Boof!', 'GRRRRRR!', 'Where Go? I Come!', 'Give Me Chimpkin Nugger!', 'Belly Rub?', 'Scratch Back!', 'Don\'t Tickle Paws!', 'I Want Go Outside!', 'Mmmm Cat Poop! Delicious!'], growable: false);
-  random(){
+    'Birds Scary!',
+    'Woof Woof!',
+    'Boof!',
+    'GRRRRRR!',
+    'Where Go? I Come!',
+    'Gib Me Chimpkin Nugger!',
+    'Belly Rub?',
+    'Scratch Back!',
+    'Dun Tickle Paws!',
+    'I Want Go Outside!',
+    'Mmmm Cat Poop! Delicious!'
+  ], growable: false);
+  random() {
     Random rnd;
     int min = 0;
     int max = 11;
@@ -46,6 +57,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   var dogUniqueID;
   var number;
   var doggoID;
+  var owner;
 
   var supplyUniqueID;
   var supplyID;
@@ -165,13 +177,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   /////FETCH DOGS INFO FROM DATABASE/////
   Future<String> fetchDogs() async {
     var database = await openDatabase('database.db');
-    var thing = await database.rawQuery('SELECT * FROM doggos');
+    List<Map<String, dynamic>> records = await database.query('doggos');
+    Map<String, dynamic> mapRead = records.first;
+//    mapRead['my_column'] = 1;
+    Map<String, dynamic> map = Map<String, dynamic>.from(mapRead);
+    print(map);
+
+    var newlist = records.toList();
+
+    var hello = newlist
+      ..sort((a, b) => a["date"].toString().compareTo(b["date"].toString()));
+
+    data = hello;
+    print(data);
 
     setState(() {
-      var extractdata = thing;
-      data = extractdata;
-      print(data.length);
-      return data.toList();
+      data;
     });
   }
 
@@ -196,8 +217,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     firstLaunch();
   }
 
-
-
   ////WHATS VISIBLE ON SCREEN////
   @override
   Widget build(BuildContext context) {
@@ -206,8 +225,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     double appConfigblockSizeWidth = appConfigWidth / 100;
     double appConfigblockSizeHeight = appConfigHeight / 100;
     double fontSize = appConfigWidth * 0.005;
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -243,13 +260,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           Container(
                             padding: EdgeInsets.only(
                                 top: appConfigblockSizeHeight * 1),
-
                             height: appConfigblockSizeHeight * 10,
                             width: appConfigblockSizeWidth * 80,
                             child: Column(
                               children: [
                                 Text(
-                                 welcomeList[random()],
+                                  welcomeList[random()],
                                   style: TextStyle(
                                     color: Color.fromRGBO(34, 36, 86, 1),
                                     fontWeight: FontWeight.w900,
@@ -307,19 +323,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       height: appConfigblockSizeHeight * 52,
                                       decoration: BoxDecoration(
                                         color: Color.fromRGBO(136, 136, 136, 1),
-
-
                                         boxShadow: [
                                           BoxShadow(
                                             color:
-                                            Colors.black54.withOpacity(0.5),
+                                                Colors.black54.withOpacity(0.5),
                                             spreadRadius: 1,
                                             blurRadius: 1,
                                             offset: Offset(0,
                                                 0), // changes position of shadow
                                           ),
                                         ],
-
                                         borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(
                                                 appConfigblockSizeHeight * 5),
@@ -329,6 +342,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       child: Column(
                                         //////////////TOP STREAM////////////
                                         children: <Widget>[
+                                          SizedBox(height: appConfigblockSizeHeight * 1,),
+
                                           (data == null)
                                               ? (Column(
                                                   mainAxisAlignment:
@@ -468,13 +483,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                 dogUniqueID = data[
                                                                         i][
                                                                     "uniqueID"];
+                                                                owner = data[i]['owner_name'];
                                                                 SharedPreferences
                                                                     doginfo =
                                                                     await SharedPreferences
                                                                         .getInstance();
-                                                                doginfo.setString(
-                                                                    'doguniqueid',
-                                                                    '$dogUniqueID');
+                                                                doginfo.setString('doguniqueid', '$dogUniqueID');
+                                                                doginfo.setString('owner', '$owner');
 
                                                                 Navigator.push(
                                                                     context,
@@ -485,11 +500,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                               },
                                                               title: new Text(data[
                                                                       i]
-                                                                  ["dog_name"]),
+                                                                  ["dog_name"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
                                                               subtitle:
                                                                   new Text(data[
                                                                           i][
-                                                                      "owner_name"]),
+                                                                      "owner_name"], style: TextStyle(color: Color.fromRGBO(54, 56, 96, 1)),),
                                                               leading:
                                                                   new CircleAvatar(
                                                                 backgroundColor:
@@ -500,6 +515,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                         data[i][
                                                                             "picture"]),
                                                               ),
+                                                              trailing: (data[i]
+                                                                          [
+                                                                          'date'] ==
+                                                                      "No Grooming Scheduled")
+                                                                  ? Text(' ')
+                                                                  : Text(data[i]
+                                                                      ['date'], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
                                                             );
                                                           },
                                                         ),
@@ -518,9 +540,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       Positioned(
                         top: appConfigblockSizeHeight * 56,
                         child: Container(
-                            padding:
-                                EdgeInsets.only(left: appConfigblockSizeWidth * 1, right: appConfigblockSizeWidth * 1, top: appConfigblockSizeWidth * 1),
-
+                            padding: EdgeInsets.only(
+                                left: appConfigblockSizeWidth * 1,
+                                right: appConfigblockSizeWidth * 1,
+                                top: appConfigblockSizeWidth * 1),
                             height: appConfigblockSizeHeight * 34,
                             width: appConfigblockSizeWidth * 80,
                             child: SingleChildScrollView(
@@ -590,8 +613,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    AddSupply()));
+                                                                builder:
+                                                                    (context) =>
+                                                                        AddSupply()));
                                                       },
                                                       child: Icon(
                                                         Icons.add,
@@ -623,8 +647,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                         Text(
                                                           "Add Some Supplies",
                                                           style: TextStyle(
-                                                            color: Color.fromRGBO(
-                                                                34, 36, 86, 1),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    34,
+                                                                    36,
+                                                                    86,
+                                                                    1),
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 13,
@@ -636,7 +664,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                   1,
                                                         ),
                                                         FloatingActionButton(
-                                                          heroTag: 'addsupplies',
+                                                          heroTag:
+                                                              'addsupplies',
                                                           onPressed: () {
                                                             ;
                                                             Navigator.push(
@@ -650,8 +679,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                             Icons.add,
                                                           ),
                                                           backgroundColor:
-                                                              Color.fromRGBO(
-                                                                  34, 36, 86, 1),
+                                                              Color.fromRGBO(34,
+                                                                  36, 86, 1),
                                                         ),
                                                       ],
                                                     ))
@@ -683,15 +712,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                               SupplyInfo()));
                                                             },
                                                             title: new Text(data2[
-                                                                    i]
-                                                                ["supply_type"]),
+                                                                    i][
+                                                                "supply_type"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
                                                             subtitle: new Text(
                                                                 data2[i][
-                                                                    "brand_name"]),
+                                                                    "brand_name"], style: TextStyle(color: Color.fromRGBO(54, 56, 96, 1)),),
                                                             trailing: new Text(
-                                                                '${data2[i]['level']}%'
-
-                                                            ),
+                                                                '${data2[i]['level']}%', style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
                                                             leading:
                                                                 new CircleAvatar(
                                                               backgroundColor:

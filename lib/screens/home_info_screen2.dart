@@ -1,3 +1,4 @@
+import 'package:daniellesdoggrooming/screens/doggo_info.dart';
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'dart:io';
@@ -39,12 +40,9 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
   int indexID;
   var dogUniqueID;
   List data;
+  String owner;
+  List ownerdata;
 
-  String tempPath;
-  String previewPath;
-  File previewImage;
-  String newImagePath;
-  String savedImagePath;
 
   final updateAddress = TextEditingController();
   final updateOwnerName = TextEditingController();
@@ -58,7 +56,9 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
   fetchUniqueID() async {
     SharedPreferences doginfo = await SharedPreferences.getInstance();
     dogUniqueID = doginfo.getString('doguniqueid') ?? '';
+    owner = doginfo.getString('owner') ?? '';
 
+    print(owner);
     print(dogUniqueID);
   }
 
@@ -115,10 +115,61 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
     print("Database Query");
   }
 
+  fetchOwner() async {
+    // get a reference to the database
+    Database db = await DatabaseHelper.instance.database;
+
+    // get single row
+    List<String> columnsToSelect = [
+      DatabaseHelper.columnId,
+      DatabaseHelper.columnDogName,
+      DatabaseHelper.columnDogUniqueId,
+      DatabaseHelper.columnBreed,
+      DatabaseHelper.columnFixed,
+      DatabaseHelper.columnSex,
+      DatabaseHelper.columnScheduleDate,
+      DatabaseHelper.columnScheduleTime,
+      DatabaseHelper.columnAge,
+      DatabaseHelper.columnPicture,
+      DatabaseHelper.columnOwnerName,
+      DatabaseHelper.columnOwnerID,
+      DatabaseHelper.columnPhone,
+      DatabaseHelper.columnEmail,
+      DatabaseHelper.columnAddress,
+      DatabaseHelper.columnVet,
+      DatabaseHelper.columnMyNotes,
+      DatabaseHelper.columnOwnerNotes,
+      DatabaseHelper.columnMedicalNotes,
+      DatabaseHelper.columnTemperament,
+      DatabaseHelper.columnGrooming,
+      DatabaseHelper.columnTraining,
+    ];
+    String whereString =
+        '${DatabaseHelper.columnOwnerName} = "$owner"';
+    int rowId = 2;
+    List<dynamic> whereArguments = [rowId];
+    List<Map> result = await db.query(DatabaseHelper.table,
+        columns: columnsToSelect,
+        where: whereString,
+        whereArgs: whereArguments);
+
+    print(result);
+
+    setState(() {
+      var extractdata = result;
+      ownerdata = extractdata;
+      print(ownerdata);
+      return ownerdata.toList();
+    });
+
+    print("Owner Database Query");
+  }
+
   @override
   void initState() {
     fetchUniqueID();
     fetchID();
+    fetchOwner();
   }
 
   @override
@@ -311,10 +362,11 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                                     fontSize: fontSize * 6,
                                                   ),
                                                 ),
+                                                SizedBox(height: appConfigblockSizeHeight * 0.5,),
                                                 //DOG NAME
-                                                FlatButton(
-                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                  onPressed: (){_addOwnerName();},
+                                                InkWell(
+
+                                                  onTap: (){_addOwnerName();},
                                                   child: Container(
                                                     child: Text(
                                                       data[ID]["owner_name"],
@@ -327,11 +379,10 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                 ),
-
+                                                SizedBox(height: appConfigblockSizeHeight * 1,),
                                                 //AGE
-                                                FlatButton(
-                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                  onPressed: (){_addIDNumber();},
+                                                InkWell(
+                                                  onTap: (){_addIDNumber();},
                                                   child: Container(
                                                     child: Row(
 
@@ -367,12 +418,10 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                 ),
-
+                                                SizedBox(height: appConfigblockSizeHeight * 0.5,),
                                                 Container(
-                                                  child: FlatButton(
-                                                    padding: EdgeInsets.all(0),
-                                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                    onPressed: (){_addPhoneNumber();},
+                                                  child: InkWell(
+                                                    onTap: (){_addPhoneNumber();},
                                                     child: Row(
 
                                                       mainAxisAlignment:
@@ -407,12 +456,10 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                 ),
-
+SizedBox(height: appConfigblockSizeHeight * 0.5,),
                                                 Container(
-                                                  child: FlatButton(
-                                                    padding: EdgeInsets.all(0),
-                                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                    onPressed: (){_addEmail();},
+                                                  child: InkWell(
+                                                    onTap: (){_addEmail();},
                                                     child: Row(
 
                                                       mainAxisAlignment:
@@ -454,8 +501,100 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: appConfigblockSizeHeight * 2,
+                                    Column(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.only(top:
+                                          appConfigblockSizeWidth * 4, bottom: appConfigblockSizeWidth * 4),
+                                          child: Container(
+                                            height: appConfigblockSizeHeight * 28,
+                                            decoration: BoxDecoration(
+                                              color: Color.fromRGBO(156, 156, 156, 1),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color:
+                                                  Colors.black54.withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 1,
+                                                  offset: Offset(0,
+                                                      0), // changes position of shadow
+                                                ),
+                                              ],
+
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      appConfigblockSizeWidth * 4)),
+                                            ),
+                                            child: Column(
+
+                                              //////////////TOP STREAM////////////
+                                              children: <Widget>[
+                                                SizedBox(height: appConfigblockSizeHeight * 2,),
+                                                Text(
+                                                  'Owner\'s Doggos',
+                                                  style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          34, 36, 86, 1),
+                                                      fontWeight: FontWeight.w900,
+                                                      fontSize: fontSize * 8),
+                                                ),
+                                                Container(
+                                                  child: (Expanded(
+                                                    child: ListView.builder(
+                                                      itemCount:
+                                                      ownerdata.length,
+                                                      itemBuilder:
+                                                          (BuildContext
+                                                      context,
+                                                          i) {
+                                                        return new ListTile(
+                                                          onTap: () async {
+                                                            dogUniqueID = ownerdata[
+                                                            i][
+                                                            "uniqueID"];
+                                                            SharedPreferences
+                                                            doginfo =
+                                                            await SharedPreferences
+                                                                .getInstance();
+                                                            doginfo.setString(
+                                                                'doguniqueid',
+                                                                '$dogUniqueID');
+
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                        DoggoInfo()));
+                                                          },
+                                                          title: new Text(ownerdata[
+                                                          i]
+                                                          ["dog_name"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
+                                                          subtitle:
+                                                          new Text(ownerdata[
+                                                          i][
+                                                          "breed"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
+                                                          leading:
+                                                          new CircleAvatar(
+                                                            backgroundColor:
+                                                            Colors
+                                                                .transparent,
+                                                            backgroundImage:
+                                                            new AssetImage(
+                                                                ownerdata[i][
+                                                                "picture"]),
+                                                          ),
+                                                          trailing: Text(ownerdata[i]['age'], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
+                                                        );
+                                                      },
+                                                    ),
+                                                  )),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     Container(
                                       width: appConfigblockSizeWidth * 90,
@@ -589,7 +728,6 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                         ],
                                       ),
                                     ),
-
                                     SizedBox(
                                       height: appConfigblockSizeHeight * 2,
                                     ),
@@ -643,7 +781,6 @@ class _HomeInfo2State extends State<HomeInfo2> with TickerProviderStateMixin {
                                         ],
                                       ),
                                     ),
-
                                   ],
                                 ),
                               ),

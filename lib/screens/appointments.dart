@@ -43,18 +43,6 @@ class _AppointmentsState extends State<Appointments>
   var value;
 
 
-//  fetchDogs() async {
-//    var database = await openDatabase('database.db');
-//    var thing = await database.rawQuery('SELECT * FROM doggos');
-//
-//    setState(() {
-//      extractdata = thing;
-//      sort = extractdata;
-//      data = sort;
-//     print(data);
-//    });
-//  }
-
   fetchDogs() async {
     var database = await openDatabase('database.db');
     List<Map<String, dynamic>> records = await database.query('doggos');

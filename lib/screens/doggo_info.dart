@@ -1,3 +1,5 @@
+import 'package:daniellesdoggrooming/screens/appointment_info.dart';
+import 'package:daniellesdoggrooming/screens/home_info_screen1.dart';
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'dart:io';
@@ -39,6 +41,11 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   var dogUniqueID;
   List data;
 
+  bool isSwitched = false;
+  bool isGroomingSwitched = false;
+  bool isTrainingSwitched = false;
+  List<bool> _selections = List.generate(2, (_) => false);
+
   String tempPath;
   String previewPath;
   File previewImage;
@@ -46,7 +53,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   String savedImagePath;
 
   final addDoggoName = TextEditingController();
-  final addOwnerName = TextEditingController();
+  final addDoggoBreed = TextEditingController();
   final addDoggoAge = TextEditingController();
 
 
@@ -264,6 +271,16 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
       var extractdata = result;
       data = extractdata;
       print(data);
+
+      //BOOL CHECK FOR FIXED
+      if (data[0]['fixed'] == 'is'){isSwitched = true;} else {isSwitched = false;}
+      //BOOL CHECK FOR GROOMING
+      if (data[0]['grooming'] == 'is'){isGroomingSwitched = true;} else {isGroomingSwitched = false;}
+      //BOOL CHECK FOR TRAINING
+      if (data[0]['training'] == 'is'){isTrainingSwitched = true;} else {isTrainingSwitched = false;}
+      //BOOL CHECK FOR SEX
+      if(data[0]['sex'] == 'unknown') {} else if (data[0]['sex'] == 'male'){_selections[0] = true;} else if (data[0]['sex'] == 'female') {_selections[1] = true;}
+
       return data.toList();
     });
 
@@ -271,7 +288,6 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
 
 
   }
-
 
   @override
   void initState() {
@@ -300,9 +316,8 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.close),
-            onPressed: () => Navigator.pushNamed(context, Doggos.id),
-          ),
-        ],
+            onPressed: () {Navigator.of(context).pop(true);},
+          )],
         leading: new Container(),
       ),
       body: SingleChildScrollView(
@@ -316,71 +331,152 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                     right: 50.0, left: 50.0, top: 20, bottom: 20),
                 child: Container(
                   child: Container(
+
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
 
-                                SizedBox(
-                                  height: appConfigblockSizeHeight * 6.5,
-                                ),
-                                FlatButton(
-                                  onPressed: () {
-                                    _changeDoggoName();
-                                  },
+                        SizedBox(
+                          width: appConfigblockSizeWidth * 1,
+                        ),
+                        Text('Tap an item to change it', style: TextStyle(
+                            color: Color.fromRGBO(
+                                34, 36, 86, 1),
+
+                            fontSize: fontSize * 6),),
+                        SizedBox(height: appConfigblockSizeHeight * 1.5,),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          crossAxisAlignment:
+                          CrossAxisAlignment.center,
+                          children: [
+                            //PICTURE
+
+                            Column(
+                              children: <Widget>[
+                                //DOG NAME
+                                InkWell(onTap: () {_changeDoggoName();},
                                   child: Container(
                                     child: Text(
                                       data[ID]["dog_name"],
-
                                       style: TextStyle(
-                                          color: Color.fromRGBO(34, 36, 86, 1),
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: fontSize * 14),
+                                          color: Color.fromRGBO(
+                                              34, 36, 86, 1),
+                                          fontWeight:
+                                          FontWeight.w900,
+                                          fontSize: fontSize * 10),
                                     ),
                                   ),
                                 ),
-                              ],
+                                SizedBox(height: appConfigblockSizeHeight * 0.5,),
+                                //AGE
+                                Container(
+                                  child: Row(
+                                    children: [InkWell(onTap: (){_changeAge();},
+                                      child: Container(child:  Row(children: [
+                                        Text(
+                                          (data[ID]["age"])
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                34, 36, 86, 1),
+                                            fontWeight:
+                                            FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          ' years old, ',
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                34, 36, 86, 1),
+                                            fontStyle:
+                                            FontStyle.italic,
+                                            fontWeight:
+                                            FontWeight.w400,
+                                          ),
+                                        ),
+                                       ],),),
+                                    ),
+                                      Text(
+                                        (data[ID]["sex"])
+                                            .toString(),
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(
+                                              34, 36, 86, 1),
+                                          fontWeight:
+                                          FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+SizedBox(height: appConfigblockSizeHeight * 0.5,),
+                                InkWell(
+                                  onTap: (){_changeDoggoBreed();},
+                                  child: Text(
+                                    (data[ID]["breed"]).toString(),
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(
+                                          34, 36, 86, 1),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                  appConfigblockSizeHeight *
+                                      0.5,
+                                ),
+                                InkWell(onTap: (){
+
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AppointmentInfo()));
+
+                                },
+                                  child: Container(child: (data[0]['date'] == "No Grooming Scheduled") ? Row(children: [Text(
+                                    'Groom To Be Scheduled',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(
+                                          34, 36, 86, 1),
+                                      fontWeight:
+                                      FontWeight.w400,
+                                      fontSize: fontSize * 7,
+                                    ),
+                                  ),
+                                  ],) : Row(
+                                    children: [
+                                      Text(
+                                        'Due for a groom on ',
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(
+                                              34, 36, 86, 1),
+                                          fontWeight:
+                                          FontWeight.w400,
+                                          fontSize: fontSize * 7,
+                                        ),
+                                      ),
+                                      Text(data[0]['date'],
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                34, 36, 86, 1),
+                                            fontWeight:
+                                            FontWeight.w600,
+                                            fontSize: fontSize * 7,
+                                          ))
+                                    ],
+                                  )
+                                  ),
+                                )],
                             ),
                           ],
                         ),
-                        Container(
-                          child: FlatButton(
-                            onPressed: () {
-                              _changeAge();
-                            },
-                            child: Container(
-                              child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
 
-                                  Text(
-                                    (data[ID]["age"]).toString(),
 
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(34, 36, 86, 1),
-                                      fontWeight: FontWeight.w600,
-                                        fontSize: fontSize * 8
-                                    ),
-                                  ),
-                                  Text(
-                                    ' years old',
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color.fromRGBO(34, 36, 86, 1),
-                                      fontWeight: FontWeight.w400,
-                                        fontSize: fontSize * 8
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
+
+
+                        SizedBox(height: appConfigblockSizeHeight * 2,
                         ),
                         FlatButton(
                           onPressed: () {
@@ -396,77 +492,153 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                         SizedBox(
                           height: appConfigblockSizeHeight * 2,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Column(
                           children: [
-                            Text(
-                              "This beautiful ",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                  fontSize: fontSize * 8,
-                                color: Color.fromRGBO(34, 36, 86, 1),
-                              ),
-                            ),
-                            Text(
-                              "doggo",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: fontSize * 8,
-                                  color: Color.fromRGBO(34, 36, 86, 1),
-                                  fontStyle: FontStyle.italic),
+                            Row(
 
+                              children: [
+                                Text(
+                                  'Is doggo neutered or spayed?',
+                                  style: TextStyle(
+                                      fontSize: fontSize * 7,
+                                      color: Color.fromRGBO(34, 36, 86, 1)),
+                                ),
+                                SizedBox(width: fontSize * 17,),
+                                Switch(
+                                    activeTrackColor:
+                                    Color.fromRGBO(68, 70, 128, 1),
+                                    activeColor: Color.fromRGBO(34, 36, 86, 1),
+                                    value: isSwitched,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isSwitched = value;
+                                        isDoggoFixed();
+                                        _updateFixed();
+                                      });
+                                    })
+                              ],
                             ),
-                            Text(
-                              " belongs to...",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                  fontSize: fontSize * 8,
-                                color: Color.fromRGBO(34, 36, 86, 1),
-                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Is the doggo being groomed?',
+                                  style: TextStyle(
+                                      fontSize: fontSize * 7,
+                                      color: Color.fromRGBO(34, 36, 86, 1)),
+                                ),
+                                SizedBox(width: fontSize * 18,),
+                                Switch(
+                                    activeTrackColor:
+                                    Color.fromRGBO(68, 70, 128, 1),
+                                    activeColor: Color.fromRGBO(34, 36, 86, 1),
+                                    value: isGroomingSwitched,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isGroomingSwitched = value;
+                                        isDoggoGrooming();
+                                        _updateGrooming();
+
+
+                                      });
+                                    })
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Is doggo being trained?',
+                                  style: TextStyle(
+                                      fontSize: fontSize * 7,
+                                      color: Color.fromRGBO(34, 36, 86, 1)),
+                                ),
+                                SizedBox(width: fontSize * 37,),
+                                Switch(
+                                    activeTrackColor:
+                                    Color.fromRGBO(68, 70, 128, 1),
+                                    activeColor: Color.fromRGBO(34, 36, 86, 1),
+                                    value: isTrainingSwitched,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isTrainingSwitched = value;
+                                        isDoggoTraining();
+                                        _updateTraining();
+                                      });
+                                    })
+                              ],
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: appConfigblockSizeHeight * 1,
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            _changeOwnerName();
+                        ToggleButtons(
+                          color: Color.fromRGBO(34, 36, 86, 1),
+                          selectedColor: Color.fromRGBO(34, 36, 86, 1),
+                          fillColor: Color.fromRGBO(101, 107, 107, 1),
+                          splashColor: Colors.grey,
+                          highlightColor: Color.fromRGBO(107, 107, 177, 1),
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          disabledColor: Colors.blueGrey,
+                          disabledBorderColor: Colors.blueGrey,
+                          children: <Widget>[
+                            Icon(FontAwesomeIcons.mars, size: fontSize * 14,),
+                            Icon(FontAwesomeIcons.venus, size: fontSize * 14,),
+                          ],
+                          isSelected: _selections,
+                          onPressed: (int index) {
+                            setState(() {
+                              for (int i = 0; i < _selections.length; i++) {
+                                _selections[i] = i == index;
+                              }
+                              isThereASex();
+                              _updateSex();
+                            });
                           },
-                          child: Container(
-                            child: Text(
-                              data[ID]['owner_name'],
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromRGBO(34, 36, 86, 1),
-                                  fontSize: fontSize * 10,
-                              ),
-                            ),
-                          ),
                         ),
-
                         Column(
                           children: <Widget>[
                             SizedBox(height: appConfigblockSizeHeight * 4,),
-                            Text("Would you like to remove this doggo?",
+                            Text("Remove this doggo or save changes?",
                               style: TextStyle(
+                                fontSize: fontSize * 6,
                                 color: Color.fromRGBO(34, 36, 86, 1),),
                             ),
                             SizedBox(height:  appConfigblockSizeHeight * 2,),
-                            FloatingActionButton(
-                              heroTag: 'remove',
-                              onPressed: () {
-                                _deleteDoggos();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Doggos()));
-                              },
-                              child: Icon(
-                                Icons.remove,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+
+                              children: [
+
+                              FloatingActionButton(
+                                heroTag: 'remove',
+                                onPressed: () {
+                                  _deleteDoggos();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Doggos()));
+                                },
+                                child: Icon(
+                                  Icons.remove,
+                                ),
+                                backgroundColor: Color.fromRGBO(34, 36, 86, 1),
                               ),
-                              backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                            ),
+
+                              SizedBox( width: appConfigblockSizeWidth * 3,),
+
+                              FloatingActionButton(
+                                heroTag: 'add',
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomeInfo1()));
+                                },
+                                child: Icon(
+                                  Icons.add,
+                                ),
+                                backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                              ),
+
+                            ],),
                             SizedBox(height: appConfigblockSizeHeight * 5,)
                           ],
                         ),
@@ -495,16 +667,16 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     return dogNameValue;
   }
 
-  isThereAName() {
-    String nameValue;
-    if (addOwnerName.text == null) {
-      nameValue = 'No Named Owner';
-    } else if (addOwnerName.text == '') {
-      nameValue = 'No Named Owner';
+  isThereABreed() {
+    String breedValue;
+    if (addDoggoBreed.text == null) {
+      breedValue = 'Unknown Breed';
+    } else if (addDoggoBreed.text == '') {
+      breedValue = 'Unknown Breed';
     } else {
-      nameValue = addOwnerName.text;
+      breedValue = addDoggoBreed.text;
     }
-    return nameValue;
+    return breedValue;
   }
 
   isThereAnAge() {
@@ -529,17 +701,6 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     return picturePath;
   }
 
-  void _insert() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnDogName: '${isThereADogName()}',
-      DatabaseHelper.columnBreed: '${isThereAName()}',
-      DatabaseHelper.columnAge: '${isThereAnAge()}',
-      DatabaseHelper.columnPicture: '${isThereAPic()}',
-    };
-    final id = await dbHelper.insertDoggos(row);
-    print('${addDoggoName.text}');
-    print('inserted row id: $id');
-  }
 
   void _changeAge() {
     showDialog(
@@ -552,6 +713,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Age Change!"),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text("What is the doggos age?"),
               SizedBox(
@@ -622,6 +784,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
           title: new Text("Doggo Name Change!"),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text("What is the doggos real name?"),
               SizedBox(
@@ -681,7 +844,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     );
   }
 
-  void _changeOwnerName() {
+  void _changeDoggoBreed() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -690,10 +853,11 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-          title: new Text("Owner Name Change!"),
+          title: new Text("Doggo Breed Change!"),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("What is the owners real name?"),
+              Text("What is the doggos real breed?"),
               SizedBox(
                 height: 20,
               ),
@@ -701,7 +865,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                 style: TextStyle(color: Colors.white),
                 cursorColor: Color.fromRGBO(34, 36, 86, 1),
                 decoration: InputDecoration(
-                  hintText: 'Owner\'s Name',
+                  hintText: 'Doggo\'s Breed',
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     borderSide: BorderSide(width: 2, color: Colors.white),
@@ -725,7 +889,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
                   ),
                 ),
                 textAlign: TextAlign.center,
-                controller: addOwnerName,
+                controller: addDoggoBreed,
               ),
             ],
           ),
@@ -741,7 +905,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
             new FlatButton(
               child: new Text("Save"),
               textColor: Colors.black45,
-              onPressed: () {_updateOwnerName();
+              onPressed: () {_updateDoggoBreed();
               Navigator.of(context).pushReplacementNamed(DoggoInfo.id);
               },
             ),
@@ -750,6 +914,64 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
       },
     );
   }
+
+
+
+  isThereASex() {
+    var doggoSex;
+    if (_selections[0] == true) {
+      doggoSex = 'male';
+      print('Doggo Is Male');
+    } else if (_selections[1] == true) {
+      doggoSex = 'female';
+      print('Doggo Is Feale');
+    } else {
+      doggoSex = 'unknown';
+      print('Doggo Is Sexless');
+    }
+
+    return doggoSex;
+  }
+
+  isDoggoFixed() {
+    var doggoFixed;
+    if (isSwitched == true) {
+      doggoFixed = "is";
+      print('Doggo Is Fixed');
+    } else if (isSwitched == false) {
+      doggoFixed = "is not";
+      print("Doggo Is Not Fixed");
+    }
+
+    return doggoFixed;
+  }
+
+  isDoggoTraining() {
+    var doggoTrained;
+    if (isTrainingSwitched == true) {
+      doggoTrained = "is";
+      print('Doggo Is Training');
+    } else if (isTrainingSwitched == false) {
+      doggoTrained = "is not";
+      print("Doggo Is Not Training");
+    }
+
+    return doggoTrained;
+  }
+
+  isDoggoGrooming() {
+    var doggoGroomed;
+    if (isGroomingSwitched == true) {
+      doggoGroomed = "is";
+      print('Doggo Is Grooming');
+    } else if (isGroomingSwitched == false) {
+      doggoGroomed = "is not";
+      print("Doggo Is Not Grooming");
+    }
+
+    return doggoGroomed;
+  }
+
 
 
   void _updatePicture() async {
@@ -782,18 +1004,65 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     final rowsAffected = await dbHelper.updateDoggos(row);
   }
 
-  void _updateOwnerName() async {
+  void _updateDoggoBreed() async {
 
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnOwnerName: addOwnerName.text,
+      DatabaseHelper.columnBreed: isThereABreed(),
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
 
     print(rowsAffected);
   }
 
+  void _updateFixed() async {
+
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnFixed: isDoggoFixed(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateSex() async {
+
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnSex: isThereASex(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateGrooming() async {
+
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnGrooming: isDoggoGrooming(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
+
+  void _updateTraining() async {
+
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: (indexID),
+      DatabaseHelper.columnTraining: isDoggoTraining(),
+    };
+    final rowsAffected = await dbHelper.updateDoggos(row);
+
+    print(rowsAffected);
+  }
 
   void _deleteDoggos() async {
 

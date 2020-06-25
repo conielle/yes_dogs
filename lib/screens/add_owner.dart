@@ -447,8 +447,8 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
 
   isThereAddress() {
     String finalAddress;
-    if (addOwnerAddress.text == null) {finalAddress = "No Email Address";
-    } else if (addOwnerAddress.text == ''){finalAddress = "No Email Address";
+    if (addOwnerAddress.text == null) {finalAddress = "No Physical Address";
+    } else if (addOwnerAddress.text == ''){finalAddress = "No Physical Address";
     } else {finalAddress = addOwnerAddress.text;}
     return finalAddress;
   }
