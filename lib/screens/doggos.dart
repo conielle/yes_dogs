@@ -37,16 +37,24 @@ class _DoggosState extends State<Doggos> with TickerProviderStateMixin {
 
   var count;
 
-  Future<String> fetchDogs() async {
+  fetchDogs() async {
     var database = await openDatabase('database.db');
-    var thing = await database.rawQuery('SELECT * FROM doggos');
+    List<Map<String, dynamic>> records = await database.query('doggos');
+    Map<String, dynamic> mapRead = records.first;
+//    mapRead['my_column'] = 1;
+    Map<String, dynamic> map = Map<String, dynamic>.from(mapRead);
+    print(map);
 
-    count = thing.toList().length;
+
+    var newlist = records.toList();
+
+    var hello = newlist..sort((a, b) => a["dog_name"].toString().compareTo(b["dog_name"].toString()));
+
+    data = hello;
+    print(data);
 
     setState(() {
-      var extractdata = thing;
-      data = extractdata;
-      return data.toList();
+      data;
     });
   }
 

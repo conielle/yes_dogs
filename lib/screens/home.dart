@@ -81,7 +81,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             backgroundColor: Color.fromRGBO(171, 177, 177, 1),
             title: new Text("Whats your name?"),
-            content: Column(
+            content: Column(mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text("What is your real name?"),
                 SizedBox(
@@ -235,276 +235,491 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ),
         leading: new Container(),
       ),
-      body: Container(
-        width: appConfigblockSizeWidth * 100,
-        height: appConfigblockSizeHeight * 100,
-        color: Color.fromRGBO(171, 177, 177, 1),
-        child: Center(
-          child: RaisedButton(
-            onPressed: () {
-              if (fabKey.currentState.isOpen) {
-                fabKey.currentState.close();
-              } else {
-                fabKey.currentState.open();
-              }
-            },
-            color: Color.fromRGBO(171, 177, 177, 1),
-            child: Container(
-                height: appConfigblockSizeHeight * 100,
-                width: appConfigblockSizeWidth * 100,
-                child: Center(
-                  child: Stack(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                                top: appConfigblockSizeHeight * 1),
-                            height: appConfigblockSizeHeight * 10,
-                            width: appConfigblockSizeWidth * 80,
-                            child: Column(
-                              children: [
-                                Text(
-                                  welcomeList[random()],
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(34, 36, 86, 1),
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: fontSize * 10,
-                                  ),
-                                ),
-                                Container(
-                                  height: appConfigblockSizeHeight * 3,
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      _userName();
-                                    },
-                                    child: setUserName == null
-                                        ? Text(
-                                            "Tap to add your name",
-                                            style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: fontSize * 7),
-                                          )
-                                        : Text(
-                                            "${setUserName}",
-                                            style: TextStyle(
-                                              color:
-                                                  Color.fromRGBO(34, 36, 86, 1),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: fontSize * 7,
-                                            ),
-                                          ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: appConfigblockSizeHeight * 1,
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(
-                              bottom: 0,
-                              top: appConfigblockSizeWidth * 0.5,
-                              left: appConfigblockSizeWidth * 2,
-                              right: appConfigblockSizeWidth * 2,
-                            ),
-                            height: appConfigblockSizeHeight * 52,
-                            width: appConfigblockSizeWidth * 80,
-                            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Container(
+          width: appConfigblockSizeWidth * 100,
+          height: appConfigblockSizeHeight * 100,
+          color: Color.fromRGBO(171, 177, 177, 1),
+          child: Center(
+            child: RaisedButton(
+              onPressed: () {
+                if (fabKey.currentState.isOpen) {
+                  fabKey.currentState.close();
+                } else {
+                  fabKey.currentState.open();
+                }
+              },
+              color: Color.fromRGBO(171, 177, 177, 1),
+              child: Container(
+                  height: appConfigblockSizeHeight * 100,
+                  width: appConfigblockSizeWidth * 100,
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                  top: appConfigblockSizeHeight * 1),
+                              height: appConfigblockSizeHeight * 10,
+                              width: appConfigblockSizeWidth * 80,
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(2),
-                                    child: Container(
-                                      width: appConfigblockSizeWidth * 80,
-                                      height: appConfigblockSizeHeight * 52,
-                                      decoration: BoxDecoration(
-                                        color: Color.fromRGBO(136, 136, 136, 1),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black54.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: Offset(0,
-                                                0), // changes position of shadow
-                                          ),
-                                        ],
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(
-                                                appConfigblockSizeHeight * 5),
-                                            topLeft: Radius.circular(
-                                                appConfigblockSizeHeight * 5)),
-                                      ),
-                                      child: Column(
-                                        //////////////TOP STREAM////////////
-                                        children: <Widget>[
-                                          SizedBox(height: appConfigblockSizeHeight * 1,),
+                                  Text(
+                                    welcomeList[random()],
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(34, 36, 86, 1),
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: fontSize * 10,
+                                    ),
+                                  ),
+                                  Container(
+                                    height: appConfigblockSizeHeight * 3,
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        _userName();
+                                      },
+                                      child: setUserName == null
+                                          ? Text(
+                                              "Tap to add your name",
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      34, 36, 86, 1),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: fontSize * 7),
+                                            )
+                                          : Text(
+                                              "${setUserName}",
+                                              style: TextStyle(
+                                                color:
+                                                    Color.fromRGBO(34, 36, 86, 1),
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: fontSize * 7,
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: appConfigblockSizeHeight * 1,
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(
+                                bottom: 0,
+                                top: appConfigblockSizeWidth * 0.5,
+                                left: appConfigblockSizeWidth * 2,
+                                right: appConfigblockSizeWidth * 2,
+                              ),
+                              height: appConfigblockSizeHeight * 52,
+                              width: appConfigblockSizeWidth * 80,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(2),
+                                      child: Container(
+                                        width: appConfigblockSizeWidth * 80,
+                                        height: appConfigblockSizeHeight * 52,
+                                        decoration: BoxDecoration(
+                                          color: Color.fromRGBO(136, 136, 136, 1),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black54.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 1,
+                                              offset: Offset(0,
+                                                  0), // changes position of shadow
+                                            ),
+                                          ],
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(
+                                                  appConfigblockSizeHeight * 5),
+                                              topLeft: Radius.circular(
+                                                  appConfigblockSizeHeight * 5)),
+                                        ),
+                                        child: Column(
+                                          //////////////TOP STREAM////////////
+                                          children: <Widget>[
+                                            SizedBox(height: appConfigblockSizeHeight * 1,),
 
-                                          (data == null)
-                                              ? (Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 2,
-                                                    ),
-                                                    Container(
-                                                      height: 200,
-                                                      width: 200,
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                          image: AssetImage(
-                                                              'images/logo.png'),
-                                                          fit: BoxFit.fill,
+                                            (data == null)
+                                                ? (Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 2,
+                                                      ),
+                                                      Container(
+                                                        height: 200,
+                                                        width: 200,
+                                                        decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                            image: AssetImage(
+                                                                'images/logo.png'),
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                                          shape: BoxShape.circle,
                                                         ),
-                                                        shape: BoxShape.circle,
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      "Add Some Dogs",
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 13,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 1,
-                                                    ),
-                                                    FloatingActionButton(
-                                                      heroTag: 'adddoggo',
-                                                      onPressed: () {
-                                                        ;
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        AddDoggo()));
-                                                      },
-                                                      child: Icon(
-                                                        Icons.add,
-                                                      ),
-                                                      backgroundColor:
-                                                          Color.fromRGBO(
+                                                      Text(
+                                                        "Add Some Dogs",
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
                                                               34, 36, 86, 1),
-                                                    ),
-                                                  ],
-                                                ))
-                                              : (data.length == 0)
-                                                  ? (Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        SizedBox(
-                                                          height: 5,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 13,
                                                         ),
-                                                        SizedBox(
-                                                          height: 2,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 1,
+                                                      ),
+                                                      FloatingActionButton(
+                                                        heroTag: 'adddoggo',
+                                                        onPressed: () {
+                                                          ;
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          AddDoggo()));
+                                                        },
+                                                        child: Icon(
+                                                          Icons.add,
                                                         ),
-                                                        Container(
-                                                          height: 200,
-                                                          width: 200,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image:
-                                                                DecorationImage(
-                                                              image: AssetImage(
-                                                                  'images/logo.png'),
-                                                              fit: BoxFit.fill,
+                                                        backgroundColor:
+                                                            Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                      ),
+                                                    ],
+                                                  ))
+                                                : (data.length == 0)
+                                                    ? (Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          SizedBox(
+                                                            height: 2,
+                                                          ),
+                                                          Container(
+                                                            height: 200,
+                                                            width: 200,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              image:
+                                                                  DecorationImage(
+                                                                image: AssetImage(
+                                                                    'images/logo.png'),
+                                                                fit: BoxFit.fill,
+                                                              ),
+                                                              shape:
+                                                                  BoxShape.circle,
                                                             ),
-                                                            shape:
-                                                                BoxShape.circle,
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          "Add Some Dogs",
-                                                          style: TextStyle(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    34,
-                                                                    36,
-                                                                    86,
-                                                                    1),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 13,
+                                                          Text(
+                                                            "Add Some Dogs",
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Color.fromRGBO(
+                                                                      34,
+                                                                      36,
+                                                                      86,
+                                                                      1),
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              fontSize: 13,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 1,
-                                                        ),
-                                                        FloatingActionButton(
-                                                          heroTag: 'adddoggo',
-                                                          onPressed: () {
-                                                            ;
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            AddDoggo()));
-                                                          },
-                                                          child: Icon(
-                                                            Icons.add,
+                                                          SizedBox(
+                                                            height: 1,
                                                           ),
-                                                          backgroundColor:
-                                                              Color.fromRGBO(34,
-                                                                  36, 86, 1),
-                                                        ),
-                                                      ],
-                                                    ))
-                                                  : Container(
-                                                      child: (Expanded(
-                                                        child: ListView.builder(
-                                                          itemCount:
-                                                              data.length,
-                                                          itemBuilder:
-                                                              (BuildContext
+                                                          FloatingActionButton(
+                                                            heroTag: 'adddoggo',
+                                                            onPressed: () {
+                                                              ;
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              AddDoggo()));
+                                                            },
+                                                            child: Icon(
+                                                              Icons.add,
+                                                            ),
+                                                            backgroundColor:
+                                                                Color.fromRGBO(34,
+                                                                    36, 86, 1),
+                                                          ),
+                                                        ],
+                                                      ))
+                                                    : Container(
+                                                        child: (Expanded(
+                                                          child: ListView.builder(
+                                                            itemCount:
+                                                                data.length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    i) {
+                                                              return new ListTile(
+                                                                onTap: () async {
+                                                                  dogUniqueID = data[
+                                                                          i][
+                                                                      "uniqueID"];
+                                                                  owner = data[i]['owner_name'];
+                                                                  SharedPreferences
+                                                                      doginfo =
+                                                                      await SharedPreferences
+                                                                          .getInstance();
+                                                                  doginfo.setString('doguniqueid', '$dogUniqueID');
+                                                                  doginfo.setString('owner', '$owner');
+
+                                                                  Navigator.push(
                                                                       context,
-                                                                  i) {
+                                                                      MaterialPageRoute(
+                                                                          builder:
+                                                                              (context) =>
+                                                                                  HomeInfo1()));
+                                                                },
+                                                                title: new Text(data[
+                                                                        i]
+                                                                    ["dog_name"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
+                                                                subtitle:
+                                                                    new Text(data[
+                                                                            i][
+                                                                        "owner_name"], style: TextStyle(color: Color.fromRGBO(54, 56, 96, 1)),),
+                                                                leading:
+                                                                    new CircleAvatar(
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  backgroundImage:
+                                                                      new AssetImage(
+                                                                          data[i][
+                                                                              "picture"]),
+                                                                ),
+                                                                trailing: (data[i]
+                                                                            [
+                                                                            'date'] ==
+                                                                        "No Grooming Scheduled")
+                                                                    ? Text(' ')
+                                                                    : Text(data[i]
+                                                                        ['date'], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
+                                                              );
+                                                            },
+                                                          ),
+                                                        )),
+                                                      )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Positioned(
+                          top: appConfigblockSizeHeight * 56,
+                          child: Container(
+                              padding: EdgeInsets.only(
+                                  left: appConfigblockSizeWidth * 1,
+                                  right: appConfigblockSizeWidth * 1,
+                                  top: appConfigblockSizeWidth * 1),
+                              height: appConfigblockSizeHeight * 34,
+                              width: appConfigblockSizeWidth * 80,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(2),
+                                      child: Container(
+                                        height: appConfigblockSizeHeight * 34,
+                                        width: appConfigblockSizeWidth * 87,
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black54.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 1,
+                                              offset: Offset(0,
+                                                  0), // changes position of shadow
+                                            ),
+                                          ],
+                                          color: Color.fromRGBO(156, 156, 156, 1),
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(
+                                                  appConfigblockSizeHeight * 5),
+                                              topLeft: Radius.circular(
+                                                  appConfigblockSizeHeight * 5)),
+                                        ),
+                                        child: Column(
+                                          //////////////BOTTOM STREAM////////////
+
+                                          children: [
+                                            (data2 == null)
+                                                ? (Column(
+                                                    children: [
+                                                      Container(
+                                                        height: 100,
+                                                        width: 100,
+                                                        decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                            image: AssetImage(
+                                                                'images/supplies.png'),
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                                          shape: BoxShape.circle,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "Add Some Supplies",
+                                                        style: TextStyle(
+                                                          color: Color.fromRGBO(
+                                                              34, 36, 86, 1),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height:
+                                                            appConfigblockSizeHeight *
+                                                                1,
+                                                      ),
+                                                      FloatingActionButton(
+                                                        heroTag: 'addsupplies',
+                                                        onPressed: () {
+                                                          ;
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          AddSupply()));
+                                                        },
+                                                        child: Icon(
+                                                          Icons.add,
+                                                        ),
+                                                        backgroundColor:
+                                                            Color.fromRGBO(
+                                                                34, 36, 86, 1),
+                                                      ),
+                                                    ],
+                                                  ))
+                                                : (data2.length == 0)
+                                                    ? (Column(
+                                                        children: [
+                                                          Container(
+                                                            height: 100,
+                                                            width: 100,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              image:
+                                                                  DecorationImage(
+                                                                image: AssetImage(
+                                                                    'images/supplies.png'),
+                                                                fit: BoxFit.fill,
+                                                              ),
+                                                              shape:
+                                                                  BoxShape.circle,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "Add Some Supplies",
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Color.fromRGBO(
+                                                                      34,
+                                                                      36,
+                                                                      86,
+                                                                      1),
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              fontSize: 13,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height:
+                                                                appConfigblockSizeHeight *
+                                                                    1,
+                                                          ),
+                                                          FloatingActionButton(
+                                                            heroTag:
+                                                                'addsupplies',
+                                                            onPressed: () {
+                                                              ;
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              AddSupply()));
+                                                            },
+                                                            child: Icon(
+                                                              Icons.add,
+                                                            ),
+                                                            backgroundColor:
+                                                                Color.fromRGBO(34,
+                                                                    36, 86, 1),
+                                                          ),
+                                                        ],
+                                                      ))
+                                                    : (Expanded(
+                                                        child: ListView.builder(
+                                                          itemCount: data2 == null
+                                                              ? 0
+                                                              : data2.length,
+                                                          itemBuilder:
+                                                              (context, i) {
                                                             return new ListTile(
                                                               onTap: () async {
-                                                                dogUniqueID = data[
-                                                                        i][
-                                                                    "uniqueID"];
-                                                                owner = data[i]['owner_name'];
+                                                                supplyUniqueID =
+                                                                    data2[i][
+                                                                        "uniqueID"];
                                                                 SharedPreferences
-                                                                    doginfo =
+                                                                    supplyinfo =
                                                                     await SharedPreferences
                                                                         .getInstance();
-                                                                doginfo.setString('doguniqueid', '$dogUniqueID');
-                                                                doginfo.setString('owner', '$owner');
-
+                                                                supplyinfo.setString(
+                                                                    'supplyuniqueid',
+                                                                    '$supplyUniqueID');
+                                                                print("supplyID");
                                                                 Navigator.push(
                                                                     context,
                                                                     MaterialPageRoute(
                                                                         builder:
                                                                             (context) =>
-                                                                                HomeInfo1()));
+                                                                                SupplyInfo()));
                                                               },
-                                                              title: new Text(data[
-                                                                      i]
-                                                                  ["dog_name"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
-                                                              subtitle:
-                                                                  new Text(data[
-                                                                          i][
-                                                                      "owner_name"], style: TextStyle(color: Color.fromRGBO(54, 56, 96, 1)),),
+                                                              title: new Text(data2[
+                                                                      i][
+                                                                  "supply_type"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
+                                                              subtitle: new Text(
+                                                                  data2[i][
+                                                                      "brand_name"], style: TextStyle(color: Color.fromRGBO(54, 56, 96, 1)),),
+                                                              trailing: new Text(
+                                                                  '${data2[i]['level']}%', style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
                                                               leading:
                                                                   new CircleAvatar(
                                                                 backgroundColor:
@@ -512,240 +727,27 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                         .transparent,
                                                                 backgroundImage:
                                                                     new AssetImage(
-                                                                        data[i][
+                                                                        data2[i][
                                                                             "picture"]),
                                                               ),
-                                                              trailing: (data[i]
-                                                                          [
-                                                                          'date'] ==
-                                                                      "No Grooming Scheduled")
-                                                                  ? Text(' ')
-                                                                  : Text(data[i]
-                                                                      ['date'], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
                                                             );
                                                           },
                                                         ),
                                                       )),
-                                                    )
-                                        ],
+                                          ],
+
+                                          //////////////BOTTOM STREAM////////////
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: appConfigblockSizeHeight * 56,
-                        child: Container(
-                            padding: EdgeInsets.only(
-                                left: appConfigblockSizeWidth * 1,
-                                right: appConfigblockSizeWidth * 1,
-                                top: appConfigblockSizeWidth * 1),
-                            height: appConfigblockSizeHeight * 34,
-                            width: appConfigblockSizeWidth * 80,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(2),
-                                    child: Container(
-                                      height: appConfigblockSizeHeight * 34,
-                                      width: appConfigblockSizeWidth * 87,
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black54.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: Offset(0,
-                                                0), // changes position of shadow
-                                          ),
-                                        ],
-                                        color: Color.fromRGBO(156, 156, 156, 1),
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(
-                                                appConfigblockSizeHeight * 5),
-                                            topLeft: Radius.circular(
-                                                appConfigblockSizeHeight * 5)),
-                                      ),
-                                      child: Column(
-                                        //////////////BOTTOM STREAM////////////
-
-                                        children: [
-                                          (data2 == null)
-                                              ? (Column(
-                                                  children: [
-                                                    Container(
-                                                      height: 100,
-                                                      width: 100,
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                          image: AssetImage(
-                                                              'images/supplies.png'),
-                                                          fit: BoxFit.fill,
-                                                        ),
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "Add Some Supplies",
-                                                      style: TextStyle(
-                                                        color: Color.fromRGBO(
-                                                            34, 36, 86, 1),
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 13,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height:
-                                                          appConfigblockSizeHeight *
-                                                              1,
-                                                    ),
-                                                    FloatingActionButton(
-                                                      heroTag: 'addsupplies',
-                                                      onPressed: () {
-                                                        ;
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        AddSupply()));
-                                                      },
-                                                      child: Icon(
-                                                        Icons.add,
-                                                      ),
-                                                      backgroundColor:
-                                                          Color.fromRGBO(
-                                                              34, 36, 86, 1),
-                                                    ),
-                                                  ],
-                                                ))
-                                              : (data2.length == 0)
-                                                  ? (Column(
-                                                      children: [
-                                                        Container(
-                                                          height: 100,
-                                                          width: 100,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            image:
-                                                                DecorationImage(
-                                                              image: AssetImage(
-                                                                  'images/supplies.png'),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          "Add Some Supplies",
-                                                          style: TextStyle(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    34,
-                                                                    36,
-                                                                    86,
-                                                                    1),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 13,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height:
-                                                              appConfigblockSizeHeight *
-                                                                  1,
-                                                        ),
-                                                        FloatingActionButton(
-                                                          heroTag:
-                                                              'addsupplies',
-                                                          onPressed: () {
-                                                            ;
-                                                            Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            AddSupply()));
-                                                          },
-                                                          child: Icon(
-                                                            Icons.add,
-                                                          ),
-                                                          backgroundColor:
-                                                              Color.fromRGBO(34,
-                                                                  36, 86, 1),
-                                                        ),
-                                                      ],
-                                                    ))
-                                                  : (Expanded(
-                                                      child: ListView.builder(
-                                                        itemCount: data2 == null
-                                                            ? 0
-                                                            : data2.length,
-                                                        itemBuilder:
-                                                            (context, i) {
-                                                          return new ListTile(
-                                                            onTap: () async {
-                                                              supplyUniqueID =
-                                                                  data2[i][
-                                                                      "uniqueID"];
-                                                              SharedPreferences
-                                                                  supplyinfo =
-                                                                  await SharedPreferences
-                                                                      .getInstance();
-                                                              supplyinfo.setString(
-                                                                  'supplyuniqueid',
-                                                                  '$supplyUniqueID');
-                                                              print("supplyID");
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              SupplyInfo()));
-                                                            },
-                                                            title: new Text(data2[
-                                                                    i][
-                                                                "supply_type"], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
-                                                            subtitle: new Text(
-                                                                data2[i][
-                                                                    "brand_name"], style: TextStyle(color: Color.fromRGBO(54, 56, 96, 1)),),
-                                                            trailing: new Text(
-                                                                '${data2[i]['level']}%', style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),
-                                                            leading:
-                                                                new CircleAvatar(
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              backgroundImage:
-                                                                  new AssetImage(
-                                                                      data2[i][
-                                                                          "picture"]),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    )),
-                                        ],
-
-                                        //////////////BOTTOM STREAM////////////
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ),
-                    ],
-                  ),
-                )),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ],
+                    ),
+                  )),
+            ),
           ),
         ),
       ),
