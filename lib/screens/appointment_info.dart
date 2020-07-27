@@ -607,7 +607,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                         finalDate = rescheduleddate;
                                       });
                                     },
-                                    child: Text('${(newdate == null) ? 'Slide to book for X weeks' : newdate}'),
+                                    child: Text('${(newdate == null) ? 'Spin to book for X weeks' : newdate}'),
                                   ),
                                 ],),
 
