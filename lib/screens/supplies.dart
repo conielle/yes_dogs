@@ -6,7 +6,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
-import 'package:daniellesdoggrooming/screens/statistics.dart';
+import 'package:daniellesdoggrooming/screens/help.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';

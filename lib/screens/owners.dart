@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/screens/doggo_info.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
-import 'package:daniellesdoggrooming/screens/statistics.dart';
+import 'package:daniellesdoggrooming/screens/help.dart';
 import 'package:daniellesdoggrooming/screens/add_doggo.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -181,7 +181,7 @@ class _OwnersState extends State<Owners> with TickerProviderStateMixin {
             RawMaterialButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Statistics()));
+                    MaterialPageRoute(builder: (context) => Help()));
               },
               shape: CircleBorder(),
               padding: const EdgeInsets.all(24.0),

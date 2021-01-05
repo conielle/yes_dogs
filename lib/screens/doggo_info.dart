@@ -52,6 +52,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   File previewImage;
   String newImagePath;
   String savedImagePath;
+  String savedImageRealPath;
 
   final addDoggoName = TextEditingController();
   final addDoggoBreed = TextEditingController();
@@ -137,6 +138,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   /////////GALLERY IMAGE SELECTOR//////
 
   Future _getImage() async {
+    uniqueImage();
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -163,6 +165,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     });
 
     savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
     _updatePicture();
     return  previewImage;
   }
@@ -170,6 +173,9 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
   /////////CAMERA IMAGE SELECTOR//////
 
   Future _takeImage() async {
+
+    uniqueImage();
+
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -196,6 +202,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     });
 
     savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
     _updatePicture();
     return  previewImage;
   }
@@ -972,7 +979,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnPicture: savedImagePath
+      DatabaseHelper.columnPicture: savedImageRealPath
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
   }

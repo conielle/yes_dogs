@@ -56,6 +56,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
   File previewImage;
   String newImagePath;
   String savedImagePath;
+  String savedImageRealPath;
 
   final addSupplyType = TextEditingController();
   final addSupplyName = TextEditingController();
@@ -105,6 +106,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
   /////////GALLERY IMAGE SELECTOR//////
 
   Future _getImage() async {
+    uniqueImage();
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -131,6 +133,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
     });
 
     savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
     _updatePicture();
     return  previewImage;
   }
@@ -138,6 +141,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
   /////////CAMERA IMAGE SELECTOR//////
 
   Future _takeImage() async {
+    uniqueImage();
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -164,6 +168,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
     });
 
     savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
     _updatePicture();
     return  previewImage;
   }
@@ -496,30 +501,52 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
                         ),
 
                         SizedBox(height: appConfigblockSizeHeight * 2,),
-                        Column(
-                          children: <Widget>[
-                            SizedBox(height: appConfigblockSizeHeight * 4,),
-                            Text("Would you like to remove this supply?",
-                              style: TextStyle(
-                                color: Color.fromRGBO(34, 36, 86, 1),),
-                            ),
-                            SizedBox(height:  appConfigblockSizeHeight * 2,),
-                            FloatingActionButton(
-                              heroTag: 'remove',
-                              onPressed: () {
-                                _deleteSupplies();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Supplies()));
-                              },
-                              child: Icon(
-                                Icons.remove,
+                        SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(height: appConfigblockSizeHeight * 4,),
+                              Text("How to update supply?",
+                                style: TextStyle(
+                                  color: Color.fromRGBO(34, 36, 86, 1),),
                               ),
-                              backgroundColor: Color.fromRGBO(34, 36, 86, 1),
-                            ),
-                            SizedBox(height: appConfigblockSizeHeight * 5,)
-                          ],
+                              SizedBox(height:  appConfigblockSizeHeight * 2,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  FloatingActionButton(
+                                    heroTag: 'remove',
+                                    onPressed: () {
+                                      _deleteSupplies();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Supplies()));
+                                    },
+                                    child: Icon(
+                                      Icons.remove,
+                                    ),
+                                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                                  ),
+                                  SizedBox( width: appConfigblockSizeWidth * 3,),
+                                  FloatingActionButton(
+                                    heroTag: 'add',
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Supplies()));
+                                    },
+                                    child: Icon(
+                                      Icons.add,
+                                    ),
+                                    backgroundColor: Color.fromRGBO(34, 36, 86, 1),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: appConfigblockSizeHeight * 5,)
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -808,7 +835,7 @@ class _SupplyInfoState extends State<SupplyInfo> with TickerProviderStateMixin {
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
-      DatabaseHelper.columnPicture: savedImagePath
+      DatabaseHelper.columnPicture: savedImageRealPath
     };
     final rowsAffected = await dbHelper.updateSupplies(row);
   }

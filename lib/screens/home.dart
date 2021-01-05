@@ -9,7 +9,7 @@ import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
 import 'package:daniellesdoggrooming/screens/supply_info.dart';
-import 'package:daniellesdoggrooming/screens/statistics.dart';
+import 'package:daniellesdoggrooming/screens/help.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:sqflite/sqflite.dart';
@@ -773,19 +773,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           animationDuration: const Duration(milliseconds: 800),
           animationCurve: Curves.easeInOutCirc,
           children: <Widget>[
-//            RawMaterialButton(
-//              onPressed: () {
-//                Navigator.push(context,
-//                    MaterialPageRoute(builder: (context) => Statistics()));
-//              },
-//              shape: CircleBorder(),
-//              padding: const EdgeInsets.all(24.0),
-//              child: IconButton(
-//                  icon: FaIcon(
-//                FontAwesomeIcons.sortNumericDownAlt,
-//                color: Colors.white,
-//              )),
-//            ),
+           RawMaterialButton(
+             onPressed: () {
+               Navigator.push(context,
+                   MaterialPageRoute(builder: (context) => Help()));
+             },
+             shape: CircleBorder(),
+             padding: const EdgeInsets.all(24.0),
+             child: IconButton(
+                 icon: FaIcon(
+               FontAwesomeIcons.questionCircle,
+               color: Colors.white,
+             )),
+           ),
             RawMaterialButton(
               onPressed: () {
                 Navigator.push(context,

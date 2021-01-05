@@ -38,6 +38,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   File previewImage;
   String newImagePath;
   String savedImagePath;
+  String savedImageRealPath;
 
   final addDoggoName = TextEditingController();
   final addDoggoAge = TextEditingController();
@@ -145,6 +146,8 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   /////////GALLERY IMAGE SELECTOR//////
 
   Future _getImage() async {
+    uniqueImage();
+
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -157,10 +160,11 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     File savedImage;
     final picker = ImagePicker();
 
+
     //LOGIC
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     previewImage = savedImage;
-    print(savedImage);
+    print("this is preview $savedImage");
 
     setState(() {
       _image = File(pickedFile.path);
@@ -170,7 +174,8 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
       print(savedImagePath);
     });
 
-    savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImage = await previewImage.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
     isThereAPic();
     return  previewImage;
   }
@@ -178,6 +183,8 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   /////////CAMERA IMAGE SELECTOR//////
 
   Future _takeImage() async {
+    uniqueImage();
+
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -204,6 +211,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     });
 
     savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
     isThereAPic();
     return  previewImage;
   }
@@ -653,7 +661,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     if (savedImagePath == null) {
       picturePath = 'images/doggo.png';
     } else {
-      picturePath = savedImagePath;
+      picturePath = savedImageRealPath;
     }
     return picturePath;
   }

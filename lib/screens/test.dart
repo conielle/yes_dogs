@@ -5,7 +5,7 @@ import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:daniellesdoggrooming/screens/appointments.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
-import 'package:daniellesdoggrooming/screens/statistics.dart';
+import 'package:daniellesdoggrooming/screens/help.dart';
 
 class Test extends StatefulWidget {
   static const String id = 'test';
@@ -102,7 +102,7 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
                 fabKey.currentState.close();
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Statistics()));
+                    MaterialPageRoute(builder: (context) => Help()));
               },
               shape: CircleBorder(),
               padding: const EdgeInsets.all(24.0),

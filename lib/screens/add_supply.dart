@@ -40,6 +40,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
   File previewImage;
   String newImagePath;
   String savedImagePath;
+  String savedImageRealPath;
 
   final addSupplyType = TextEditingController();
   final addSupplyName = TextEditingController();
@@ -128,6 +129,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
   /////////GALLERY IMAGE SELECTOR//////
 
   Future _getImage() async {
+    uniqueImage();
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -154,6 +156,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
     });
 
     savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
   isThereAPic();
     return  previewImage;
   }
@@ -161,6 +164,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
   /////////CAMERA IMAGE SELECTOR//////
 
   Future _takeImage() async {
+    uniqueImage();
     //DEFINITIONS
     Directory tempDir = await getTemporaryDirectory();
     tempPath = tempDir.path;
@@ -187,6 +191,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
     });
 
     savedImage = await _image.copy('${appDocPath}/${labelgallery}');
+    savedImageRealPath = savedImage.path;
    isThereAPic();
     return  previewImage;
   }
@@ -433,7 +438,7 @@ class _AddSupplyState extends State<AddSupply> with TickerProviderStateMixin {
     if (savedImagePath == null) {
       picturePath = 'images/supply.png';
     } else {
-      picturePath = savedImagePath;
+      picturePath = savedImageRealPath;
     }
     return picturePath;
   }
