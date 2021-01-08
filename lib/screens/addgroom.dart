@@ -164,6 +164,7 @@ class _AddGroomState extends State<AddGroom>
       DatabaseHelper.columnTemperament,
       DatabaseHelper.columnGrooming,
       DatabaseHelper.columnTraining,
+      DatabaseHelper.columnGType,
     ];
     String whereString =
         '${DatabaseHelper.columnDogUniqueId} = "${dogUniqueID}"';
@@ -185,6 +186,40 @@ class _AddGroomState extends State<AddGroom>
       print(data);
       return data.toList();
     });
+
+    String isnails = 'Nails';
+    String iscut = 'Cut';
+    String iswash = 'Wash';
+    String isother ='Other';
+
+    //NAILS SEARCH
+    RegExp exp1 = new RegExp( "\\b" + isnails + "\\b",);
+    bool bnails = exp1.hasMatch(data[0]['type']);
+    //CUT SEARCH
+    RegExp exp2 = new RegExp( "\\b" + iscut + "\\b",);
+    bool bcut = exp2.hasMatch(data[0]['type']);
+    //WASH SEARCH
+    RegExp exp3 = new RegExp( "\\b" + iswash + "\\b",);
+    bool bwash = exp3.hasMatch(data[0]['type']);
+    //OTHER SEARCH
+    RegExp exp4 = new RegExp( "\\b" + isother + "\\b",);
+    bool bother = exp4.hasMatch(data[0]['type']);
+
+
+    //BOOL CHECK FOR NAILS
+    if (bnails == true){nails = true;} else {nails = false;}
+    //BOOL CHECK FOR CUT
+    if (bcut == true){cut = true;} else {cut = false;}
+    //BOOL CHECK FOR WASH
+    if (bwash == true){wash = true;} else {wash = false;}
+    //BOOL CHECK OTHERS
+    if (bother == true){other = true;} else {other = false;}
+
+
+    setState(() {
+      nails; cut; wash; other;
+    });
+
 
     print("Database Query");
   }
