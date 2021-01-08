@@ -210,6 +210,7 @@ class _AppointmentInfoState extends State<AppointmentInfo>
     fetchID();
     fetchSchedules();
     fetchDogs();
+    _deleteHistory();
   }
 
   //////////////MAIN UI
@@ -292,14 +293,14 @@ class _AppointmentInfoState extends State<AppointmentInfo>
                                     child: previewImage == null
                                         ? CircleAvatar(
                                             backgroundImage:
-                                                AssetImage(data[0]['picture']),
+                                                AssetImage(results[ID]['picture']),
                                             backgroundColor: Colors.transparent,
                                             radius:
                                                 appConfigblockSizeWidth * 10,
                                           )
                                         : CircleAvatar(
                                             backgroundImage:
-                                                AssetImage(data[0]["picture"]),
+                                                AssetImage(results[ID]["picture"]),
                                             backgroundColor: Colors.transparent,
                                             radius:
                                                 appConfigblockSizeWidth * 10,
@@ -824,4 +825,13 @@ class _AppointmentInfoState extends State<AppointmentInfo>
     };
     final rowsAffected = await dbHelper.updateDoggos(row);
   }
+
+
+  void _deleteHistory() async {
+    Database db = await DatabaseHelper.instance.database;
+    await db.delete(dogUniqueID, where: '_id = ?', whereArgs: [1]);
+  }
+
+
+
 }

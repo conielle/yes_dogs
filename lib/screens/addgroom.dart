@@ -255,11 +255,7 @@ class _AddGroomState extends State<AddGroom>
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.close),
-            onPressed: () =>
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Appointments()),
-                ),
+            onPressed: () =>  Navigator.pop(context),
           ),
         ],
         leading: new Container(),
@@ -461,9 +457,6 @@ class _AddGroomState extends State<AddGroom>
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: appConfigblockSizeHeight * 3,
-                                    ),
                                     Column(
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
@@ -476,15 +469,38 @@ class _AddGroomState extends State<AddGroom>
                                           crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              (finalDate == null)
-                                                  ? data[ID]["date"]
-                                                  : finalDate,
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: fontSize * 10,
+                                            ConstrainedBox(
+                                              constraints: const BoxConstraints(
+                                                maxHeight: 30,),
+                                              child: FlatButton(
+                                                child: Text(
+                                                  (finalDate == null)
+                                                      ? data[ID]["date"]
+                                                      : finalDate,
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        34, 36, 86, 1),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: fontSize * 10,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  showModalBottomSheet(
+                                                      context: context,
+                                                      builder:
+                                                          (BuildContext builder) {
+                                                        return Container(
+                                                            height: MediaQuery
+                                                                .of(
+                                                                context)
+                                                                .copyWith()
+                                                                .size
+                                                                .height /
+                                                                3,
+                                                            child: Container(
+                                                                child: datetime()));
+                                                      });
+                                                },
                                               ),
                                             ),
                                           ],
@@ -495,18 +511,40 @@ class _AddGroomState extends State<AddGroom>
                                                     34, 36, 86, 1),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: fontSize * 8.5)),
-                                        Text(
-                                          (finalTime == null)
-                                              ? data[ID]["time"]
-                                              : finalTime,
-                                          style: TextStyle(
-                                            color:
-                                            Color.fromRGBO(34, 36, 86, 1),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: fontSize * 10,
+                                        ConstrainedBox(
+                                          constraints: const BoxConstraints(
+                                            maxHeight: 30,
+                                          ),
+                                          child: FlatButton(
+                                            child: Text(
+
+                                              (finalTime == null)
+                                                  ? data[ID]["time"]
+                                                  : finalTime,
+                                              style: TextStyle(
+                                                color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: fontSize * 10,
+                                              ),
+                                            ),      onPressed: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext builder) {
+                                                  return Container(
+                                                      height: MediaQuery
+                                                          .of(
+                                                          context)
+                                                          .copyWith()
+                                                          .size
+                                                          .height /
+                                                          3,
+                                                      child: time());
+                                                });
+                                          },
                                           ),
                                         ),
-                                        SizedBox(height: appConfigblockSizeHeight * 2,),
                                         Row(
                                           children: <Widget>[
                                             Switch(

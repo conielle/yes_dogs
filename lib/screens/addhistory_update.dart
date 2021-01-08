@@ -316,12 +316,8 @@ class _AddHistoryUpdateState extends State<AddHistoryUpdate>
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.close),
-            onPressed: () =>
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AppointmentInfo()),
+            onPressed: () =>  Navigator.pop(context),
                 ),
-          ),
         ],
         leading: new Container(),
       ),
@@ -522,9 +518,7 @@ class _AddHistoryUpdateState extends State<AddHistoryUpdate>
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: appConfigblockSizeHeight * 3,
-                                    ),
+                                    SizedBox(height: appConfigblockSizeHeight * 2,),
                                     Column(
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
@@ -537,15 +531,38 @@ class _AddHistoryUpdateState extends State<AddHistoryUpdate>
                                           crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              (finalDate == null)
-                                                  ? 'Date'
-                                                  : finalDate,
-                                              style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    34, 36, 86, 1),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: fontSize * 10,
+                                            ConstrainedBox(
+                                              constraints: const BoxConstraints(
+                                                maxHeight: 30,),
+                                              child: FlatButton(
+                                                child: Text(
+                                                  (finalDate == null)
+                                                      ? 'Date'
+                                                      : finalDate,
+                                                  style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        34, 36, 86, 1),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: fontSize * 10,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  showModalBottomSheet(
+                                                      context: context,
+                                                      builder:
+                                                          (BuildContext builder) {
+                                                        return Container(
+                                                            height: MediaQuery
+                                                                .of(
+                                                                context)
+                                                                .copyWith()
+                                                                .size
+                                                                .height /
+                                                                3,
+                                                            child: Container(
+                                                                child: datetime()));
+                                                      });
+                                                },
                                               ),
                                             ),
                                           ],
@@ -556,18 +573,39 @@ class _AddHistoryUpdateState extends State<AddHistoryUpdate>
                                                     34, 36, 86, 1),
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: fontSize * 8.5)),
-                                        Text(
-                                          (finalTime == null)
-                                              ? 'Time'
-                                              : finalTime,
-                                          style: TextStyle(
-                                            color:
-                                            Color.fromRGBO(34, 36, 86, 1),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: fontSize * 10,
+                                        ConstrainedBox(
+                                          constraints: const BoxConstraints(
+                                            maxHeight: 30,),
+                                          child: FlatButton(
+                                            child: Text(
+                                              (finalTime == null)
+                                                  ? 'Time'
+                                                  : finalTime,
+                                              style: TextStyle(
+                                                color:
+                                                Color.fromRGBO(34, 36, 86, 1),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: fontSize * 10,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext builder) {
+                                                    return Container(
+                                                        height: MediaQuery
+                                                            .of(
+                                                            context)
+                                                            .copyWith()
+                                                            .size
+                                                            .height /
+                                                            3,
+                                                        child: time());
+                                                  });
+                                            },
                                           ),
                                         ),
-                                        SizedBox(height: appConfigblockSizeHeight * 2,),
                                         Row(
                                           children: <Widget>[
                                             Switch(
@@ -721,7 +759,7 @@ class _AddHistoryUpdateState extends State<AddHistoryUpdate>
                           ),
                         ),
                         SizedBox(
-                          height: appConfigblockSizeHeight * 1,
+                          height: appConfigblockSizeHeight * 2,
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
