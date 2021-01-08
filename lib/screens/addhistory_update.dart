@@ -227,17 +227,12 @@ class _AddHistoryUpdateState extends State<AddHistoryUpdate>
 
 
     Database db = await DatabaseHelper.instance.database;
-
     // raw query
     List<Map> result = await db.rawQuery('SELECT * FROM $dogUniqueID WHERE uniqueID=?', ['$groomUniqueID']);
-
     // print the results
     result.forEach((row) => print(row));
-
-
     indexID2 = result[0]['_id'];
     print ('This is the $indexID2 number');
-
     setState(() {
       var extractdata = result;
       data2 = extractdata;

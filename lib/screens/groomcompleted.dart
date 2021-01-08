@@ -729,7 +729,7 @@ class _GroomCompletedState extends State<GroomCompleted>
                               heroTag: 'add',
                               onPressed: () {
 
-                                isItIndexZero();
+                               archiveGroom();
                                 _updateGroomDate();
                                 _updateGroomTime();
                                 Navigator.push(
@@ -804,30 +804,23 @@ class _GroomCompletedState extends State<GroomCompleted>
   Future<String> fetchSchedules() async {
     var database = await openDatabase('database.db');
     List<Map<String, dynamic>> records = await database.query('$dogUniqueID');
+
+    if(records.length == null){scheduledata = null;}
+    else {
     Map<String, dynamic> mapRead = records.first;
-//    mapRead['my_column'] = 1;
-    Map<String, dynamic> map = Map<String, dynamic>.from(mapRead);
-
     var newlist = records.toList();
-
     var hello = newlist
       ..sort((a, b) => a["date"].toString().compareTo(b["date"].toString()));
-
-    scheduledata = hello;
-    print(scheduledata);
-
+    scheduledata = hello;}
     setState(() {
       scheduledata;
     });
   }
 
 
-  isItIndexZero(){
-    uniqueIDGenerated();
-    if (scheduledata == null){archiveGroom;}
-    else if (scheduledata[0]['date'] == "Date"){updateArchiveGroom();}
-    else {archiveGroom();}
-  }
+
+
+
 
   archiveGroom() async {
     Database db = await DatabaseHelper.instance.database;
@@ -840,16 +833,6 @@ class _GroomCompletedState extends State<GroomCompleted>
     await db.insert('$dogUniqueID', row);
   }
 
-  updateArchiveGroom() async {
-    Database db = await DatabaseHelper.instance.database;
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnGroomDate: '${data[0]['date']}',
-      DatabaseHelper.columnGroomTime: '${data[0]['time']}',
-      DatabaseHelper.columnGroomType: '${data[0]['type']}',
-      DatabaseHelper.columnGroomUnique: 'ID$uuidgroom'
-    };
-    return await db.update(dogUniqueID, row, where: '_id = ?', whereArgs: [1]);
-  }
 
 
   dateChecker(){

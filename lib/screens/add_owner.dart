@@ -37,15 +37,16 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
     ownerUniqueID = doggoinfo.getString('doggouniqueid') ?? '';
 
     print('Unique ID Fetched on Owner Page');
+    print(ownerUniqueID);
     fetchID();
   }
 
   fetchID() async{
 
-    // get a reference to the database
+    print(ownerUniqueID);
+
     Database db = await DatabaseHelper.instance.database;
 
-    // get single row
     List<String> columnsToSelect = [
       DatabaseHelper.columnId,
       DatabaseHelper.columnDogName,
@@ -67,6 +68,7 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
       DatabaseHelper.columnOwnerNotes,
       DatabaseHelper.columnMedicalNotes,
       DatabaseHelper.columnTemperament,
+      DatabaseHelper.columnGType,
     ];
     String whereString = '${DatabaseHelper.columnDogUniqueId} = "${ownerUniqueID}"';
     int rowId = 2;
@@ -90,7 +92,6 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
     fetchUniqueID();
     super.initState();
   }
@@ -417,6 +418,8 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
     if (addOwnerName.text == null) {finalName = "Nameless Owner";
     } else if (addOwnerName.text == ''){finalName = "Nameless Owner";
     } else {finalName = addOwnerName.text;}
+
+    print(finalName);
      return finalName;
   }
 
@@ -462,6 +465,8 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
 
 
   void _updateOwner() async {
+    final table = 'doggos';
+    Database db = await DatabaseHelper.instance.database;
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),
       DatabaseHelper.columnOwnerName: '${isThereName()}',
@@ -472,10 +477,8 @@ class _AddOwnerState extends State<AddOwner> with TickerProviderStateMixin {
       DatabaseHelper.columnAddress: '${isThereAddress()}',
 
     };
-    final rowsAffected = await dbHelper.updateDoggos(row);
-    print(rowsAffected);
-    print(indexID);
-    print('database updated');
+    await db.update(table, row, where: '_id = ?', whereArgs: [indexID]);
+    print('Owner Inserted');
   }
 
 

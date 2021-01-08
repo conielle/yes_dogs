@@ -26,6 +26,7 @@ class _AppointmentsState extends State<Appointments>
   var dogUniqueID;
   var doggoID;
   var data;
+  var dogInfoID;
 
 
   fetchDataCheck() async {
@@ -113,6 +114,17 @@ class _AppointmentsState extends State<Appointments>
                           SharedPreferences doginfo =
                           await SharedPreferences.getInstance();
                           doginfo.setString('doguniqueid', '$dogUniqueID');
+                          dogInfoID =
+                          data[i][
+                          "_id"];
+                          SharedPreferences
+                          doginfoid =
+                          await SharedPreferences
+                              .getInstance();
+                          doginfoid.setString(
+                              'pulluniqueid',
+                              '$dogInfoID');
+                          print('ID Set $dogInfoID');
                           createEntry();
                           Navigator.push(
                               context,

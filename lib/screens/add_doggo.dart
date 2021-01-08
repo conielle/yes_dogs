@@ -70,6 +70,15 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     return uuiddog;
   }
 
+  setID() async {
+    uniqueIDGenerated();
+    SharedPreferences doggoinfo =
+        await SharedPreferences.getInstance();
+    doggoinfo.setString('doggouniqueid', '${isThereADogName()}$uuiddog');
+
+  }
+
+
   void _addPhoto() {
     showDialog(
       context: context,
@@ -263,7 +272,6 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    uniqueIDGenerated();
     super.initState();
   }
 
@@ -543,12 +551,9 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                           textColor: Colors.white,
                           color: Color.fromRGBO(34, 36, 86, 1),
                           onPressed: () async {
-                            uniqueIDGenerated();
-                            SharedPreferences doggoinfo =
-                                await SharedPreferences.getInstance();
-                            doggoinfo.setString('doggouniqueid', '$uuiddog');
                             _insert();
                             dogSchedule();
+                            setID();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -625,6 +630,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   }
 
   isThereADogName() {
+
     String dogNameValue;
     if (addDoggoName.text == null) {
       dogNameValue = 'Nameless';
@@ -722,7 +728,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
       DatabaseHelper.columnGrooming: '${isDoggoGrooming()}',
       DatabaseHelper.columnOwnerName: 'Nameless Owner',
       DatabaseHelper.columnOwnerID: 'No ID Number',
-      DatabaseHelper.columnPhone: 'No Phone Number}',
+      DatabaseHelper.columnPhone: 'No Phone Number',
       DatabaseHelper.columnEmail: 'No Email Address',
       DatabaseHelper.columnAddress: 'No Physical Address',
       DatabaseHelper.columnVet: 'No Vet Details',

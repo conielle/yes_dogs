@@ -451,7 +451,7 @@ class _AddGroomState extends State<AddGroom>
                                           ),
                                         ),
                                         Text(
-                                          " is scheduled",
+                                          " to be groomed on",
                                           style: TextStyle(
                                             color:
                                             Color.fromRGBO(34, 36, 86, 1),
@@ -461,27 +461,10 @@ class _AddGroomState extends State<AddGroom>
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "to be groomed on",
-                                          style: TextStyle(
-                                            color:
-                                            Color.fromRGBO(34, 36, 86, 1),
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: fontSize * 10,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                     SizedBox(
-                                      height: appConfigblockSizeHeight * 1,
+                                      height: appConfigblockSizeHeight * 3,
                                     ),
-                                    Row(
+                                    Column(
                                       mainAxisAlignment:
                                       MainAxisAlignment.center,
                                       crossAxisAlignment:
@@ -523,6 +506,60 @@ class _AddGroomState extends State<AddGroom>
                                             fontSize: fontSize * 10,
                                           ),
                                         ),
+                                        SizedBox(height: appConfigblockSizeHeight * 2,),
+                                        Row(
+                                          children: <Widget>[
+                                            Switch(
+                                                activeColor: Color.fromRGBO(34, 36, 86, 1),
+                                                value: nails,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    nails = value;
+                                                  });
+                                                }),
+                                            Text('Did you cut nails?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Switch(
+                                                activeColor: Color.fromRGBO(34, 36, 86, 1),
+                                                value: cut,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    cut = value;
+                                                  });
+                                                }),
+                                            Text('Did you trim, shave or cut?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Switch(
+                                                activeColor: Color.fromRGBO(34, 36, 86, 1),
+                                                value: wash,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    wash = value;
+                                                  });
+                                                }),
+                                            Text('Did you wash?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Switch(
+                                                activeColor: Color.fromRGBO(34, 36, 86, 1),
+                                                value: other,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    other = value;
+                                                    print(other);
+                                                  });
+                                                }),
+                                            Text('Did you do anything else?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
+                                          ],
+                                        ),
                                       ],
                                     )
                                   ],
@@ -530,101 +567,14 @@ class _AddGroomState extends State<AddGroom>
                               ),
 
 
-                              Row(
-                                children: <Widget>[
-                                  Switch(
-                                      activeColor: Color.fromRGBO(34, 36, 86, 1),
-                                      value: nails,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          nails = value;
-                                        });
-                                      }),
-                                  Text('Cutting nails?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Switch(
-                                      activeColor: Color.fromRGBO(34, 36, 86, 1),
-                                      value: cut,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          cut = value;
-                                        });
-                                      }),
-                                  Text('Trim, shave or cut?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Switch(
-                                      activeColor: Color.fromRGBO(34, 36, 86, 1),
-                                      value: wash,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          wash = value;
-                                        });
-                                      }),
-                                  Text('Wash?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Switch(
-                                      activeColor: Color.fromRGBO(34, 36, 86, 1),
-                                      value: other,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          other = value;
-                                          print(other);
-                                        });
-                                      }),
-                                  Text('Anything else?', style: TextStyle(fontSize: fontSize * 8, color: Color.fromRGBO(34, 36, 86, 1),),)
-                                ],
-                              ),
 
-                              SizedBox(height: appConfigblockSizeHeight * 2,),
-
-
+                              SizedBox(
+                                height: appConfigblockSizeHeight * 2,
+                              ),
                               Column(
                                 children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Schedule ",
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(34, 36, 86, 1),
-                                          fontSize: fontSize * 6.5,
-                                        ),
-                                      ),
-                                      Text(
-                                        data[ID]["dog_name"],
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(34, 36, 86, 1),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: fontSize * 7,
-                                        ),
-                                      ),
-                                      Text(
-                                        "'s appointment",
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(34, 36, 86, 1),
-                                          fontSize: fontSize * 6.5,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: appConfigblockSizeHeight * 2,
-                                  ),
 
-                                  SizedBox(
-                                    height: appConfigblockSizeHeight * 1,
-                                  ),
+
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -661,7 +611,7 @@ class _AddGroomState extends State<AddGroom>
                                                             child: datetime()));
                                                   });
                                             },
-                                            child: Text('Date'),
+                                            child: Text('Select date'),
                                           ),
                                         ],
                                       ),
@@ -698,7 +648,7 @@ class _AddGroomState extends State<AddGroom>
                                                         child: time());
                                                   });
                                             },
-                                            child: Text('Time'),
+                                            child: Text('Select time'),
                                           ),
                                         ],
                                       ),
