@@ -515,6 +515,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                               return new ListTile(
                                                                 onLongPress: () async {
 
+                                                                  dogUniqueID = data[
+                                                                  i][
+                                                                  "uniqueID"];
+                                                                  owner = data[i]['owner_name'];
+                                                                  SharedPreferences
+                                                                  doginfo =
+                                                                  await SharedPreferences
+                                                                      .getInstance();
+                                                                  doginfo.setString('doguniqueid', '$dogUniqueID');
                                                                   Navigator.push(
                                                                       context,
                                                                       MaterialPageRoute(

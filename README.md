@@ -22,6 +22,6 @@ FEATURES
 - Manually Add Groom History
 - Indicate grooming activities for dog
 
-TO IMPLEMENT
+TO IMPLEMENT AT SOME POINT
 - Push Notifications for upcoming groom
 - Statistics
