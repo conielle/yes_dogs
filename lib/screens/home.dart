@@ -563,7 +563,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                 trailing: (data[i]
                                                                             [
                                                                             'date'] ==
-                                                                        "No Grooming Scheduled")
+                                                                        "Date")
                                                                     ? Text(' ')
                                                                     : Text(data[i]
                                                                         ['date'], style: TextStyle(color: Color.fromRGBO(34, 36, 86, 1)),),

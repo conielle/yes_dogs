@@ -131,13 +131,13 @@ class _AppointmentsState extends State<Appointments>
                               MaterialPageRoute(
                                   builder: (context) => AppointmentInfo()));
                         },
-                        title: new Text(data[i]["owner_name"]),
-                        subtitle: new Text(data[i]["date"]),
+                        title: new Text(data[i]["dog_name"]),
+                        subtitle: (data[i]['date'] == 'Date') ? Text(' ') :  Text(data[i]["date"]),
                         leading: new CircleAvatar(
                           backgroundColor: Colors.transparent,
                           backgroundImage: new AssetImage(data[i]["picture"]),
                         ),
-                        trailing: new Text(data[i]["time"]),
+                        trailing: (data[i]['time'] == 'Time') ? Text(' ') :  Text(data[i]["time"]),
                       );
                     },
                   ),
