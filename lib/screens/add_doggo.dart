@@ -168,7 +168,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     appDocPath = appDocDir.path;
 
-    String labelgallery = '${uuidimage}gallery.jpg';
+    String labelgallery = '${uuidimage}${addDoggoName.text}gallery.jpg';
     File _image;
     File savedImage;
     final picker = ImagePicker();
@@ -205,7 +205,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     appDocPath = appDocDir.path;
 
-    String labelgallery = '${uuidimage}camera.jpg';
+    String labelgallery = '${uuidimage}${addDoggoName.text}camera.jpg';
     File _image;
     File savedImage;
     final picker = ImagePicker();

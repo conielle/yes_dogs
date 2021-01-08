@@ -146,7 +146,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     appDocPath = appDocDir.path;
 
-    String labelgallery = '${uuidimage}gallery.jpg';
+    String labelgallery = '${uuidimage}${dogname}gallery.jpg';
     File _image;
     File savedImage;
     final picker = ImagePicker();
@@ -183,7 +183,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     appDocPath = appDocDir.path;
 
-    String labelgallery = '${uuidimage}camera.jpg';
+    String labelgallery = '${uuidimage}${dogname}camera.jpg';
     File _image;
     File savedImage;
     final picker = ImagePicker();
@@ -215,7 +215,7 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
     print(dogUniqueID);
   }
 
-
+ var dogname;
 
   fetchID() async{
 
@@ -274,6 +274,8 @@ class _DoggoInfoState extends State<DoggoInfo> with TickerProviderStateMixin {
       if (data[0]['training'] == 'is'){isTrainingSwitched = true;} else {isTrainingSwitched = false;}
       //BOOL CHECK FOR SEX
       if(data[0]['sex'] == 'unknown') {} else if (data[0]['sex'] == 'male'){_selections[0] = true;} else if (data[0]['sex'] == 'female') {_selections[1] = true;}
+
+      dogname = data[ID]["dog_name"];
 
       return data.toList();
     });
