@@ -16,6 +16,10 @@ import 'package:daniellesdoggrooming/screens/add_owner.dart';
 import 'package:daniellesdoggrooming/screens/home_info_screen1.dart';
 import 'package:daniellesdoggrooming/screens/home_info_screen2.dart';
 import 'package:daniellesdoggrooming/screens/home_info_screen3.dart';
+import 'package:daniellesdoggrooming/screens/addgroom.dart';
+import 'package:daniellesdoggrooming/screens/addhistory.dart';
+import 'package:daniellesdoggrooming/screens/addhistory_update.dart';
+import 'package:daniellesdoggrooming/screens/groomcompleted.dart';
 
 
 
@@ -33,7 +37,7 @@ class MyApp extends StatelessWidget {
       initialRoute: Welcome.id,
       routes: {
         Welcome.id: (context) => Welcome(),
-        Home.id: (context) => Home(),
+        Home.id: (context) => Home(store),
         Doggos.id: (context) => Doggos(),
         AddDoggo.id: (context) => AddDoggo(),
         DoggoInfo.id: (context) => DoggoInfo(),
@@ -48,7 +52,10 @@ class MyApp extends StatelessWidget {
         HomeInfo1.id: (context) => HomeInfo1(),
         HomeInfo2.id: (context) => HomeInfo2(),
         HomeInfo3.id: (context) => HomeInfo3(),
-
+        AddGroom.id: (context) => AddGroom(),
+        AddHistory.id: (context) => AddHistory(),
+        AddHistoryUpdate.id: (context) => AddHistoryUpdate(),
+        GroomCompleted.id: (context) => GroomCompleted(),
       },
     );
   }

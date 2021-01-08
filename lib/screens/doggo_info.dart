@@ -588,12 +588,7 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
                         ),
                         Column(
                           children: <Widget>[
-                            SizedBox(height: appConfigblockSizeHeight * 4,),
-                            Text("Remove this doggo or save changes?",
-                              style: TextStyle(
-                                fontSize: fontSize * 6,
-                                color: Color.fromRGBO(34, 36, 86, 1),),
-                            ),
+
                             SizedBox(height:  appConfigblockSizeHeight * 2,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -995,7 +990,6 @@ SizedBox(height: appConfigblockSizeHeight * 0.5,),
   }
 
   void _updateDoggoName() async {
-
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: (indexID),

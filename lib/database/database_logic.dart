@@ -36,6 +36,7 @@ class DatabaseHelper {
   static final columnVet = 'vet';
   static final columnTraining = 'training';
   static final columnGrooming = 'grooming';
+  static final columnGType = 'type';
 
 
   //SUPPLIES TABLE//
@@ -45,6 +46,12 @@ class DatabaseHelper {
   static final columnBrand = 'brand_name';
   static final columnLevel = 'level';
   static final columnPicture2 = 'picture';
+
+  //SCHEDULE TABLE//
+  static final columnGroomDate = 'date';
+  static final columnGroomTime = 'time';
+  static final columnGroomType = 'type';
+  static final columnGroomUnique = 'uniqueID';
 
 
   // make this a singleton class
@@ -94,7 +101,9 @@ class DatabaseHelper {
             $columnEmail TEXT NOT NULL,
             $columnTraining TEXT NOT NULL,
             $columnGrooming TEXT NOT NULL,
-            $columnVet TEXT NOT NULL
+            $columnVet TEXT NOT NULL,
+            $columnType TEXT NOT NULL
+            
           )
           ''');
     await db.execute('''
@@ -118,6 +127,7 @@ class DatabaseHelper {
     Database db = await instance.database;
     return await db.insert(table, row);
   }
+
 
   Future<int> insertSupplies(Map<String, dynamic> row) async {
     Database db = await instance.database;
@@ -145,6 +155,7 @@ class DatabaseHelper {
     int id = row[columnId];
     return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
   }
+
 
   Future<int> updateSupplies(Map<String, dynamic> row) async {
     Database db = await instance.database;

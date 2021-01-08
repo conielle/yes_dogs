@@ -18,7 +18,10 @@ FEATURES
 - Supply level indication
 - Grooming rescheduler from 1 week to 12 weeks from date
 - Home page shows next up to groom and supply levels
+- Groom completion automatically adds to Groom History
+- Manually Add Groom History
+- Indicate grooming activities for dog
 
-TOO IMPLEMENT
-- Statistics
+TO IMPLEMENT
 - Push Notifications for upcoming groom
+- Statistics

@@ -30,6 +30,7 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
   static final columnSex = 'sex';
   static final columnScheduleDate = 'date';
   static final columnScheduleTime = 'time';
+  static final columnGType = 'type';
   static final columnAge = 'age';
   static final columnPicture = 'picture';
   static final columnMyNotes = 'mynotes';
@@ -83,7 +84,8 @@ class _WelcomeState extends State<Welcome> with TickerProviderStateMixin {
             $columnEmail TEXT NOT NULL,
             $columnTraining TEXT NOT NULL,
             $columnGrooming TEXT NOT NULL,
-            $columnVet TEXT NOT NULL
+            $columnVet TEXT NOT NULL,
+            $columnGType TEXT NOT NULL
           )
           ''');
     await db.execute('''

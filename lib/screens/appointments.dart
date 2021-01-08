@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-import 'package:daniellesdoggrooming/screens/home.dart';
 import 'package:daniellesdoggrooming/screens/doggos.dart';
 import 'package:daniellesdoggrooming/screens/supplies.dart';
-import 'package:daniellesdoggrooming/screens/help.dart';
 import 'package:daniellesdoggrooming/screens/appointment_info.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:path/path.dart' as p;
 
 class Appointments extends StatefulWidget {
   static const String id = 'appointments';
@@ -49,7 +50,6 @@ class _AppointmentsState extends State<Appointments>
     Map<String, dynamic> mapRead = records.first;
 //    mapRead['my_column'] = 1;
     Map<String, dynamic> map = Map<String, dynamic>.from(mapRead);
-    print(map);
 
 
     var newlist = records.toList();
@@ -57,7 +57,7 @@ class _AppointmentsState extends State<Appointments>
     var hello = newlist..sort((a, b) => a["date"].toString().compareTo(b["date"].toString()));
 
     data = hello;
-    print(data);
+
 
     setState(() {
       data;
@@ -113,8 +113,7 @@ class _AppointmentsState extends State<Appointments>
                           SharedPreferences doginfo =
                           await SharedPreferences.getInstance();
                           doginfo.setString('doguniqueid', '$dogUniqueID');
-                          print(dogUniqueID);
-
+                          createEntry();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -155,16 +154,12 @@ class _AppointmentsState extends State<Appointments>
           children: <Widget>[
             RawMaterialButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.pushNamed(context, 'home');
               },
               shape: CircleBorder(),
               padding: const EdgeInsets.all(24.0),
               child: IconButton(
-                  icon: FaIcon(
-                FontAwesomeIcons.home,
-                color: Colors.white,
-              )),
+                  icon: FaIcon(FontAwesomeIcons.home, color: Colors.white)),
             ),
 //            RawMaterialButton(
 //              onPressed: () {
@@ -227,4 +222,58 @@ class _AppointmentsState extends State<Appointments>
       duration: const Duration(milliseconds: 1000),
     ));
   }
+
+
+  createEntry(){
+    firstSchedule();
+  }
+
+  //////////CHECK IF FIRST SCHEDULE IS THERE
+  firstSchedule() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstSchedule = prefs.getBool('$dogUniqueID') ?? false;
+    if (isFirstSchedule == false) {
+      print("This Is Not The First Schedule");
+    } else if (isFirstSchedule == true) {
+      print("This Is The First Schedule");
+      initDb();
+    }
+  }
+  //////////CREATE SCHEDULE TABLE IN DATABASE
+  initDb() async {
+    Directory documentDirectory = await getApplicationDocumentsDirectory();
+    String path = p.join(documentDirectory.path, 'database.db');
+    var ourDb = await openDatabase(path);
+    print('DB Opened');
+    print(dogUniqueID);
+    _onCreate();
+    return ourDb;
+  }
+  _onCreate() async {
+    final table = dogUniqueID;
+    final columnId = '_id';
+    final columnGroomDate = 'date';
+    final columnGroomTime = 'time';
+    final columnGroomType = 'type';
+    final columnGroomUnique = 'uniqueID';
+
+    Database db = await DatabaseHelper.instance.database;
+    await db.execute(
+        "CREATE TABLE $dogUniqueID($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnGroomDate TEXT NOT NULL,$columnGroomTime TEXT NOT NULL,$columnGroomType TEXT NOT NULL,$columnGroomUnique TEXT NOT NULL)");
+    print("Table Created");
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('$dogUniqueID', false);
+    print('Scheduling database has been created');
+
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnGroomDate: 'Date',
+      DatabaseHelper.columnGroomTime: 'Time',
+      DatabaseHelper.columnGroomType: '  ',
+      DatabaseHelper.columnGroomUnique: 'None'
+    };
+    await db.insert('$dogUniqueID', row);
+    print('inserted row ');
+  }
+
 }

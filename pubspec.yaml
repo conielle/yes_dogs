@@ -17,14 +17,20 @@ dependencies:
   image: ^2.1.19
   path_provider: ^1.6.24
   http: ^0.12.2
-  shared_preferences: ^0.5.12+4
+  shared_preferences:
   uuid: ^2.2.2
-  intl: ^0.16.1
   flutter_picker: ^1.1.5
-  downloads_path_provider: ^0.1.0
   path: ^1.7.0
-  flutter_swiper: ^1.1.6
   video_player: ^1.0.1
+  meta: '>=1.1.0 <2.0.0'
+  redux: ^4.0.0
+  flutter_local_notifications: ^1.4.1
+  flutter_redux: ^0.6.0
+  key_value_store_flutter:
+  rxdart: ^0.23.1
+  redux_persist: ^0.8.3
+  intl: ^0.16.1
+  sqfentity: ^1.4.0+3
 
 dev_dependencies:
   flutter_test:

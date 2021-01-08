@@ -61,8 +61,12 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
   var uuiddog;
   uniqueIDGenerated() {
-    uuiddog = uuid.v1();
-    print(uuiddog);
+
+      var rng = new Random();
+      for (var i = 0; i < 1; i++) {
+        uuiddog = (rng.nextInt(10000000));
+      }
+
     return uuiddog;
   }
 
@@ -544,6 +548,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
                                 await SharedPreferences.getInstance();
                             doggoinfo.setString('doggouniqueid', '$uuiddog');
                             _insert();
+                            dogSchedule();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -622,9 +627,9 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
   isThereADogName() {
     String dogNameValue;
     if (addDoggoName.text == null) {
-      dogNameValue = 'Nameless :(';
+      dogNameValue = 'Nameless';
     } else if (addDoggoName.text == "") {
-      dogNameValue = 'Nameless :(';
+      dogNameValue = 'Nameless';
     } else {
       dogNameValue = addDoggoName.text;
     }
@@ -670,7 +675,7 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     var time;
 
     if (finalTime == null) {
-      time = 'No Time';
+      time = 'Time';
     } else {
       time = finalTime;
     }
@@ -682,12 +687,18 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
     var date;
 
     if (finalDate == null) {
-      date = 'No Grooming Scheduled';
+      date = 'Date';
     } else {
       date = finalDate;
     }
 
     return date;
+  }
+
+  dogSchedule()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('${isThereADogName()}$uuiddog', true);
+    print('Scheduling database has been created');
   }
 
 
@@ -698,12 +709,13 @@ class _AddDoggoState extends State<AddDoggo> with TickerProviderStateMixin {
 
     Map<String, dynamic> row = {
       DatabaseHelper.columnDogName: '${isThereADogName()}',
-      DatabaseHelper.columnDogUniqueId: '$uuiddog',
+      DatabaseHelper.columnDogUniqueId: '${isThereADogName()}$uuiddog',
       DatabaseHelper.columnBreed: '${isThereABreed()}',
       DatabaseHelper.columnFixed: '${isDoggoFixed()}',
       DatabaseHelper.columnSex: '${isThereASex()}',
       DatabaseHelper.columnScheduleDate: '${dateCheck()}',
       DatabaseHelper.columnScheduleTime: '${timeCheck()}',
+      DatabaseHelper.columnGType: ' ',
       DatabaseHelper.columnAge: '${isThereAnAge()}',
       DatabaseHelper.columnPicture: '${isThereAPic()}',
       DatabaseHelper.columnTraining: '${isDoggoTraining()}',

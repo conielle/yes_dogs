@@ -46,8 +46,14 @@ class _HelpState extends State<Help> with TickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(34, 36, 86, 1),
         title: Text(
-          'Help With Backup & Restore',
+          'Backup & Restore',
           style: TextStyle(color: Colors.white),
+        ),
+        leading: Container(child:
+            FlatButton(onPressed: (){Navigator.pushNamed(context, 'home');},
+    child: IconButton(
+          icon: FaIcon(FontAwesomeIcons.home, color: Colors.white)),
+            )
         ),
       ),
       body: Container(
@@ -55,8 +61,6 @@ class _HelpState extends State<Help> with TickerProviderStateMixin {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text('You can scroll up and down', style: TextStyle(color: Colors.white),),
-              SizedBox(height: appConfigblockSizeHeight * 0.5,),
               Center(
                 child: _controller.value.initialized
                     ? AspectRatio(
@@ -64,15 +68,6 @@ class _HelpState extends State<Help> with TickerProviderStateMixin {
                   child: VideoPlayer(_controller),
                 )
                     : Container(),
-              ),
-              RawMaterialButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'home');
-                },
-                shape: CircleBorder(),
-                padding: const EdgeInsets.all(24.0),
-                child: IconButton(
-                    icon: FaIcon(FontAwesomeIcons.home, color: Colors.white)),
               ),
             ],
           ),

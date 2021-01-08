@@ -1,6 +1,7 @@
 import 'package:daniellesdoggrooming/screens/add_doggo.dart';
 import 'package:daniellesdoggrooming/screens/add_supply.dart';
 import 'package:daniellesdoggrooming/screens/home_info_screen1.dart';
+import 'package:daniellesdoggrooming/screens/owner_info.dart';
 import 'package:flutter/material.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/rendering.dart';
@@ -12,11 +13,46 @@ import 'package:daniellesdoggrooming/screens/supply_info.dart';
 import 'package:daniellesdoggrooming/screens/help.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:daniellesdoggrooming/database/database_logic.dart';
+import 'package:daniellesdoggrooming/screens/groomcompleted.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:math';
 
+import 'package:daniellesdoggrooming/notifications/store/AppState.dart';
+import 'package:daniellesdoggrooming/notifications/store/store.dart';
+import 'package:daniellesdoggrooming/notifications/utils/notificationHelper.dart';
+import 'package:intl/intl.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:daniellesdoggrooming/notifications/builder/NotificationSwitchBuilder.dart';
+import 'package:daniellesdoggrooming/notifications/builder/ReminderAlertBuilder.dart';
+import 'package:daniellesdoggrooming/notifications/builder/RemindersListViewBuilder.dart';
+import 'package:daniellesdoggrooming/notifications/models/index.dart';
+
+
+final df = new DateFormat('dd-MM-yyyy hh:mm a');
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+NotificationAppLaunchDetails notificationAppLaunchDetails;
+Store<AppState> store;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initStore();
+  store = getStore();
+  notificationAppLaunchDetails =
+  await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  await initNotifications(flutterLocalNotificationsPlugin);
+  requestIOSPermissions(flutterLocalNotificationsPlugin);
+
+  runApp(Home(store));
+}
+
 class Home extends StatefulWidget {
   static const String id = 'home';
+
+  final Store<AppState> store;
+  Home(this.store);
 
   @override
   _HomeState createState() => _HomeState();
@@ -26,6 +62,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   ////KEYS FOR FILE////
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
   final dbHelper = DatabaseHelper.instance;
+
 
   //WELCOME CYCLE
   var welcomeList = List.from([
@@ -48,7 +85,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     int r;
     rnd = new Random();
     r = min + rnd.nextInt(max - min);
-    print("$r is in the range of $min and $max");
 
     return r;
   }
@@ -68,6 +104,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final userName = TextEditingController();
   String setUserName;
 
+
+
   ////POPUP FOR USERNAME////
   void _userName() {
     showDialog(
@@ -80,10 +118,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             backgroundColor: Color.fromRGBO(171, 177, 177, 1),
-            title: new Text("Whats your name?"),
+            title: new Text("Whats your name?", style: TextStyle(color:  Color.fromRGBO(34, 36, 86, 1),)),
             content: Column(mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("What is your real name?"),
+
                 SizedBox(
                   height: 20,
                 ),
@@ -91,7 +129,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   style: TextStyle(color: Colors.white),
                   cursorColor: Color.fromRGBO(34, 36, 86, 1),
                   decoration: InputDecoration(
-                    hintText: 'Your Name',
+                    hintText: 'Type Your Name',
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
                       borderSide: BorderSide(width: 2, color: Colors.white),
@@ -109,10 +147,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           color: Color.fromRGBO(34, 36, 86, 1), width: 2),
                       borderRadius: BorderRadius.all(Radius.circular(35.0)),
                     ),
-                    icon: Icon(
-                      FontAwesomeIcons.solidHourglass,
-                      color: Color.fromRGBO(34, 36, 86, 1),
-                    ),
+
                   ),
                   textAlign: TextAlign.center,
                   controller: userName,
@@ -122,7 +157,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             actions: <Widget>[
               // usually buttons at the bottom of the dialog
               new FlatButton(
-                child: new Text("Continue"),
+                child: new Text("Continue", style: TextStyle(color:  Color.fromRGBO(34, 36, 86, 1),)),
                 textColor: Colors.black45,
                 onPressed: () {
                   _setUserName();
@@ -136,11 +171,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
+
   ////SAVE USERNAME TO MEMORY////
   _setUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', '${userName.text}');
-    print("User Name Saved");
     setState(() {
       setUserName == userName.text;
     });
@@ -159,7 +194,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isFirstLaunch', true);
-    print("Not First Launch Anymore");
   }
 
   ////CHECK IF ITS FIRST LAUNCH AND PULLING DATABASE DATA////
@@ -181,15 +215,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     Map<String, dynamic> mapRead = records.first;
 //    mapRead['my_column'] = 1;
     Map<String, dynamic> map = Map<String, dynamic>.from(mapRead);
-    print(map);
-
     var newlist = records.toList();
 
     var hello = newlist
       ..sort((a, b) => a["date"].toString().compareTo(b["date"].toString()));
 
     data = hello;
-    print(data);
 
     setState(() {
       data;
@@ -204,7 +235,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     setState(() {
       var extractdata = thing;
       data2 = extractdata;
-      print(data2.length);
       return data2.toList();
     });
   }
@@ -459,7 +489,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                   MaterialPageRoute(
                                                                       builder:
                                                                           (context) =>
-                                                                              AddDoggo()));
+                                                                              AddDoggo()
+
+                                                                  )
+                                                              );
                                                             },
                                                             child: Icon(
                                                               Icons.add,
@@ -480,6 +513,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                         context,
                                                                     i) {
                                                               return new ListTile(
+                                                                onLongPress: () async {
+
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder:
+                                                                              (context) =>
+                                                                              GroomCompleted()));
+
+
+                                                                },
                                                                 onTap: () async {
                                                                   dogUniqueID = data[
                                                                           i][
@@ -704,7 +748,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                 supplyinfo.setString(
                                                                     'supplyuniqueid',
                                                                     '$supplyUniqueID');
-                                                                print("supplyID");
                                                                 Navigator.push(
                                                                     context,
                                                                     MaterialPageRoute(
